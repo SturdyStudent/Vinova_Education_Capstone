@@ -288,7 +288,6 @@ function HomePage() {
           duration="19 mins"
         />
       </PageContainer>
-      <Navigator />
     </>
   );
 }
