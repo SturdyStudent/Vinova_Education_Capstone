@@ -16,6 +16,8 @@ interface ICoursesCard {
   brandName?: string;
   courseTitle?: string;
   duration?: string;
+  isArticle?: boolean;
+  summary?: string;
 }
 
 function CoursesCard({
@@ -24,13 +26,15 @@ function CoursesCard({
   brandName,
   courseTitle,
   duration,
+  isArticle,
+  summary,
 }: ICoursesCard) {
   const CoursesCardContainer = styled(Box)(({ theme }) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    width: "108px",
-    height: "253px",
+    width: isArticle ? "158px" : "108px",
+    height: isArticle ? "331px" : "253px",
     padding: "8px",
     gap: "8px",
     borderRadius: "16px",
@@ -38,8 +42,8 @@ function CoursesCard({
     boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.10)",
   }));
   const CardAvatar = styled(Box)(() => ({
-    width: "100px",
-    height: "100px",
+    width: isArticle ? "100%" : "100px",
+    height: isArticle ? "135px" : "100px",
     borderRadius: "8px",
     overflow: "hidden",
   }));
@@ -63,7 +67,10 @@ function CoursesCard({
       <CardAvatar>
         <img src={avatar} alt="" className="object-cover w-full h-full" />
       </CardAvatar>
-      <Box className="flex items-center gap-1" width={"100%"}>
+      <Box
+        className={`flex items-center ${isArticle ? "gap-3" : "gap-1"}`}
+        width={"100%"}
+      >
         <LogoContainer>
           <img src={smallLogo} alt="" className="object-fill w-full h-full" />
         </LogoContainer>
@@ -88,6 +95,23 @@ function CoursesCard({
       >
         {courseTitle}
       </Typography>
+      <Typography
+        fontSize={"12px"}
+        lineHeight={"18px"}
+        textOverflow={"ellipsis"}
+        display={"-webkit-box"}
+        sx={{
+          WebkitLineClamp: "3",
+          WebkitBoxOrient: "vertical",
+          overflow: "hidden",
+          lineBreak: "anywhere",
+        }}
+      >
+        {isArticle
+          ? " Empowering SME Businesses Strategies for Success in a Challenging Environment"
+          : ""}
+        {summary}
+      </Typography>
       <Box className="flex gap-2 items-center" width={"100%"}>
         <Box width={"14px"} height={"14px"}>
           <img src={ClockIcon} alt="" className="object-fill w-full h-full" />
@@ -96,16 +120,20 @@ function CoursesCard({
           {duration}
         </Typography>
       </Box>
-      <ActionButton>
-        <Typography
-          fontSize={"13px"}
-          fontWeight={600}
-          lineHeight={"20px"}
-          textTransform={"none"}
-        >
-          Take course
-        </Typography>
-      </ActionButton>
+      {isArticle ? (
+        ""
+      ) : (
+        <ActionButton>
+          <Typography
+            fontSize={"13px"}
+            fontWeight={600}
+            lineHeight={"20px"}
+            textTransform={"none"}
+          >
+            Take course
+          </Typography>
+        </ActionButton>
+      )}
     </CoursesCardContainer>
   );
 }

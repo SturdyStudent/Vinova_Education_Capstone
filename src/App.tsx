@@ -9,7 +9,6 @@ function App() {
     <ThemeProvider theme={renderDefaultTheme}>
       <div className="page">
         <AppRouter />
-        <Navigator />
       </div>
     </ThemeProvider>
   );
