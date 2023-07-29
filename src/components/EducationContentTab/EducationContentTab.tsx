@@ -18,6 +18,7 @@ function EducationContentTab() {
     width: "fit-content",
     ":hover": {
       background: "var(--primary-500, #FDC600)",
+      cursor: "pointer",
     },
   }));
   const CategoryContainer = styled(Box)(() => ({
@@ -64,7 +65,7 @@ function EducationContentTab() {
           smallLogo={SmallLogo1}
           avatar={avatar1}
           courseTitle="Engage with your customer"
-          duration="19 mins"
+          duration={19}
           isArticle={true}
           summary="Strategies for success in a Challenging environment"
         />
@@ -73,7 +74,7 @@ function EducationContentTab() {
           smallLogo={SmallLogo2}
           avatar={avatar2}
           courseTitle="Engage with your customer"
-          duration="19 mins"
+          duration={15}
           isArticle={true}
           summary="How SMEs can thrive in Today's Competitive Market"
         />

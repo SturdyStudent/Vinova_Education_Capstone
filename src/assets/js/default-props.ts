@@ -173,7 +173,7 @@ export const communityCardList: Array<ICommunityCard> = [
     },
     {
         logo: SmallLogo8,
-        communityName: 'Meta'
+        communityName: 'Riot'
     },
     {
         logo: SmallLogo9,

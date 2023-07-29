@@ -18,6 +18,7 @@ function EducationCourseTab() {
     width: "fit-content",
     ":hover": {
       background: "var(--primary-500, #FDC600)",
+      cursor: "pointer",
     },
   }));
   const CategoryContainer = styled(Box)(() => ({
@@ -64,7 +65,7 @@ function EducationCourseTab() {
           smallLogo={SmallLogo1}
           avatar={avatar1}
           courseTitle="Meta 101"
-          duration="30 mins"
+          duration={30}
           isEducationCourse={true}
           summary="How to get started with Facebook"
         />
@@ -73,7 +74,7 @@ function EducationCourseTab() {
           smallLogo={SmallLogo2}
           avatar={avatar2}
           courseTitle="Instagram 101"
-          duration="30 mins"
+          duration={25}
           isEducationCourse={true}
           summary="How to get started with Instagram"
         />

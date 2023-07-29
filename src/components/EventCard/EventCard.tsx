@@ -89,7 +89,8 @@ function EventCard({
           </Typography>
           <Box className="flex gap-2 items-center mt-2" width={"100%"}>
             <Typography fontSize={"12px"} lineHeight={"18px"} color={"#808080"}>
-              20 June 2023 {date?.toDateString()}
+              20 June 2023{" "}
+              {date?.toLocaleDateString().split(" ").slice(0, -1).join(" ")}
             </Typography>
             <CircleIcon
               sx={{ width: "4px", color: "#808080", height: "4px" }}

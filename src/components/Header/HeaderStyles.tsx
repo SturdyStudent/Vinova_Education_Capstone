@@ -7,6 +7,7 @@ export const useHeaderStyles = makeStyles(() => ({
     top: 0,
     left: 0,
     right: 0,
+    color: "#808080",
   },
   drawer: {
     width: "252px",

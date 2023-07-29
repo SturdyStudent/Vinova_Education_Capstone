@@ -42,6 +42,7 @@ function EducationPage() {
     display: "flex",
     flexDirection: "column",
     gap: "16px",
+    marginBottom: "50px",
   }));
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {

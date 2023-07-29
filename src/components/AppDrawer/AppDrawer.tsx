@@ -11,9 +11,7 @@ import {
   ListItemText,
   Divider,
 } from "@mui/material";
-import MessageIcon from "../../assets/icons/Messenger.svg";
-import JustifyAlignIcon from "../../assets/icons/align-justify.svg";
-import LevelBadge from "../LevelBadge/LevelBadge";
+import { ReactSVG } from "react-svg";
 import CheckIcon from "../../assets/icons/check.svg";
 import FlowerIcon from "../../assets/icons/blueFlowerIcon.svg";
 import CircleIcon from "@mui/icons-material/Circle";
@@ -43,6 +41,7 @@ function AppDrawer({ openNavBar, setOpenNavbar }: IAppDrawer) {
   const AppDrawer = styled(Drawer)(() => ({
     position: "relative", //imp
     width: "252px !important",
+    color: "#808080",
   }));
   const DetailContainer = styled(Box)(() => ({
     background: "black",
@@ -103,6 +102,7 @@ function AppDrawer({ openNavBar, setOpenNavbar }: IAppDrawer) {
       PaperProps={{
         className: classes.drawer,
         style: {
+          color: "#808080",
           borderRadius: "0 10px 10px 0",
         },
       }}
@@ -157,7 +157,7 @@ function AppDrawer({ openNavBar, setOpenNavbar }: IAppDrawer) {
             <>
               <ListItem>
                 <span>
-                  <img src={item.icon} />
+                  <ReactSVG src={item.icon} />
                 </span>
                 <ListItemText>
                   <Typography
