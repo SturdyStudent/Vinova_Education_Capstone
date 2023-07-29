@@ -4,6 +4,7 @@ import BackHeader from "../../components/BackHeader/BackHeader";
 import EventItem from "../../components/EventItem/EventItem";
 import EducationContentTab from "../../components/EducationContentTab/EducationContentTab";
 import EducationCourseTab from "../../components/EducationCourseTab/EducationCourseTab";
+import Navigator from "../../components/Navigator/Navigator";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -74,6 +75,7 @@ function EducationPage() {
           <EducationCourseTab />
         </EducationTabPanel>
       </PageContainer>
+      <Navigator />
     </div>
   );
 }

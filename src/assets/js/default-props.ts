@@ -5,6 +5,7 @@ import {
     UserIcon,
   } from "../icons/index";
 import { ICommunityCard, ICourseCard, IEventCard, IMemberCard } from "../../services/interface";
+
 import SmallLogo1 from "../img/smallLogo1.jpg";
 import SmallLogo2 from "../img/smallLogo2.png";
 import SmallLogo3 from "../img/smallLogo3.jpg";
@@ -55,17 +56,17 @@ export const navLinks = [
     {
         label: 'Dashboard',
         icon: DashboardIcon,
-        url: '/dashboard'
+        url: '/#',
     },
     {
         label: 'Community',
         icon: UserIcon,
-        url: '/user'
+        url: '/#'
     },
     {
         label: 'Education',
         icon: BookIcon,
-        url: '/book'
+        url: '/education'
     }
 ]
 
