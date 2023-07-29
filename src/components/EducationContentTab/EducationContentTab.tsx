@@ -66,6 +66,7 @@ function EducationContentTab() {
           courseTitle="Engage with your customer"
           duration="19 mins"
           isArticle={true}
+          summary="Strategies for success in a Challenging environment"
         />
         <CoursesCard
           brandName="Meta"
@@ -74,6 +75,7 @@ function EducationContentTab() {
           courseTitle="Engage with your customer"
           duration="19 mins"
           isArticle={true}
+          summary="How SMEs can thrive in Today's Competitive Market"
         />
       </div>
       <ArticleContainer>
@@ -90,28 +92,28 @@ function EducationContentTab() {
           smallLogo={SmallLogo1}
           avatar={EventImg}
           courseTitle="Unlocking Potential: How SMEs Can Maximize Growth and Efficiency"
-          duration="19 mins"
+          duration={10}
         />
         <ArticleCard
           brandName="Meta"
           smallLogo={SmallLogo1}
           avatar={EventImg}
           courseTitle="2023 Small Business "
-          duration="19 mins"
+          duration={10}
         />
         <ArticleCard
           brandName="Meta"
           smallLogo={SmallLogo1}
           avatar={EventImg}
           courseTitle="2023 Small Business "
-          duration="19 mins"
+          duration={10}
         />
         <ArticleCard
           brandName="Meta"
           smallLogo={SmallLogo1}
           avatar={EventImg}
           courseTitle="2023 Small Business "
-          duration="19 mins"
+          duration={10}
         />
       </ArticleContainer>
     </div>

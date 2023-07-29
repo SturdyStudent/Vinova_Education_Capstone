@@ -1,6 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import {
-  FormControl,
   FormLabel,
   TextField,
   Typography,
@@ -11,21 +10,46 @@ import {
 } from "@mui/material";
 import AlertIcon from "../../assets/icons/alert-circle.svg";
 
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { DevTool } from "@hookform/devtools";
+
 type Inputs = {
-  example: string;
-  exampleRequired: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
 };
+
+const schema = yup.object({
+  firstName: yup.string().required(),
+  lastName: yup.string().required(),
+  email: yup.string().email().required(),
+  password: yup
+    .string()
+    .matches(/^(?=.*d).{8,}$/)
+    .min(8)
+    .required(),
+});
 
 export default function RegisterForm() {
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+    clearErrors,
+    control,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<Inputs>({
+    defaultValues: {
+      email: "test@gmail",
+      firstName: "test",
+      lastName: "test",
+      password: "password1",
+    },
+  });
 
-  console.log(watch("example")); // watch input value by passing the name of it
+  const onSubmit = (data: Inputs) => console.log(data);
+
   const StyledTextField = styled(TextField)(() => ({
     display: "flex",
     alignItems: "center",
@@ -50,52 +74,45 @@ export default function RegisterForm() {
     fontSize: "16px",
     boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
   }));
+
+  console.log("submit đi", isSubmitSuccessful);
+
   return (
-    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <FormControl
-      onSubmit={void handleSubmit(onSubmit)}
-      className="w-full flex flex-col gap-3"
-      sx={{ gap: "6px" }}
-    >
-      {/* register your input into the hook by invoking the "register" function */}
-      <FormLabel sx={{ color: "white" }}>First name</FormLabel>
-      <StyledTextField
-        defaultValue="test"
-        {...register("example")}
-        inputProps={{
-          style: {
-            paddingTop: 10,
-            paddingBottom: 10,
-            paddingLeft: 14,
-            paddingRight: 14,
-          },
+    <>
+      <form
+        onSubmit={(e) => {
+          clearErrors();
+          handleSubmit(onSubmit);
+          e.preventDefault();
         }}
-        fullWidth
-      />
-      <FormLabel sx={{ color: "white" }} className="mt-5">
-        Last name
-      </FormLabel>
-      <StyledTextField
-        defaultValue="test"
-        {...register("example")}
-        inputProps={{
-          style: {
-            paddingTop: 10,
-            paddingBottom: 10,
-            paddingLeft: 14,
-            paddingRight: 14,
-          },
-        }}
-        fullWidth
-      />
-      <FormLabel sx={{ color: "white", fontSize: "14px" }} className="mt-5">
-        Email
-      </FormLabel>
-      <div className="relative">
+        className="w-full flex flex-col gap-3"
+        noValidate
+        style={{ gap: "6px" }}
+      >
+        {/* register your input into the hook by invoking the "register" function */}
+        <FormLabel sx={{ color: "white" }}>First name</FormLabel>
+        <StyledTextField
+          defaultValue="email@test"
+          inputProps={{
+            style: {
+              paddingTop: 10,
+              paddingBottom: 10,
+              paddingLeft: 14,
+              paddingRight: 14,
+            },
+          }}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+          fullWidth
+          {...register("firstName", {
+            required: "Email is required",
+          })}
+        />
+        <FormLabel sx={{ color: "white" }} className="mt-5">
+          Last name
+        </FormLabel>
         <StyledTextField
           defaultValue="test"
-          {...register("example")}
-          type="email"
           inputProps={{
             style: {
               paddingTop: 10,
@@ -105,93 +122,127 @@ export default function RegisterForm() {
             },
           }}
           fullWidth
+          {...register("lastName", {
+            required: "Email is required",
+          })}
         />
-        <Box
-          width={"20px"}
-          height={"20px"}
-          position={"absolute"}
-          top={12}
-          right={14}
+        ,
+        <FormLabel sx={{ color: "white", fontSize: "14px" }} className="mt-5">
+          Email
+        </FormLabel>
+        <div className="relative">
+          <StyledTextField
+            defaultValue="test"
+            type="email"
+            inputProps={{
+              style: {
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingLeft: 14,
+                paddingRight: 14,
+              },
+            }}
+            fullWidth
+            {...register("email", {
+              required: "Email is required",
+            })}
+          />
+          <Box
+            width={"20px"}
+            height={"20px"}
+            position={"absolute"}
+            top={12}
+            right={14}
+          >
+            <img src={AlertIcon} className="object-fit h-full w-full" />
+          </Box>
+        </div>
+        {errors.email && (
+          <Typography color={"#F5A3A3"} fontSize={"14px"} lineHeight={"20px"}>
+            Please enter a valid email address.
+          </Typography>
+        )}
+        <FormLabel sx={{ color: "white" }} className="mt-5">
+          Password
+        </FormLabel>
+        <div className="relative">
+          <StyledTextField
+            defaultValue="test"
+            type="password"
+            inputProps={{
+              style: {
+                paddingTop: 10,
+                paddingBottom: 10,
+                paddingLeft: 14,
+                paddingRight: 14,
+              },
+            }}
+            fullWidth
+            {...register("password", {
+              required: "Email is required",
+            })}
+          />
+          <Box
+            width={"20px"}
+            height={"20px"}
+            position={"absolute"}
+            top={12}
+            right={14}
+          >
+            <img src={AlertIcon} className="object-fit h-full w-full" />
+          </Box>
+        </div>
+        {errors.password && (
+          <Typography color={"#F5A3A3"} fontSize={"14px"} lineHeight={"20px"}>
+            Password field must be at least 8 characters and 1 number.
+          </Typography>
+        )}
+        <FormGroup className="flex flex-col gap-6 mb-9 mt-10">
+          <div className="flex items-center gap-3">
+            <div>
+              <input type="checkbox" />
+            </div>
+            <Typography>
+              I agree to Trybe's{" "}
+              <span style={{ color: "#05B0D6" }}>
+                terms and conditions, end user license agreement,
+              </span>
+              and privacy policy{" "}
+            </Typography>
+          </div>
+          <div className="flex items-center gap-3">
+            <div>
+              <input type="checkbox" />
+            </div>
+            <Typography>
+              I agree to Tribe Fintech's{" "}
+              <span style={{ color: "#05B0D6" }}>
+                terms and conditions end user license agreement
+              </span>
+              , and
+              <span style={{ color: "#05B0D6" }}>privacy policy</span>
+            </Typography>
+          </div>
+          <div className="flex items-center gap-3">
+            <div>
+              <input type="checkbox" />
+            </div>
+            <Typography>
+              Keep me updated on Trybe news, events and offers{" "}
+            </Typography>
+          </div>
+        </FormGroup>
+        <AuthButton
+          sx={{ background: "#FDC600" }}
+          variant="contained"
+          type="submit"
         >
-          <img src={AlertIcon} className="object-fit h-full w-full" />
-        </Box>
-      </div>
-      <Typography color={"#F5A3A3"} fontSize={"14px"} lineHeight={"20px"}>
-        Please enter a valid email address.
-      </Typography>
-      <FormLabel sx={{ color: "white" }} className="mt-5">
-        Password
-      </FormLabel>
-      <div className="relative">
-        <StyledTextField
-          defaultValue="test"
-          {...register("example")}
-          type="password"
-          inputProps={{
-            style: {
-              paddingTop: 10,
-              paddingBottom: 10,
-              paddingLeft: 14,
-              paddingRight: 14,
-            },
-          }}
-          fullWidth
-        />
-        <Box
-          width={"20px"}
-          height={"20px"}
-          position={"absolute"}
-          top={12}
-          right={14}
-        >
-          <img src={AlertIcon} className="object-fit h-full w-full" />
-        </Box>
-      </div>
-      {errors.exampleRequired && (
-        <Typography color={"#F5A3A3"} fontSize={"14px"} lineHeight={"20px"}>
-          Password field must be at least 8 characters and 1 number.
-        </Typography>
-      )}
-      <FormGroup className="flex flex-col gap-6 mb-9 mt-10">
-        <div className="flex items-center gap-3">
-          <div>
-            <input type="checkbox" />
-          </div>
-          <Typography>
-            I agree to Trybe's{" "}
-            <span style={{ color: "#05B0D6" }}>
-              terms and conditions, end user license agreement,
-            </span>
-            and privacy policy{" "}
+          <Typography fontSize={"16px"} fontWeight={600} color={"black"}>
+            Register
           </Typography>
-        </div>
-        <div className="flex items-center gap-3">
-          <div>
-            <input type="checkbox" />
-          </div>
-          <Typography>
-            I agree to Tribe Fintech's{" "}
-            <span style={{ color: "#05B0D6" }}>
-              terms and conditions end user license agreement
-            </span>
-            , and
-            <span style={{ color: "#05B0D6" }}>privacy policy</span>
-          </Typography>
-        </div>
-        <div className="flex items-center gap-3">
-          <div>
-            <input type="checkbox" />
-          </div>
-          <Typography>
-            Keep me updated on Trybe news, events and offers{" "}
-          </Typography>
-        </div>
-      </FormGroup>
-      <AuthButton sx={{ background: "#FDC600" }}>
-        <Typography fontSize={"16px"} fontWeight={600} color={"black"}>
-          Register
-        </Typography>
-      </AuthButton>
-    </FormControl>
+        </AuthButton>
+      </form>
+      <DevTool control={control} />
+    </>
   );
 }

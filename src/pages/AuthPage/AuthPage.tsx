@@ -5,13 +5,14 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "../../assets/css/commonStyles.css";
 import { Box, Container, Typography, styled, Button } from "@mui/material";
-import Logo from "../../assets/img/Logo.png";
 import TrybeLogo from "../../components/TrybeLogo/TrybeLogo";
 import FooterLogo from "../../assets/img/FooterLogo.png";
+import { Navigate, useNavigate } from "react-router-dom";
 
 interface IStyledButton {
   isSignup: boolean;
   value: string;
+  route: string;
 }
 
 function AuthPage() {
@@ -63,8 +64,11 @@ function AuthPage() {
     bottom: "31px",
   }));
 
-  const StyledAuthButton = ({ isSignup, value }: IStyledButton) => (
-    <AuthButton sx={{ background: isSignup ? "white" : "#FDC600" }}>
+  const StyledAuthButton = ({ isSignup, value, route }: IStyledButton) => (
+    <AuthButton
+      sx={{ background: isSignup ? "white" : "#FDC600" }}
+      onClick={() => handleNavigate(route)}
+    >
       <Typography
         fontSize={"16px"}
         fontWeight={600}
@@ -74,6 +78,11 @@ function AuthPage() {
       </Typography>
     </AuthButton>
   );
+  const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const handleNavigate = (route: string) => {
+    navigate(route);
+  };
 
   return (
     <>
@@ -81,8 +90,8 @@ function AuthPage() {
         <Box height={"160px"} />
         <TrybeLogo width={131} height={119} />
         <ButtonContainer>
-          <StyledAuthButton isSignup={true} value="Signup" />
-          <StyledAuthButton isSignup={false} value="Login" />
+          <StyledAuthButton isSignup={true} value="Signup" route="/signup" />
+          <StyledAuthButton isSignup={false} value="Login" route="/login" />
         </ButtonContainer>
         <FooterLogoContainer>
           <img src={FooterLogo} className="object-fill w-full h-full" />

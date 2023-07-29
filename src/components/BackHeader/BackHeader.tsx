@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { GraySearch, GrayMessenger } from "../../assets/icons";
+import { useNavigate } from "react-router-dom";
 
 interface IBackHeader {
   pageName: string;
@@ -23,11 +24,15 @@ function BackHeader({ pageName }: IBackHeader) {
     boxShadow: "none",
     borderBottom: "1px solid #f2f2f2",
   }));
+  const navigate = useNavigate();
 
   return (
     <BackHeader>
       <Toolbar sx={{ padding: "0 !important", minHeight: "0 !important" }}>
-        <IconButton sx={{ padding: "0 !important" }}>
+        <IconButton
+          sx={{ padding: "0 !important" }}
+          onClick={() => navigate(-1)}
+        >
           <ChevronLeftIcon
             sx={{ width: "35px", height: "35px", color: "#101828" }}
           />

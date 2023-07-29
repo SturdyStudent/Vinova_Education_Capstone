@@ -10,13 +10,7 @@ import {
 import BackgroundPanel1 from "../../assets/img/member_bg_1.png";
 import UserAvatar1 from "../../assets/img/member-1.jpg";
 
-interface IMemberCard {
-  backgroundPanel?: string;
-  profilePic?: string;
-  memberName?: string;
-  companyName?: string;
-  industry?: string;
-}
+import { IMemberCard } from "../../services/interface";
 
 function MemberCard({
   backgroundPanel,

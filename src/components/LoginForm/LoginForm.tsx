@@ -69,7 +69,16 @@ export default function LoginForm() {
       className="w-full flex flex-col gap-3"
       sx={{ gap: "6px" }}
     >
-      <FormLabel sx={{ color: "white", fontSize: "14px" }} className="mt-5">
+      <FormLabel
+        sx={{
+          color: "white",
+          fontSize: "14px",
+          "&.Mui-focused": {
+            color: "white",
+          },
+        }}
+        className="mt-5"
+      >
         Email
       </FormLabel>
       <StyledTextField
@@ -90,7 +99,15 @@ export default function LoginForm() {
       <Typography color={"#F5A3A3"} fontSize={"14px"} lineHeight={"20px"}>
         Please enter a valid email address.
       </Typography>
-      <FormLabel sx={{ color: "white" }} className="mt-5">
+      <FormLabel
+        sx={{
+          color: "white",
+          "&.Mui-focused": {
+            color: "white",
+          },
+        }}
+        className="mt-5"
+      >
         Password
       </FormLabel>
       <StyledTextField

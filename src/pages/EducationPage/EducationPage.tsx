@@ -49,7 +49,7 @@ function EducationPage() {
 
   return (
     <div>
-      <BackHeader pageName="Groups" />
+      <BackHeader pageName="Education" />
       <PageContainer>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs value={value} onChange={handleChange}>

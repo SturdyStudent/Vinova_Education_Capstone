@@ -18,11 +18,7 @@ import SuccessIcon from "../../assets/img/successIcon.png";
 import FooterLogo from "../../assets/img/FooterLogo.png";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import { useState } from "react";
-
-interface IStyledButton {
-  isSignup: boolean;
-  value: string;
-}
+import { Link } from "react-router-dom";
 
 function RegisterPage() {
   const [openNavbar, setOpenNavbar] = useState<boolean>();
@@ -82,7 +78,10 @@ function RegisterPage() {
         fontSize={"12px"}
         lineHeight={"18px"}
       >
-        Got an account?<span style={{ color: "#CCA000" }}> Log in here</span>
+        Got an account?
+        <span style={{ color: "#CCA000" }}>
+          <Link to={"/login"}> Log in here</Link>
+        </span>
       </Typography>
       <Button onClick={() => setOpenNavbar(true)}>test</Button>
       <SuccessModalContainer

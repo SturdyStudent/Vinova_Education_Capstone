@@ -10,6 +10,7 @@ import TrybeLogo from "../../components/TrybeLogo/TrybeLogo";
 import FooterLogo from "../../assets/img/FooterLogo.png";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import LoginForm from "../../components/LoginForm/LoginForm";
+import { Link } from "react-router-dom";
 
 interface IStyledButton {
   isSignup: boolean;
@@ -62,14 +63,16 @@ function LoginPage() {
         >
           Don't have an account?
         </Typography>
-        <Typography
-          fontSize={"14px"}
-          color={"#CCA000"}
-          fontWeight={600}
-          lineHeight={"20px"}
-        >
-          Sign up now
-        </Typography>
+        <Link to={"/signup"}>
+          <Typography
+            fontSize={"14px"}
+            color={"#CCA000"}
+            fontWeight={600}
+            lineHeight={"20px"}
+          >
+            Sign up now
+          </Typography>
+        </Link>
         <Box height={"51px"} />
         <FooterLogoContainer>
           <img src={FooterLogo} className="object-fill w-full h-full" />

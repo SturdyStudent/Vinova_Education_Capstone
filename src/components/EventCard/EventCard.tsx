@@ -1,31 +1,17 @@
-import React from "react";
-import {
-  Container,
-  Box,
-  Typography,
-  Button,
-  styled,
-  Chip,
-} from "@mui/material";
+import { Container, Box, Typography, Button, styled } from "@mui/material";
 
-import ClockIcon from "../../assets/icons/clock.svg";
 import CircleIcon from "@mui/icons-material/Circle";
+import { IEventCard } from "../../services/interface";
 import LocationIcon from "../../assets/icons/location.svg";
-
-interface IEventCard {
-  avatar?: string;
-  smallLogo?: string;
-  brandName?: string;
-  courseTitle?: string;
-  duration?: string;
-}
 
 function EventCard({
   avatar,
   smallLogo,
   brandName,
   courseTitle,
-  duration,
+  date,
+  from,
+  to,
 }: IEventCard) {
   const EventCardContainer = styled(Container)(() => ({
     width: "100%",
@@ -103,13 +89,13 @@ function EventCard({
           </Typography>
           <Box className="flex gap-2 items-center mt-2" width={"100%"}>
             <Typography fontSize={"12px"} lineHeight={"18px"} color={"#808080"}>
-              20 June 2023
+              20 June 2023 {date?.toDateString()}
             </Typography>
             <CircleIcon
               sx={{ width: "4px", color: "#808080", height: "4px" }}
             />
             <Typography fontSize={"12px"} lineHeight={"18px"} color={"#808080"}>
-              10:00 - 18:00
+              {from} - {to}
             </Typography>
           </Box>
           <Box className="flex gap-2 items-center mt-1" width={"100%"}>

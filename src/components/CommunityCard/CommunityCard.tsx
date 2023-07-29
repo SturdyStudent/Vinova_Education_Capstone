@@ -9,11 +9,7 @@ import {
 } from "@mui/material";
 
 import UserAvatar1 from "../../assets/img/member-1.jpg";
-
-interface ICommunityCard {
-  logo?: string;
-  communityName?: string;
-}
+import { ICommunityCard } from "../../services/interface";
 
 function CommunityCard({ logo, communityName }: ICommunityCard) {
   const CommunityCardContainer = styled(Box)(() => ({

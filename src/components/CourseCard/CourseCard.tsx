@@ -9,16 +9,7 @@ import {
 } from "@mui/material";
 
 import ClockIcon from "../../assets/icons/clock.svg";
-
-interface ICoursesCard {
-  avatar?: string;
-  smallLogo?: string;
-  brandName?: string;
-  courseTitle?: string;
-  duration?: string;
-  isArticle?: boolean;
-  summary?: string;
-}
+import { ICourseCard } from "../../services/interface";
 
 function CoursesCard({
   avatar,
@@ -27,14 +18,16 @@ function CoursesCard({
   courseTitle,
   duration,
   isArticle,
+  isEducationCourse,
   summary,
-}: ICoursesCard) {
+}: ICourseCard) {
+  const isEducationTab = isArticle || isEducationCourse;
   const CoursesCardContainer = styled(Box)(({ theme }) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    width: isArticle ? "158px" : "108px",
-    height: isArticle ? "331px" : "253px",
+    width: isEducationTab ? "158px" : "108px",
+    height: isArticle ? "331px" : isEducationCourse ? "290px" : "269px",
     padding: "8px",
     gap: "8px",
     borderRadius: "16px",
@@ -42,8 +35,8 @@ function CoursesCard({
     boxShadow: "0px 0px 10px 0px rgba(0, 0, 0, 0.10)",
   }));
   const CardAvatar = styled(Box)(() => ({
-    width: isArticle ? "100%" : "100px",
-    height: isArticle ? "135px" : "100px",
+    width: isEducationTab ? "100%" : "100px",
+    height: isEducationTab ? "135px" : "100px",
     borderRadius: "8px",
     overflow: "hidden",
   }));
@@ -68,7 +61,7 @@ function CoursesCard({
         <img src={avatar} alt="" className="object-cover w-full h-full" />
       </CardAvatar>
       <Box
-        className={`flex items-center ${isArticle ? "gap-3" : "gap-1"}`}
+        className={`flex items-center ${isEducationTab ? "gap-3" : "gap-1"}`}
         width={"100%"}
       >
         <LogoContainer>
@@ -78,40 +71,71 @@ function CoursesCard({
           {brandName}
         </Typography>
       </Box>
-      <Typography
-        fontSize={"14px"}
-        fontWeight={600}
-        color={"#1A1A1A"}
-        lineHeight={"20px"}
-        textOverflow={"ellipsis"}
-        display={"-webkit-box"}
-        textAlign={"left"}
-        sx={{
-          WebkitLineClamp: "2",
-          WebkitBoxOrient: "vertical",
-          overflow: "hidden",
-          lineBreak: "anywhere",
-        }}
-      >
-        {courseTitle}
-      </Typography>
+      {isEducationCourse ? (
+        <Typography
+          fontSize={"14px"}
+          fontWeight={600}
+          color={"#1A1A1A"}
+          lineHeight={"20px"}
+          textOverflow={"ellipsis"}
+          display={"-webkit-box"}
+          textAlign={"left"}
+          sx={{
+            WebkitLineClamp: "2",
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            lineBreak: "anywhere",
+          }}
+        >
+          {courseTitle} - {<span style={{ fontWeight: "400" }}>{summary}</span>}
+        </Typography>
+      ) : (
+        <Typography
+          fontSize={"14px"}
+          fontWeight={600}
+          color={"#1A1A1A"}
+          lineHeight={"20px"}
+          textOverflow={"ellipsis"}
+          display={"-webkit-box"}
+          textAlign={"left"}
+          sx={{
+            WebkitLineClamp: "2",
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            lineBreak: "anywhere",
+          }}
+        >
+          {courseTitle}{" "}
+        </Typography>
+      )}
+
       <Typography
         fontSize={"12px"}
         lineHeight={"18px"}
         textOverflow={"ellipsis"}
-        display={"-webkit-box"}
+        display={isEducationCourse ? "none" : "-webkit-box"}
         sx={{
           WebkitLineClamp: "3",
           WebkitBoxOrient: "vertical",
           overflow: "hidden",
-          lineBreak: "anywhere",
         }}
       >
-        {isArticle
-          ? " Empowering SME Businesses Strategies for Success in a Challenging Environment"
-          : ""}
         {summary}
       </Typography>
+      {isEducationCourse ? (
+        <Typography
+          color={"#CCA000"}
+          fontSize={"12px"}
+          fontWeight={600}
+          textAlign={"left"}
+          width={"100%"}
+          lineHeight={"18px"}
+        >
+          Digital Marketing
+        </Typography>
+      ) : (
+        ""
+      )}
       <Box className="flex gap-2 items-center" width={"100%"}>
         <Box width={"14px"} height={"14px"}>
           <img src={ClockIcon} alt="" className="object-fill w-full h-full" />
@@ -120,7 +144,7 @@ function CoursesCard({
           {duration}
         </Typography>
       </Box>
-      {isArticle ? (
+      {isEducationTab ? (
         ""
       ) : (
         <ActionButton>

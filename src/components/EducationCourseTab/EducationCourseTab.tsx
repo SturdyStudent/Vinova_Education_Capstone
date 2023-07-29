@@ -63,17 +63,19 @@ function EducationCourseTab() {
           brandName="Meta"
           smallLogo={SmallLogo1}
           avatar={avatar1}
-          courseTitle="Engage with your customer"
-          duration="19 mins"
-          isArticle={true}
+          courseTitle="Meta 101"
+          duration="30 mins"
+          isEducationCourse={true}
+          summary="How to get started with Facebook"
         />
         <CoursesCard
           brandName="Meta"
           smallLogo={SmallLogo2}
           avatar={avatar2}
-          courseTitle="Engage with your customer"
-          duration="19 mins"
-          isArticle={true}
+          courseTitle="Instagram 101"
+          duration="30 mins"
+          isEducationCourse={true}
+          summary="How to get started with Instagram"
         />
       </div>
       <ArticleContainer>
@@ -90,7 +92,7 @@ function EducationCourseTab() {
           smallLogo={SmallLogo1}
           avatar={EventImg}
           courseTitle="Unlocking Potential: How SMEs Can Maximize Growth and Efficiency"
-          duration="19 mins"
+          duration={19}
           isCourse={true}
         />
         <ArticleCard
@@ -98,7 +100,7 @@ function EducationCourseTab() {
           smallLogo={SmallLogo1}
           avatar={EventImg}
           courseTitle="2023 Small Business "
-          duration="19 mins"
+          duration={30}
           isCourse={true}
         />
         <ArticleCard
@@ -106,7 +108,7 @@ function EducationCourseTab() {
           smallLogo={SmallLogo1}
           avatar={EventImg}
           courseTitle="2023 Small Business "
-          duration="19 mins"
+          duration={19}
           isCourse={true}
         />
         <ArticleCard
@@ -114,7 +116,8 @@ function EducationCourseTab() {
           smallLogo={SmallLogo1}
           avatar={EventImg}
           courseTitle="2023 Small Business "
-          duration="19 mins"
+          duration={20}
+          isCourse={true}
         />
       </ArticleContainer>
     </div>

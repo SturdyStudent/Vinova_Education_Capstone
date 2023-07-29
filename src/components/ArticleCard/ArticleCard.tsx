@@ -17,7 +17,7 @@ interface IArticleCard {
   smallLogo?: string;
   brandName?: string;
   courseTitle?: string;
-  duration?: string;
+  duration?: number;
   isCourse?: boolean;
 }
 
@@ -101,7 +101,7 @@ function ArticleCard({
                 />
               </LogoContainer>
               <Typography
-                fontSize={"10px"}
+                fontSize={"12px"}
                 fontWeight={600}
                 lineHeight={"16px"}
               >
@@ -145,7 +145,7 @@ function ArticleCard({
           <Box className="flex gap-2 items-center mt-1" width={"100%"}>
             <img src={ClockIcon} width={"16px"} height="16px" />
             <Typography fontSize={"12px"} lineHeight={"18px"} color={"#808080"}>
-              5 mins read
+              {duration} mins {isCourse ? "" : "read"}
             </Typography>
             {isCourse ? (
               <>
