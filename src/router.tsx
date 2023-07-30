@@ -7,7 +7,6 @@ import EducationPage from "./pages/EducationPage/EducationPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import TestForm from "./components/RegisterForm/testForm";
 
 function AppRouter() {
   return (
@@ -21,7 +20,6 @@ function AppRouter() {
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<RegisterPage />} />
-          <Route path="/test" element={<TestForm />} />
         </Routes>
       </Router>
     </React.Fragment>

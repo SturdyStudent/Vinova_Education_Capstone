@@ -8,17 +8,22 @@ import {
   FormGroup,
   Box,
 } from "@mui/material";
+import { uniqBy } from "lodash";
 import AlertIcon from "../../assets/icons/alert-circle.svg";
-
+import { useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DevTool } from "@hookform/devtools";
+import { parseArray, parseObject } from "../../services/utils";
 
 type Inputs = {
   firstName: string;
   lastName: string;
   email: string;
   password: string;
+  acceptTrybe: boolean;
+  acceptFintech: boolean;
+  acceptSubscribe: boolean;
 };
 
 const schema = yup.object({
@@ -30,25 +35,47 @@ const schema = yup.object({
     .matches(/^(?=.*d).{8,}$/)
     .min(8)
     .required(),
+  acceptTrybe: yup.bool().oneOf([true]).required(),
+  acceptFintech: yup.bool().oneOf([true]).required(),
+  acceptSubscribe: yup.bool().oneOf([true]).required(),
 });
 
-export default function RegisterForm() {
+interface IRegisterForm {
+  openSuccesModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function RegisterForm({ openSuccesModal }: IRegisterForm) {
+  const [isEmailDuplicate, setIsEmailDuplicate] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
-    clearErrors,
     control,
-    formState: { errors, isSubmitSuccessful },
+    formState: { errors },
   } = useForm<Inputs>({
+    resolver: yupResolver(schema),
     defaultValues: {
-      email: "test@gmail",
-      firstName: "test",
-      lastName: "test",
-      password: "password1",
+      email: "",
+      firstName: "",
+      lastName: "",
+      password: "",
+      acceptFintech: false,
+      acceptSubscribe: false,
+      acceptTrybe: false,
     },
   });
 
-  const onSubmit = (data: Inputs) => console.log(data);
+  const onSubmit = (data: Inputs) => {
+    const oldAccount: Inputs[] = parseArray(localStorage.getItem("USER_INFO"));
+    if (oldAccount.some((item) => item.email == data.email)) {
+      setIsEmailDuplicate(true);
+      return;
+    }
+    setIsEmailDuplicate(false);
+    const newAccounts = uniqBy(oldAccount.concat(data), "email");
+    localStorage.setItem("USER_INFO", JSON.stringify(newAccounts));
+    openSuccesModal(true);
+  };
 
   const StyledTextField = styled(TextField)(() => ({
     display: "flex",
@@ -75,16 +102,10 @@ export default function RegisterForm() {
     boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
   }));
 
-  console.log("submit đi", isSubmitSuccessful);
-
   return (
     <>
       <form
-        onSubmit={(e) => {
-          clearErrors();
-          handleSubmit(onSubmit);
-          e.preventDefault();
-        }}
+        onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col gap-3"
         noValidate
         style={{ gap: "6px" }}
@@ -92,7 +113,7 @@ export default function RegisterForm() {
         {/* register your input into the hook by invoking the "register" function */}
         <FormLabel sx={{ color: "white" }}>First name</FormLabel>
         <StyledTextField
-          defaultValue="email@test"
+          placeholder="Type your first name"
           inputProps={{
             style: {
               paddingTop: 10,
@@ -101,18 +122,25 @@ export default function RegisterForm() {
               paddingRight: 14,
             },
           }}
-          error={!!errors.email}
-          helperText={errors.email?.message}
+          error={!!errors.firstName}
           fullWidth
-          {...register("firstName", {
-            required: "Email is required",
-          })}
+          {...register("firstName")}
         />
+        {errors.firstName && (
+          <Typography
+            color={"#F5A3A3"}
+            zIndex={1}
+            fontSize={"14px"}
+            lineHeight={"20px"}
+          >
+            Please enter your first name
+          </Typography>
+        )}
         <FormLabel sx={{ color: "white" }} className="mt-5">
           Last name
         </FormLabel>
         <StyledTextField
-          defaultValue="test"
+          placeholder="Type your last name"
           inputProps={{
             style: {
               paddingTop: 10,
@@ -122,17 +150,24 @@ export default function RegisterForm() {
             },
           }}
           fullWidth
-          {...register("lastName", {
-            required: "Email is required",
-          })}
+          {...register("lastName")}
         />
-        ,
+        {errors.lastName && (
+          <Typography
+            color={"#F5A3A3"}
+            zIndex={1}
+            fontSize={"14px"}
+            lineHeight={"20px"}
+          >
+            Please enter your last name
+          </Typography>
+        )}
         <FormLabel sx={{ color: "white", fontSize: "14px" }} className="mt-5">
           Email
         </FormLabel>
         <div className="relative">
           <StyledTextField
-            defaultValue="test"
+            placeholder="Type your email"
             type="email"
             inputProps={{
               style: {
@@ -143,9 +178,7 @@ export default function RegisterForm() {
               },
             }}
             fullWidth
-            {...register("email", {
-              required: "Email is required",
-            })}
+            {...register("email")}
           />
           <Box
             width={"20px"}
@@ -177,10 +210,9 @@ export default function RegisterForm() {
                 paddingRight: 14,
               },
             }}
+            placeholder="Type your password"
             fullWidth
-            {...register("password", {
-              required: "Email is required",
-            })}
+            {...register("password")}
           />
           <Box
             width={"20px"}
@@ -200,7 +232,7 @@ export default function RegisterForm() {
         <FormGroup className="flex flex-col gap-6 mb-9 mt-10">
           <div className="flex items-center gap-3">
             <div>
-              <input type="checkbox" />
+              <input type="checkbox" {...register("acceptTrybe")} />
             </div>
             <Typography>
               I agree to Trybe's{" "}
@@ -212,7 +244,7 @@ export default function RegisterForm() {
           </div>
           <div className="flex items-center gap-3">
             <div>
-              <input type="checkbox" />
+              <input type="checkbox" {...register("acceptFintech")} />
             </div>
             <Typography>
               I agree to Tribe Fintech's{" "}
@@ -225,12 +257,36 @@ export default function RegisterForm() {
           </div>
           <div className="flex items-center gap-3">
             <div>
-              <input type="checkbox" />
+              <input type="checkbox" {...register("acceptSubscribe")} />
             </div>
             <Typography>
               Keep me updated on Trybe news, events and offers{" "}
             </Typography>
           </div>
+          {(errors.acceptFintech ||
+            errors.acceptSubscribe ||
+            errors.acceptTrybe) && (
+            <Typography
+              color={"#F5A3A3"}
+              zIndex={1}
+              fontSize={"14px"}
+              lineHeight={"20px"}
+            >
+              Please check all terms and conditions
+            </Typography>
+          )}
+          {isEmailDuplicate ? (
+            <div>
+              <Typography
+                color={"#F5A3A3"}
+                zIndex={1}
+                fontSize={"14px"}
+                lineHeight={"20px"}
+              >
+                Your email is duplicate
+              </Typography>
+            </div>
+          ) : null}
         </FormGroup>
         <AuthButton
           sx={{ background: "#FDC600" }}

@@ -18,10 +18,10 @@ import SuccessIcon from "../../assets/img/successIcon.png";
 import FooterLogo from "../../assets/img/FooterLogo.png";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function RegisterPage() {
-  const [openNavbar, setOpenNavbar] = useState<boolean>();
+  const [openNavbar, setOpenNavbar] = useState<boolean>(false);
   const PageContainer = styled(Container)(() => ({
     display: "flex",
     flexDirection: "column",
@@ -65,6 +65,7 @@ function RegisterPage() {
     fontSize: "16px",
     boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
   }));
+  const navigate = useNavigate();
 
   return (
     <PageContainer>
@@ -72,7 +73,7 @@ function RegisterPage() {
       <TrybeLogo width={106} height={101} />
       <Box height={"85px"} />
       <Wallpaper />
-      <RegisterForm />
+      <RegisterForm openSuccesModal={setOpenNavbar} />
       <Typography
         sx={{ marginTop: "20px", marginBottom: "30px" }}
         fontSize={"12px"}
@@ -118,7 +119,10 @@ function RegisterPage() {
           Thank you for signing up! Please check your email for the verification
           code
         </Typography>
-        <AuthButton sx={{ background: "#FDC600", marginTop: "100px" }}>
+        <AuthButton
+          sx={{ background: "#FDC600", marginTop: "100px" }}
+          onClick={() => navigate("/")}
+        >
           <Typography fontSize={"16px"} fontWeight={600} color={"black"}>
             Continue
           </Typography>

@@ -14,10 +14,5 @@ export const useNavigatorStyles = makeStyles(() => ({
     fontWeight: 500,
     lineHeight: "16px",
     fill: "#999999",
-    color: "#fdc600",
-    "&.css-i4bv87-MuiSvgIcon-root": {
-      color: "white",
-      fill: "#fdc600 !important",
-    },
   },
 }));
