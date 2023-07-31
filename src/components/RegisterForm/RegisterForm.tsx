@@ -9,7 +9,7 @@ import {
   Box,
 } from "@mui/material";
 import { uniqBy } from "lodash";
-import AlertIcon from "../../assets/icons/alert-circle.svg";
+import AlertIcon from "../../assets/icons/alertCircle.svg";
 import { useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";

@@ -138,7 +138,7 @@ export default function LoginForm() {
           fontSize={"14px"}
           lineHeight={"20px"}
         >
-          Please enter a valid email address.
+          Please enter a valid email address
         </Typography>
       )}
       <FormLabel

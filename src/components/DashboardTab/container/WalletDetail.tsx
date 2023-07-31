@@ -1,11 +1,27 @@
 import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, styled, Theme } from "@mui/material";
 import { useDashboardStyles as useStyles } from "./styles";
 import { useTheme } from "@emotion/react";
 
 function WalletDetail() {
-  const theme = useTheme();
   const classes = useStyles();
+
+  const ViewDetailButton = styled(Button)(() => ({
+    width: "50%",
+    textAlign: "center",
+    color: "#1F3684",
+    padding: "17px 30px",
+    maxWidth: "none",
+    textTransform: "none",
+    borderRadius: "30px",
+    border: "0.5px solid var(--main-blue, #1F3684)",
+    marginTop: "30px",
+    ":hover": {
+      backgroundColor: `#1F3684`,
+      color: "white",
+      textTransform: "none",
+    },
+  }));
 
   return (
     <Box className={`${classes.walletHolder} `}>
@@ -14,30 +30,19 @@ function WalletDetail() {
         <Typography fontSize={"25px"} fontWeight={600}>
           1,000,000.00 EUR
         </Typography>
-        <Button
+        <ViewDetailButton
           className={classes.detailButton}
           sx={{ ":hover": { backgroundColor: `#1F3684`, color: "white" } }}
         >
           View Detail
-        </Button>
+        </ViewDetailButton>
       </Box>
       <Box className={classes.walletDetail}>
         <Typography>Crypto Wallet</Typography>
         <Typography fontSize={"25px"} fontWeight={600}>
           1,000,000.00 EUR
         </Typography>
-        <Button
-          className={classes.detailButton}
-          sx={{
-            ":hover": {
-              backgroundColor: `#1F3684`,
-              color: "white",
-              textTransform: "none",
-            },
-          }}
-        >
-          View Detail
-        </Button>
+        <ViewDetailButton>View Detail</ViewDetailButton>
       </Box>
     </Box>
   );

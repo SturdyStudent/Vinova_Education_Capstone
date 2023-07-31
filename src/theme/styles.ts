@@ -8,9 +8,11 @@ export const renderDefaultTheme = createTheme(
                 main: '#000',
                 dark: '#fff',
                 contrastText: '#fff',
+             
               },
               secondary: {
-                main: '#ff7961',
+                main: '#1F3684',
+                light: '#F9F3ED',
               },
             },
             breakpoints: {

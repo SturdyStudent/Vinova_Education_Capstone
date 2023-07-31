@@ -64,6 +64,6 @@ export interface ITransactionInfo {
   action: transacAction;
   amount: number;
   currency: currency;
-  remarks: string;
+  remarks?: string;
   orderStatus: orderStatus;
 }

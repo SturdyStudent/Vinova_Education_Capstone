@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { ReactSVG } from "react-svg";
 import CheckIcon from "../../assets/icons/check.svg";
-import FlowerIcon from "../../assets/icons/blueFlowerIcon.svg";
+import FlowerIcon from "../../assets/icons/blueFlower.svg";
 import CircleIcon from "@mui/icons-material/Circle";
 import {
   UserIcon,

@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Grid,
-  Typography
-} from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { useTransactionStyle as useStyles } from "./styles";
 
 function WelcomePanel() {
@@ -11,10 +7,10 @@ function WelcomePanel() {
 
   return (
     <Grid className={`${classes.welcomePanel} ${classes.container}`} container>
-      <Grid item sm={12} md className={classes.welcomePanelItem}>
+      <Grid item sm={12} className={classes.welcomePanelItem}>
         <Typography fontSize={"25px"}>My Transaction</Typography>
       </Grid>
-      <Grid item sm={12} md className={classes.welcomePanelItem}>
+      <Grid item sm={12} className={classes.welcomePanelItem}>
         <Box className={classes.buttonHolder}>
           <div className={classes.buttonHolder1}>
             <button className={classes.button}>Send Funds</button>

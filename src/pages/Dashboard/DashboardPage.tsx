@@ -5,8 +5,8 @@ import EventItem from "../../components/EventItem/EventItem";
 import EducationContentTab from "../../components/EducationContentTab/EducationContentTab";
 import Navigator from "../../components/Navigator/Navigator";
 import Dashboard from "../../components/DashboardTab/Index";
-import EducationCourseTab from "../../components/EducationCourseTab/EducationCourseTab";
-
+import MyTransaction from "../../components/TransactionTab";
+import SendFund from "../../components/SendFundTab";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -37,7 +37,6 @@ function DashboardPage() {
   const [value, setValue] = useState(0);
 
   const PageContainer = styled(Box)(({ theme }) => ({
-    padding: "0px 16px !important",
     background: "white",
     minHeight: "calc(100vh - 112px)",
     display: "flex",
@@ -52,9 +51,9 @@ function DashboardPage() {
 
   return (
     <div>
-      <BackHeader pageName="Education" />
+      <BackHeader pageName="Dashboard" removeBackIcon={true} />
       <PageContainer>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+        <Box sx={{ borderBottom: 1, borderColor: "divider", padding: "none" }}>
           <Tabs value={value} onChange={handleChange}>
             <Tab
               label="Dashboard"
@@ -80,10 +79,10 @@ function DashboardPage() {
           <Dashboard />
         </DashboardTabPanel>
         <DashboardTabPanel value={value} index={1}>
-          <EducationCourseTab />
+          <MyTransaction />
         </DashboardTabPanel>
         <DashboardTabPanel value={value} index={2}>
-          <EducationContentTab />
+          <SendFund />
         </DashboardTabPanel>
       </PageContainer>
       <Navigator />

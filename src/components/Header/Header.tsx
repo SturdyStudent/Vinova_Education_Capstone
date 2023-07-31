@@ -11,7 +11,7 @@ import { useHeaderStyles } from "./HeaderStyles";
 import ProfileImg from "../../assets/img/profile_img.png";
 import SearchIcon from "../../assets/icons/search.svg";
 import MessageIcon from "../../assets/icons/Messenger.svg";
-import JustifyAlignIcon from "../../assets/icons/align-justify.svg";
+import JustifyAlignIcon from "../../assets/icons/alignJustify.svg";
 import LevelBadge from "../LevelBadge/LevelBadge";
 import AppDrawer from "../AppDrawer/AppDrawer";
 

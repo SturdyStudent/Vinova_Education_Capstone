@@ -160,8 +160,8 @@ function HomePage() {
         </div>
         <SizedBox />
         <ItemDisplay itemName="Events" route="/event" />
-        {EventCardList.map((item) => (
-          <>
+        {EventCardList.map((item, index) => (
+          <div key={index}>
             <EventCard
               brandName={item.brandName}
               avatar={item.avatar}
@@ -172,7 +172,7 @@ function HomePage() {
               from={item.from}
             />
             <Box height={"16px"} />
-          </>
+          </div>
         ))}
       </PageContainer>
       <Navigator />

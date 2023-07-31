@@ -12,9 +12,10 @@ import { useNavigate } from "react-router-dom";
 
 interface IBackHeader {
   pageName: string;
+  removeBackIcon?: boolean;
 }
 
-function BackHeader({ pageName }: IBackHeader) {
+function BackHeader({ pageName, removeBackIcon }: IBackHeader) {
   const BackHeader = styled(AppBar)(() => ({
     position: "relative",
     justifyContent: "center",
@@ -29,14 +30,18 @@ function BackHeader({ pageName }: IBackHeader) {
   return (
     <BackHeader>
       <Toolbar sx={{ padding: "0 !important", minHeight: "0 !important" }}>
-        <IconButton
-          sx={{ padding: "0 !important" }}
-          onClick={() => navigate(-1)}
-        >
-          <ChevronLeftIcon
-            sx={{ width: "35px", height: "35px", color: "#101828" }}
-          />
-        </IconButton>
+        {removeBackIcon ? (
+          ""
+        ) : (
+          <IconButton
+            sx={{ padding: "0 !important" }}
+            onClick={() => navigate(-1)}
+          >
+            <ChevronLeftIcon
+              sx={{ width: "35px", height: "35px", color: "#101828" }}
+            />
+          </IconButton>
+        )}
         <Typography
           fontSize={"18px"}
           fontWeight={600}

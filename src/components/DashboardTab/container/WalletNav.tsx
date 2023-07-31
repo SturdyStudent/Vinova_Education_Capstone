@@ -1,39 +1,54 @@
-import React from 'react';
-import { Box, Typography, Grid, Button } from '@mui/material';
-import { useDashboardStyles as useStyles } from './styles';
-import { useTheme } from '@emotion/react';
+import React from "react";
+import { Box, Typography, Grid, Button } from "@mui/material";
+import { useDashboardStyles as useStyles } from "./styles";
+import { useTheme } from "@emotion/react";
 
-function WalletNav({functionNavList}) {
-    const theme = useTheme();
-    const classes = useStyles();
+interface IWalletNav {
+  functionNavList: Array<string>;
+}
+
+function WalletNav({ functionNavList }: IWalletNav) {
+  const theme = useTheme();
+  const classes = useStyles();
 
   return (
     <Box className={classes.walletNav}>
-    <div item sm={12}>
-      <Typography fontSize={'25px'} fontWeight={400}>My Wallets</Typography>
-    </div>
-    <Grid className={classes.gridContainer} container spacing={0} >
-      {
-        functionNavList.map((item, index) => (
+      <Grid item sm={12} md={5}>
+        <Typography fontSize={"25px"} fontWeight={400}>
+          My Wallets
+        </Typography>
+      </Grid>
+      <Grid className={classes.gridContainer} container spacing={0}>
+        {functionNavList.map((item, index) => (
           <Grid
-            item 
+            item
             className={classes.functionNavHolder}
-            sx=
-            {{
-              boxSizing: 'border-box', 
-              padding: `6px ${(index % 2 === 1 ? '0px' : '6px')} 6px ${(index % 2 === 1 ? '6px' : '0px')}`}}
-            sm={6}
-            md
+            sx={{
+              boxSizing: "border-box",
+              padding: `6px ${index % 2 === 1 ? "0px" : "2px"} 6px ${
+                index % 2 === 1 ? "2px" : "0px"
+              }`,
+            }}
+            xs={6}
+            md={6}
           >
-            <Button className={classes.functionNav} sx={{':hover': {background: `${theme.palette.primary.blue}`, color: 'white'}}}>
+            <Button
+              className={classes.functionNav}
+              sx={{
+                textTransform: "none",
+                ":hover": {
+                  background: "#1F3684",
+                  color: "white",
+                },
+              }}
+            >
               {item}
             </Button>
           </Grid>
-        ))
-      }
-    </Grid>
-  </Box>
-  )
+        ))}
+      </Grid>
+    </Box>
+  );
 }
 
-export default WalletNav
+export default WalletNav;
