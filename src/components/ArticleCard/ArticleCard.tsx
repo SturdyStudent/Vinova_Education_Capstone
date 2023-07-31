@@ -11,15 +11,7 @@ import {
 import ClockIcon from "../../assets/icons/clock.svg";
 import CircleIcon from "@mui/icons-material/Circle";
 import YoutubeIcon from "../../assets/icons/youtube.svg";
-
-interface IArticleCard {
-  avatar?: string;
-  smallLogo?: string;
-  brandName?: string;
-  courseTitle?: string;
-  duration?: number;
-  isCourse?: boolean;
-}
+import { IArticleCard } from "../../services/interface";
 
 function ArticleCard({
   avatar,

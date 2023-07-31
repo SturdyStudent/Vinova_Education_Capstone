@@ -4,7 +4,7 @@ import {
     DashboardIcon,
     UserIcon,
   } from "../icons/index";
-import { ICommunityCard, ICourseCard, IEventCard, IMemberCard } from "../../services/interface";
+import { IArticleCard, ICommunityCard, ICourseCard, IEventCard, IEventItem, IMemberCard } from "../../services/interface";
 
 import SmallLogo1 from "../img/smallLogo1.jpg";
 import SmallLogo2 from "../img/smallLogo2.png";
@@ -56,12 +56,12 @@ export const navLinks = [
     {
         label: 'Dashboard',
         icon: DashboardIcon,
-        url: '/#',
+        url: '/dashboard',
     },
     {
         label: 'Community',
         icon: UserIcon,
-        url: '/#'
+        url: '/group'
     },
     {
         label: 'Education',
@@ -347,5 +347,352 @@ export const EventCardList: Array<IEventCard> = [
         date: new Date(),
         from: '17:00',
         to: '20:00'
+    },
+]
+
+export const groupItemList: Array<IEventItem> = [
+    {
+        avatar: avatar1,
+        organizationName: 'BrownSense',
+        memberAmount: 1.6,
+        smallLogo: SmallLogo1,
+        isGroup: true
+    },
+    {
+        avatar: avatar2,
+        organizationName: 'The cosmetic Chef',
+        memberAmount: 3.2,
+        smallLogo: SmallLogo2,
+        isGroup: true
+    },
+    {
+        avatar: avatar3,
+        organizationName: 'Black Umbrellas',
+        memberAmount: 5.3,
+        smallLogo: SmallLogo3,
+        isGroup: true
+    },
+    {
+        avatar: avatar4,
+        organizationName: 'Food for Mzansi',
+        memberAmount: 5.2,
+        smallLogo: SmallLogo4,
+        isGroup: true
+    },
+    {
+        avatar: avatar5,
+        organizationName: 'Woman Power Africa',
+        memberAmount: 1.6,
+        smallLogo: SmallLogo5,
+        isGroup: true
+    },
+    {
+        avatar: avatar6,
+        organizationName: 'Martin Luther King',
+        memberAmount: 9.3,
+        smallLogo: SmallLogo6,
+        isGroup: true
+    },
+    {
+        avatar: avatar7,
+        organizationName: 'Poet Society',
+        memberAmount: 1.6,
+        smallLogo: SmallLogo7,
+        isGroup: true
+    },
+    {
+        avatar: avatar8,
+        organizationName: 'Supreme Soccerer',
+        memberAmount: 12.4,
+        smallLogo: SmallLogo8,
+        isGroup: true
+    },
+    {
+        avatar: avatar9,
+        organizationName: 'Back to Dinosaur',
+        memberAmount: 10.2,
+        smallLogo: SmallLogo9,
+        isGroup: true
+    },
+    {
+        avatar: avatar10,
+        organizationName: 'Unidentified Flying',
+        memberAmount: 4.2,
+        smallLogo: SmallLogo10,
+        isGroup: true
+    }
+]
+
+export const eventItemList: Array<IEventItem> = [
+    {
+        smallLogo: SmallLogo1,
+        avatar: avatar1,
+        organizationName: 'The Noble Truth',
+        eventDate: new Date()
+    },
+    {
+        smallLogo: SmallLogo2,
+        avatar: avatar2,
+        organizationName: 'The Right Way',
+        eventDate: new Date()
+    },
+    {
+        smallLogo: SmallLogo3,
+        avatar: avatar3,
+        organizationName: 'The Right Speech',
+        eventDate: new Date()
+    },
+    {
+        smallLogo: SmallLogo4,
+        avatar: avatar4,
+        organizationName: 'The Right Act',
+        eventDate: new Date()
+    },
+    {
+        smallLogo: SmallLogo5,
+        avatar: avatar5,
+        organizationName: 'The Right Mindfulness',
+        eventDate: new Date()
+    },
+    {
+        smallLogo: SmallLogo6,
+        avatar: avatar6,
+        organizationName: 'The Right View',
+        eventDate: new Date()
+    },
+    {
+        smallLogo: SmallLogo7,
+        avatar: avatar7,
+        organizationName: 'The Right Intention',
+        eventDate: new Date()
+    },
+    {
+        smallLogo: SmallLogo8,
+        avatar: avatar8,
+        organizationName: 'The Right Concentration',
+        eventDate: new Date()
+    },
+    {
+        smallLogo: SmallLogo9,
+        avatar: avatar9,
+        organizationName: 'The Right Effort',
+        eventDate: new Date()
+    },
+    {
+        smallLogo: SmallLogo10,
+        avatar: avatar10,
+        organizationName: 'The Right Livelihood',
+        eventDate: new Date()
+    },
+
+]
+
+export const courseCardEducationContent : Array<ICourseCard> = [
+    {
+        brandName:"Meta",
+        smallLogo:SmallLogo1,
+        avatar:avatar1,
+        courseTitle:"Engage with your customer",
+        duration: 19,
+        isArticle: true,
+        summary: "Strategies for success in a Challenging environment"
+    },
+    {
+        brandName:"Google",
+        smallLogo:SmallLogo2,
+        avatar:avatar2,
+        courseTitle:"Step to get closer to service",
+        duration: 15,
+        isArticle: true,
+        summary: "Want to sell more, join in"
+    },
+    {
+        brandName:"Samsung",
+        smallLogo:SmallLogo3,
+        avatar:avatar3,
+        courseTitle:"How to use computer",
+        duration: 19,
+        isArticle: true,
+        summary: "Become sofware developer fast"
+    },
+    {
+        brandName:"Hogwarts",
+        smallLogo:SmallLogo4,
+        avatar:avatar4,
+        courseTitle:"Get your first 1 million",
+        duration: 25,
+        isArticle: true,
+        summary: "Become rich in one night"
+    },
+    {
+        brandName:"Marvel",
+        smallLogo:SmallLogo5,
+        avatar:avatar5,
+        courseTitle:"Draw  your own dream",
+        duration: 19,
+        isArticle: true,
+        summary: "Watching your dream broken"
+    },
+    {
+        brandName:"Riot",
+        smallLogo:SmallLogo6,
+        avatar:avatar6,
+        courseTitle:"Took more money",
+        duration: 19,
+        isArticle: true,
+        summary: "How to broke your customer"
+    },
+]
+
+export const courseCardEducation: Array<ICourseCard> = [
+    {
+        brandName:"Meta",
+        smallLogo:SmallLogo1,
+        avatar: avatar1,
+        courseTitle:"Meta 101",
+        duration:30,
+        isEducationCourse:true,
+        summary:"How to get started with Facebook"
+    },
+    {
+        brandName:"Samsung",
+        smallLogo:SmallLogo2,
+        avatar: avatar2,
+        courseTitle:"Meditation 101",
+        duration:30,
+        isEducationCourse:true,
+        summary:"Become unpleasant with presence"
+    },
+    {
+        brandName:"Google",
+        smallLogo:SmallLogo3,
+        avatar: avatar3,
+        courseTitle:"Back to childhood",
+        duration:30,
+        isEducationCourse:true,
+        summary:"Getting a good life"
+    },
+    {
+        brandName:"Facebook",
+        smallLogo:SmallLogo4,
+        avatar: avatar4,
+        courseTitle:"Break time",
+        duration:30,
+        isEducationCourse:true,
+        summary:"Take free time to rest"
+    },
+    {
+        brandName:"Marvel",
+        smallLogo:SmallLogo5,
+        avatar: avatar5,
+        courseTitle:"Good artist",
+        duration:30,
+        isEducationCourse:true,
+        summary:"Become artist in 5 steps"
+    },
+    {
+        brandName:"Riot",
+        smallLogo:SmallLogo6,
+        avatar: avatar6,
+        courseTitle:"Getting rich",
+        duration:30,
+        isEducationCourse:true,
+        summary:"How to take money"
+    },
+]
+
+export const articleEducationList: Array<IArticleCard> = [
+    {
+        brandName:"Meta",
+        smallLogo:SmallLogo1,
+        avatar:avatar1,
+        courseTitle: "Unlocking Potential: How SMEs Can Maximize Growth and Efficiency",
+        duration:19,
+        isCourse:true
+    },
+    {
+        brandName:"Samsung",
+        smallLogo:SmallLogo2,
+        avatar:avatar2,
+        courseTitle: "Create best products",
+        duration:19,
+        isCourse:true
+    },
+    {
+        brandName:"Apple",
+        smallLogo:SmallLogo3,
+        avatar:avatar3,
+        courseTitle: "Inventing relativity",
+        duration:19,
+        isCourse:true
+    },
+    {
+        brandName:"Google",
+        smallLogo:SmallLogo4,
+        avatar:avatar4,
+        courseTitle: "Data structure and algorithm",
+        duration:19,
+        isCourse:true
+    },
+    {
+        brandName:"Youtube",
+        smallLogo:SmallLogo5,
+        avatar:avatar5,
+        courseTitle: "How to get 5 million",
+        duration:19,
+        isCourse:true
+    },
+    {
+        brandName:"Riot",
+        smallLogo:SmallLogo6,
+        avatar:avatar6,
+        courseTitle: "Becoming good artist",
+        duration:19,
+        isCourse:true
+    },
+]
+
+export const articleEducationContentList: Array<IArticleCard> = [
+    {
+        brandName:"Meta",
+        smallLogo:SmallLogo1,
+        avatar:avatar1,
+        courseTitle: "Unlocking Potential: How SMEs Can Maximize Growth and Efficiency",
+        duration:10
+    },
+    {
+        brandName:"Samsung",
+        smallLogo:SmallLogo2,
+        avatar:avatar2,
+        courseTitle: "Trying to beat the best",
+        duration:10
+    },
+    {
+        brandName:"Youtube",
+        smallLogo:SmallLogo3,
+        avatar:avatar3,
+        courseTitle: "Love the way you lie",
+        duration:10
+    },
+    {
+        brandName:"Google",
+        smallLogo:SmallLogo4,
+        avatar:avatar4,
+        courseTitle: "Another love",
+        duration:10
+    },
+    {
+        brandName:"Riot",
+        smallLogo:SmallLogo5,
+        avatar:avatar5,
+        courseTitle: "Secret wars",
+        duration:10
+    },
+    {
+        brandName:"Marvel",
+        smallLogo:SmallLogo6,
+        avatar:avatar6,
+        courseTitle: "Catain America winter soldier",
+        duration:10
     },
 ]

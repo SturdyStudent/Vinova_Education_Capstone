@@ -20,6 +20,12 @@ function Navigator() {
       case "/education":
         setValue("Education");
         break;
+      case "/group":
+        setValue("Community");
+        break;
+      case "/dashboard":
+        setValue("Dashboard");
+        break;
       default:
         break;
     }

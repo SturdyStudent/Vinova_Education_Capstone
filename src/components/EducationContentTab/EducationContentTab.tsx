@@ -1,15 +1,38 @@
-import React from "react";
-import { Box, Typography, styled, Tabs, Tab } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import CoursesCard from "../CourseCard/CourseCard";
-import avatar1 from "../../assets/img/avatar1.png";
-import avatar2 from "../../assets/img/avatar2.png";
-import SmallLogo1 from "../../assets/img/smallLogo1.jpg";
-import SmallLogo2 from "../../assets/img/smallLogo2.png";
 import ArticleCard from "../ArticleCard/ArticleCard";
-import EventImg from "../../assets/img/event_img.jpg";
+import {
+  articleEducationContentList,
+  courseCardEducationContent,
+} from "../../assets/js/default-props";
+import Slider, { Settings } from "react-slick";
 
 function EducationContentTab() {
   const categoryList = ["All", "Marketing", "Accounting", "Branding"];
+
+  const memberSettings: Settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 2,
+    draggable: true,
+    arrows: false,
+    className: "overflow-none",
+    responsive: [
+      {
+        breakpoint: 1000,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 560,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+    ],
+  };
 
   const CategoryButton = styled(Box)(({ theme }) => ({
     padding: "4px 12px",
@@ -59,26 +82,11 @@ function EducationContentTab() {
         Recommended Articles!
       </Typography>
       <Box height={"18px"} />
-      <div className="flex gap-2">
-        <CoursesCard
-          brandName="Meta"
-          smallLogo={SmallLogo1}
-          avatar={avatar1}
-          courseTitle="Engage with your customer"
-          duration={19}
-          isArticle={true}
-          summary="Strategies for success in a Challenging environment"
-        />
-        <CoursesCard
-          brandName="Meta"
-          smallLogo={SmallLogo2}
-          avatar={avatar2}
-          courseTitle="Engage with your customer"
-          duration={15}
-          isArticle={true}
-          summary="How SMEs can thrive in Today's Competitive Market"
-        />
-      </div>
+      <Slider {...memberSettings}>
+        {courseCardEducationContent.map((item) => (
+          <CoursesCard {...item} />
+        ))}
+      </Slider>
       <ArticleContainer>
         <Typography
           fontSize={"16px"}
@@ -88,34 +96,9 @@ function EducationContentTab() {
         >
           Latest Articles
         </Typography>
-        <ArticleCard
-          brandName="Meta"
-          smallLogo={SmallLogo1}
-          avatar={EventImg}
-          courseTitle="Unlocking Potential: How SMEs Can Maximize Growth and Efficiency"
-          duration={10}
-        />
-        <ArticleCard
-          brandName="Meta"
-          smallLogo={SmallLogo1}
-          avatar={EventImg}
-          courseTitle="2023 Small Business "
-          duration={10}
-        />
-        <ArticleCard
-          brandName="Meta"
-          smallLogo={SmallLogo1}
-          avatar={EventImg}
-          courseTitle="2023 Small Business "
-          duration={10}
-        />
-        <ArticleCard
-          brandName="Meta"
-          smallLogo={SmallLogo1}
-          avatar={EventImg}
-          courseTitle="2023 Small Business "
-          duration={10}
-        />
+        {articleEducationContentList.map((item) => (
+          <ArticleCard {...item} />
+        ))}
       </ArticleContainer>
     </div>
   );

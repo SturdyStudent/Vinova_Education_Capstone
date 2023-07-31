@@ -118,8 +118,9 @@ function HomePage() {
         <SizedBox />
         <ItemDisplay itemName="Get to know other members!" route="/member" />
         <Slider {...memberSettings}>
-          {cardMemberList.map((item) => (
+          {cardMemberList.map((item, index) => (
             <MemberCard
+              key={index}
               backgroundPanel={item.backgroundPanel}
               profilePic={item.profilePic}
               industry={item.industry}
@@ -132,8 +133,9 @@ function HomePage() {
         <ItemDisplay itemName="Join a community!" route="/group" />
         <div className="overflow-hidden">
           <Slider {...courseSettings}>
-            {communityCardList.map((item) => (
+            {communityCardList.map((item, index) => (
               <CommunityCard
+                key={index}
                 logo={item.logo}
                 communityName={item.communityName}
               />
@@ -141,11 +143,12 @@ function HomePage() {
           </Slider>
         </div>
         <SizedBox />
-        <ItemDisplay itemName="Courses for you" route="/#" />
+        <ItemDisplay itemName="Courses for you" route="/education" />
         <div className="overflow-hidden">
           <Slider {...courseSettings}>
-            {coursesCardList.map((item) => (
+            {coursesCardList.map((item, index) => (
               <CoursesCard
+                key={index}
                 brandName={item.brandName}
                 smallLogo={item.smallLogo}
                 avatar={item.avatar}
@@ -156,7 +159,7 @@ function HomePage() {
           </Slider>
         </div>
         <SizedBox />
-        <ItemDisplay itemName="Events" route="/#" />
+        <ItemDisplay itemName="Events" route="/event" />
         {EventCardList.map((item) => (
           <>
             <EventCard

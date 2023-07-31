@@ -1,10 +1,16 @@
 import React from "react";
 import { Box, Typography, styled, Button } from "@mui/material";
-import Group1 from "../../assets/img/group-1.png";
-import SmallLogo1 from "../../assets/img/smallLogo1.jpg";
+import { IEventItem } from "../../services/interface";
 
-function EventItem() {
-  const ItemContainer = styled(Box)(({ theme }) => ({
+function EventItem({
+  isGroup,
+  memberAmount,
+  eventDate,
+  organizationName,
+  avatar,
+  smallLogo,
+}: IEventItem) {
+  const ItemContainer = styled(Box)(() => ({
     padding: "0px !important",
     background: "white",
     height: "76px",
@@ -37,21 +43,24 @@ function EventItem() {
   return (
     <ItemContainer>
       <PictureContainer>
-        <img src={Group1} className="object-fill h-full w-full" />
+        <img src={avatar} className="object-fill h-full w-full" />
       </PictureContainer>
       <Box className={"flex flex-col gap-2 flex-1"}>
-        <Box className="flex items-center gap-2 mb-1" width={"100%"}>
-          <LogoContainer>
-            <img
-              src={SmallLogo1}
-              alt=""
-              className="object-fill w-full h-full"
-            />
-          </LogoContainer>
-          <Typography fontSize={"10px"} fontWeight={600} lineHeight={"16px"}>
-            BrownSense
-          </Typography>
-        </Box>
+        {isGroup ? null : (
+          <Box className="flex items-center gap-2 mb-1" width={"100%"}>
+            <LogoContainer>
+              <img
+                src={smallLogo}
+                alt=""
+                className="object-fill w-full h-full"
+              />
+            </LogoContainer>
+            <Typography fontSize={"10px"} fontWeight={600} lineHeight={"16px"}>
+              {organizationName}
+            </Typography>
+          </Box>
+        )}
+
         <Typography
           fontSize={"16px"}
           fontWeight={600}
@@ -66,18 +75,29 @@ function EventItem() {
             lineBreak: "anywhere",
           }}
         >
-          The Cosmetic Chef
+          {organizationName}
         </Typography>
-        {/* <Typography fontSize={"14px"} fontWeight={550} lineHeight={"20px"}>
-          1.6K members
-        </Typography> */}
-        <Typography fontSize={"12px"} fontWeight={400} lineHeight={"18px"}>
-          21 April 2023
+        {isGroup ? (
+          <Typography fontSize={"14px"} fontWeight={550} lineHeight={"20px"}>
+            {memberAmount}K members
+          </Typography>
+        ) : (
+          <Typography fontSize={"12px"} fontWeight={400} lineHeight={"18px"}>
+            {eventDate?.toLocaleDateString()}
+          </Typography>
+        )}
+        <Typography
+          zIndex={1}
+          fontSize={"12px"}
+          fontWeight={400}
+          lineHeight={"18px"}
+        >
+          {eventDate?.toLocaleDateString().split(" ").slice(0, -1).join(" ")}
         </Typography>
       </Box>
       <RegisterButton>
         <Typography fontSize={"14px"} fontWeight={600} lineHeight={"20px"}>
-          Follow
+          {isGroup ? "Follow" : "Register"}
         </Typography>
       </RegisterButton>
     </ItemContainer>

@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export function parseArray(data: any = "[]"): any[] {
   if (Array.isArray(data)) {
     return data;

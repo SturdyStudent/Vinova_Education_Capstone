@@ -28,7 +28,6 @@ import {
   NotificationIcon,
 } from "../../assets/icons";
 
-import ClockIcon from "../../assets/icons/clock.svg";
 import { useHeaderStyles } from "../Header/HeaderStyles";
 import ProfileImg from "../../assets/img/profile_img.png";
 interface IAppDrawer {
@@ -153,8 +152,8 @@ function AppDrawer({ openNavBar, setOpenNavbar }: IAppDrawer) {
       </DetailContainer>
       <List>
         {drawerItemList &&
-          drawerItemList.map((item) => (
-            <>
+          drawerItemList.map((item, index) => (
+            <div key={index}>
               <ListItem>
                 <span>
                   <ReactSVG src={item.icon} />
@@ -170,7 +169,7 @@ function AppDrawer({ openNavBar, setOpenNavbar }: IAppDrawer) {
                 </ListItemText>
               </ListItem>
               <Divider />
-            </>
+            </div>
           ))}
       </List>
     </AppDrawer>

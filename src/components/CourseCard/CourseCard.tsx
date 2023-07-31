@@ -141,7 +141,7 @@ function CoursesCard({
           <img src={ClockIcon} alt="" className="object-fill w-full h-full" />
         </Box>
         <Typography fontSize={"12px"} lineHeight={"18px"} color={"#808080"}>
-          {duration}
+          {duration} mins
         </Typography>
       </Box>
       {isEducationTab ? (

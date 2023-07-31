@@ -1,4 +1,10 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import { useLayoutEffect } from "react";
 import React from "react";
 import HomePage from "./pages/HomePage/HomePage";
 import MemberPage from "./pages/MemberPage/MemberPage";
@@ -7,20 +13,42 @@ import EducationPage from "./pages/EducationPage/EducationPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import EventPage from "./pages/EventPage/EventPage";
+import DashboardPage from "./pages/Dashboard/DashboardPage";
+
+const Wrapper = ({ children }: any): any => {
+  const location = useLocation();
+  useLayoutEffect(() => {
+    document.documentElement.scrollTo(0, 0);
+  }, [location.pathname]);
+  return children;
+};
 
 function AppRouter() {
   return (
     <React.Fragment>
       <Router>
-        <Routes>
-          <Route index element={<HomePage />} />
-          <Route path="/member" element={<MemberPage />} />
-          <Route path="/group" element={<GroupPage />} />
-          <Route path="/education" element={<EducationPage />} />
-          <Route path="/auth" element={<AuthPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<RegisterPage />} />
-        </Routes>
+        <Wrapper>
+          <Routes>
+            <Route index element={<HomePage />} key={"home"} />
+            <Route path="/member" element={<MemberPage />} key={"member"} />
+            <Route path="/group" element={<GroupPage />} key={"group"} />
+            <Route path="/event" element={<EventPage />} key={"event"} />
+            <Route
+              path="/dashboard"
+              element={<DashboardPage />}
+              key={"dashboard"}
+            />
+            <Route
+              path="/education"
+              element={<EducationPage />}
+              key={"education"}
+            />
+            <Route path="/auth" element={<AuthPage />} key={"auth"} />
+            <Route path="/login" element={<LoginPage />} key={"login"} />
+            <Route path="/signup" element={<RegisterPage />} key={"signup"} />
+          </Routes>
+        </Wrapper>
       </Router>
     </React.Fragment>
   );

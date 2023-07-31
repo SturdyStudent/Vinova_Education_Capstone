@@ -2,10 +2,9 @@ import React from "react";
 import { Box, Typography, styled } from "@mui/material";
 import BackHeader from "../../components/BackHeader/BackHeader";
 import EventItem from "../../components/EventItem/EventItem";
-import { groupItemList } from "../../assets/js/default-props";
-import Navigator from "../../components/Navigator/Navigator";
+import { eventItemList } from "../../assets/js/default-props";
 
-function GroupPage() {
+function EventPage() {
   const PageContainer = styled(Box)(({ theme }) => ({
     padding: "24px 16px !important",
     background: "white",
@@ -17,7 +16,7 @@ function GroupPage() {
 
   return (
     <div>
-      <BackHeader pageName="Groups" />
+      <BackHeader pageName="Event" />
       <PageContainer>
         <Typography
           fontSize={"16px"}
@@ -25,16 +24,14 @@ function GroupPage() {
           lineHeight={"24px"}
           color={"black"}
         >
-          Join a community!
+          Participate in our awesome events!
         </Typography>
-        {groupItemList.map((item) => (
+        {eventItemList.map((item) => (
           <EventItem {...item} />
         ))}
       </PageContainer>
-      <Box height={"50px"} />
-      <Navigator />
     </div>
   );
 }
 
-export default GroupPage;
+export default EventPage;

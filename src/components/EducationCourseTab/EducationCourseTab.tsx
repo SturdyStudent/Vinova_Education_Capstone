@@ -1,12 +1,11 @@
-import React from "react";
-import { Box, Typography, styled, Tabs, Tab } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import CoursesCard from "../CourseCard/CourseCard";
-import avatar1 from "../../assets/img/avatar1.png";
-import avatar2 from "../../assets/img/avatar2.png";
-import SmallLogo1 from "../../assets/img/smallLogo1.jpg";
-import SmallLogo2 from "../../assets/img/smallLogo2.png";
 import ArticleCard from "../ArticleCard/ArticleCard";
-import EventImg from "../../assets/img/event_img.jpg";
+import Slider, { Settings } from "react-slick";
+import {
+  articleEducationList,
+  courseCardEducation,
+} from "../../assets/js/default-props";
 
 function EducationCourseTab() {
   const categoryList = ["All", "Marketing", "Accounting", "Branding"];
@@ -32,7 +31,29 @@ function EducationCourseTab() {
     gap: "16px",
     margin: "24px 0",
   }));
-
+  const memberSettings: Settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 2,
+    draggable: true,
+    arrows: false,
+    className: "overflow-none",
+    responsive: [
+      {
+        breakpoint: 1000,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 560,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+    ],
+  };
   return (
     <div>
       <CategoryContainer>
@@ -59,26 +80,11 @@ function EducationCourseTab() {
         Recommended Courses!
       </Typography>
       <Box height={"18px"} />
-      <div className="flex gap-2">
-        <CoursesCard
-          brandName="Meta"
-          smallLogo={SmallLogo1}
-          avatar={avatar1}
-          courseTitle="Meta 101"
-          duration={30}
-          isEducationCourse={true}
-          summary="How to get started with Facebook"
-        />
-        <CoursesCard
-          brandName="Meta"
-          smallLogo={SmallLogo2}
-          avatar={avatar2}
-          courseTitle="Instagram 101"
-          duration={25}
-          isEducationCourse={true}
-          summary="How to get started with Instagram"
-        />
-      </div>
+      <Slider {...memberSettings}>
+        {courseCardEducation.map((item) => (
+          <CoursesCard {...item} />
+        ))}
+      </Slider>
       <ArticleContainer>
         <Typography
           fontSize={"16px"}
@@ -88,38 +94,9 @@ function EducationCourseTab() {
         >
           Latest Courses
         </Typography>
-        <ArticleCard
-          brandName="Meta"
-          smallLogo={SmallLogo1}
-          avatar={EventImg}
-          courseTitle="Unlocking Potential: How SMEs Can Maximize Growth and Efficiency"
-          duration={19}
-          isCourse={true}
-        />
-        <ArticleCard
-          brandName="Meta"
-          smallLogo={SmallLogo1}
-          avatar={EventImg}
-          courseTitle="2023 Small Business "
-          duration={30}
-          isCourse={true}
-        />
-        <ArticleCard
-          brandName="Meta"
-          smallLogo={SmallLogo1}
-          avatar={EventImg}
-          courseTitle="2023 Small Business "
-          duration={19}
-          isCourse={true}
-        />
-        <ArticleCard
-          brandName="Meta"
-          smallLogo={SmallLogo1}
-          avatar={EventImg}
-          courseTitle="2023 Small Business "
-          duration={20}
-          isCourse={true}
-        />
+        {articleEducationList.map((item) => (
+          <ArticleCard {...item} />
+        ))}
       </ArticleContainer>
     </div>
   );

@@ -9,25 +9,60 @@ import {
   Input,
   Box,
 } from "@mui/material";
+import { IRegisterForm } from "../../services/interface";
+import _ from "lodash";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { useState, MouseEventHandler } from "react";
+import { useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { parseArray } from "../../services/utils";
+import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
 
 type Inputs = {
-  example: string;
-  exampleRequired: string;
+  email: string;
+  password: string;
 };
+
+const schema = yup.object({
+  email: yup.string().email().required(),
+  password: yup
+    .string()
+    .matches(/^(?=.*d).{8,}$/)
+    .min(8)
+    .required(),
+});
 
 export default function LoginForm() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+  const [loginFail, setLoginFail] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const credentials: IRegisterForm[] = parseArray(
+      localStorage.getItem("USER_INFO")
+    );
+    const loginSuccess = credentials.some(
+      (item) => item.email == data.email && item.password == data.password
+    );
+    if (loginSuccess) {
+      navigate("/");
+    } else {
+      setLoginFail(true);
+      return;
+    }
+  };
   const [showPassword, setShowPassword] = useState(false);
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -37,7 +72,6 @@ export default function LoginForm() {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  console.log(watch("example")); // watch input value by passing the name of it
   const StyledTextField = styled(Input)(() => ({
     display: "flex",
     alignItems: "center",
@@ -64,10 +98,11 @@ export default function LoginForm() {
   }));
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <FormControl
-      onSubmit={void handleSubmit(onSubmit)}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
       className="w-full flex flex-col gap-3"
-      sx={{ gap: "6px" }}
+      noValidate
+      style={{ gap: "6px" }}
     >
       <FormLabel
         sx={{
@@ -82,8 +117,8 @@ export default function LoginForm() {
         Email
       </FormLabel>
       <StyledTextField
-        defaultValue="test"
-        {...register("example")}
+        placeholder="Type your email"
+        {...register("email")}
         type="email"
         inputProps={{
           style: {
@@ -96,9 +131,16 @@ export default function LoginForm() {
         fullWidth
       />
 
-      <Typography color={"#F5A3A3"} fontSize={"14px"} lineHeight={"20px"}>
-        Please enter a valid email address.
-      </Typography>
+      {errors.email && (
+        <Typography
+          zIndex={1}
+          color={"#F5A3A3"}
+          fontSize={"14px"}
+          lineHeight={"20px"}
+        >
+          Please enter a valid email address.
+        </Typography>
+      )}
       <FormLabel
         sx={{
           color: "white",
@@ -111,8 +153,7 @@ export default function LoginForm() {
         Password
       </FormLabel>
       <StyledTextField
-        defaultValue="test"
-        {...register("example")}
+        placeholder="Type your password"
         type="password"
         inputProps={{
           style: {
@@ -122,6 +163,7 @@ export default function LoginForm() {
             paddingRight: 14,
           },
         }}
+        {...register("password")}
         fullWidth
         endAdornment={
           <InputAdornment position="end">
@@ -135,17 +177,41 @@ export default function LoginForm() {
           </InputAdornment>
         }
       />
-
-      <div className="mt-6">
+      {errors.password ? (
+        <Typography
+          zIndex={1}
+          color={"#F5A3A3"}
+          fontSize={"14px"}
+          lineHeight={"20px"}
+        >
+          Password must contains at least 8 characters and 1 number
+        </Typography>
+      ) : (
+        ""
+      )}
+      {loginFail && (
+        <Typography
+          zIndex={1}
+          color={"#F5A3A3"}
+          fontSize={"14px"}
+          lineHeight={"20px"}
+        >
+          Incorrect username or password
+        </Typography>
+      )}
+      <div className="mt-6 z-10">
         <Typography color={"#fff"} fontSize={"12px"} lineHeight={"20px"}>
           Forgot your password?
         </Typography>
       </div>
-      <AuthButton sx={{ background: "#FDC600", marginTop: "46px" }}>
+      <AuthButton
+        type="submit"
+        sx={{ background: "#FDC600", marginTop: "46px" }}
+      >
         <Typography fontSize={"16px"} fontWeight={600} color={"black"}>
           Login
         </Typography>
       </AuthButton>
-    </FormControl>
+    </form>
   );
 }

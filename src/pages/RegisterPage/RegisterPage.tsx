@@ -121,7 +121,7 @@ function RegisterPage() {
         </Typography>
         <AuthButton
           sx={{ background: "#FDC600", marginTop: "100px" }}
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/login")}
         >
           <Typography fontSize={"16px"} fontWeight={600} color={"black"}>
             Continue
