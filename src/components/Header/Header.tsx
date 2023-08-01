@@ -5,9 +5,10 @@ import {
   Toolbar,
   Avatar,
   Typography,
+  styled,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import { useHeaderStyles } from "./HeaderStyles";
+
 import ProfileImg from "../../assets/img/profile_img.png";
 import SearchIcon from "../../assets/icons/search.svg";
 import MessageIcon from "../../assets/icons/Messenger.svg";
@@ -15,15 +16,23 @@ import JustifyAlignIcon from "../../assets/icons/alignJustify.svg";
 import LevelBadge from "../LevelBadge/LevelBadge";
 import AppDrawer from "../AppDrawer/AppDrawer";
 
+const StyledAppbar = styled(AppBar)(() => ({
+  position: "relative !important" as "relative",
+  padding: "28px 16px 10px 16px !important" as "padding",
+  top: 0,
+  left: 0,
+  right: 0,
+  color: "#808080",
+}));
+
 function Header() {
-  const classes = useHeaderStyles();
   const [openNavbar, setOpenNavbar] = useState<boolean>(false);
 
   useEffect(() => setOpenNavbar(openNavbar), [openNavbar]);
 
   return (
     <>
-      <AppBar className={classes.headerContaier}>
+      <StyledAppbar>
         <Toolbar sx={{ padding: "0 !important" }}>
           <IconButton
             sx={{ padding: "0 !important", marginRight: "10px" }}
@@ -57,7 +66,7 @@ function Header() {
         <Box height={"8px"} />
         <LevelBadge />
         <Box height={"8px"} />
-      </AppBar>
+      </StyledAppbar>
       <AppDrawer openNavBar={openNavbar} setOpenNavbar={setOpenNavbar} />
     </>
   );

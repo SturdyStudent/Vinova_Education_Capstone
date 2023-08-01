@@ -8,7 +8,6 @@ interface IWalletNav {
 }
 
 function WalletNav({ functionNavList }: IWalletNav) {
-  const theme = useTheme();
   const classes = useStyles();
 
   return (

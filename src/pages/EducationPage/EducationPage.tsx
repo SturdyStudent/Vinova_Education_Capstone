@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Box, Typography, styled, Tabs, Tab } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import BackHeader from "../../components/BackHeader/BackHeader";
-import EventItem from "../../components/EventItem/EventItem";
 import EducationContentTab from "../../components/EducationContentTab/EducationContentTab";
 import EducationCourseTab from "../../components/EducationCourseTab/EducationCourseTab";
 import Navigator from "../../components/Navigator/Navigator";
+import EducationTab from "./containers/EducationTab";
+import { tabList } from "../../assets/js/default-props";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -25,25 +26,18 @@ function EducationTabPanel({ children, index, value }: TabPanelProps) {
   );
 }
 
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
+const PageContainer = styled(Box)(() => ({
+  padding: "0px 16px !important",
+  background: "white",
+  minHeight: "calc(100vh - 112px)",
+  display: "flex",
+  flexDirection: "column",
+  gap: "16px",
+  marginBottom: "50px",
+}));
 
 function EducationPage() {
   const [value, setValue] = useState(0);
-
-  const PageContainer = styled(Box)(({ theme }) => ({
-    padding: "0px 16px !important",
-    background: "white",
-    minHeight: "calc(100vh - 112px)",
-    display: "flex",
-    flexDirection: "column",
-    gap: "16px",
-    marginBottom: "50px",
-  }));
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -53,22 +47,11 @@ function EducationPage() {
     <div>
       <BackHeader pageName="Education" />
       <PageContainer>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs value={value} onChange={handleChange}>
-            <Tab
-              label="Content"
-              {...a11yProps(0)}
-              className="w-1/2 normal-case"
-              sx={{ textTransform: "none !important" }}
-            />
-            <Tab
-              label="Courses"
-              {...a11yProps(1)}
-              className="w-1/2 text-center normal-case"
-              sx={{ textTransform: "none !important" }}
-            />
-          </Tabs>
-        </Box>
+        <EducationTab
+          tabList={tabList}
+          value={value}
+          handleChange={handleChange}
+        />
         <EducationTabPanel value={value} index={0}>
           <EducationContentTab />
         </EducationTabPanel>

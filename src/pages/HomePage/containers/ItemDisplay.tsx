@@ -8,7 +8,7 @@ interface IDisplayItem {
 }
 
 function ItemDisplay({ itemName, route }: IDisplayItem) {
-  const ItemsDisplay = styled(Box)(({ theme }) => ({
+  const ItemsDisplay = styled(Box)(() => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
@@ -25,7 +25,13 @@ function ItemDisplay({ itemName, route }: IDisplayItem) {
 
   return (
     <ItemsDisplay>
-      <Typography fontSize={"18px"} fontWeight={600} lineHeight={"28px"}>
+      <Typography
+        zIndex={1}
+        color={"black"}
+        fontSize={"18px"}
+        fontWeight={600}
+        lineHeight={"28px"}
+      >
         {itemName}
       </Typography>
       <ViewButton onClick={() => handleNavigate(route)}>

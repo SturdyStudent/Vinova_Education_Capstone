@@ -1,10 +1,17 @@
 import {
     HomeIcon,
-    BookIcon,
-    DashboardIcon,
     UserIcon,
+    DashboardIcon,
+    CalendarIcon,
+    SingleUserIcon,
+    LogoutIcon,
+    HelpIcon,
+    SettingIcon,
+    BookIcon,
+    BookmarkIcon,
+    NotificationIcon,
   } from "../icons/index";
-import { IArticleCard, ICommunityCard, ICourseCard, IEventCard, IEventItem, IMemberCard } from "../../services/interface";
+import { IArticleCard, ICommunityCard, ICourseCard, IEventCard, IEventItem, IMemberCard, ITransactionInfo } from "../../services/interface";
 
 import SmallLogo1 from "../img/smallLogo1.jpg";
 import SmallLogo2 from "../img/smallLogo2.png";
@@ -69,6 +76,21 @@ export const navLinks = [
         url: '/education'
     }
 ]
+
+export const tabList = [
+    {
+      label: "Dashboard",
+      propsIndex: 0,
+    },
+    {
+      label: "Transaction",
+      propsIndex: 1,
+    },
+    {
+      label: "Send Funds",
+      propsIndex: 2,
+    },
+  ];
 
 export const coursesCardList: Array<ICourseCard> = [
     {
@@ -495,7 +517,7 @@ export const courseCardEducationContent : Array<ICourseCard> = [
         courseTitle:"Engage with your customer",
         duration: 19,
         isArticle: true,
-        summary: "Strategies for success in a Challenging environment"
+        summary: "Strategies for success in a Challenging environment",
     },
     {
         brandName:"Google",
@@ -552,7 +574,8 @@ export const courseCardEducation: Array<ICourseCard> = [
         courseTitle:"Meta 101",
         duration:30,
         isEducationCourse:true,
-        summary:"How to get started with Facebook"
+        summary:"How to get started with Facebook",
+        industry: 'Digital Marketing'
     },
     {
         brandName:"Samsung",
@@ -561,7 +584,8 @@ export const courseCardEducation: Array<ICourseCard> = [
         courseTitle:"Meditation 101",
         duration:30,
         isEducationCourse:true,
-        summary:"Become unpleasant with presence"
+        summary:"Become unpleasant with presence",
+        industry: 'Home Decor'
     },
     {
         brandName:"Google",
@@ -570,7 +594,8 @@ export const courseCardEducation: Array<ICourseCard> = [
         courseTitle:"Back to childhood",
         duration:30,
         isEducationCourse:true,
-        summary:"Getting a good life"
+        summary:"Getting a good life",
+        industry: 'Software Engineer'
     },
     {
         brandName:"Facebook",
@@ -579,7 +604,8 @@ export const courseCardEducation: Array<ICourseCard> = [
         courseTitle:"Break time",
         duration:30,
         isEducationCourse:true,
-        summary:"Take free time to rest"
+        summary:"Take free time to rest",
+        industry: 'Water Supplier'
     },
     {
         brandName:"Marvel",
@@ -588,7 +614,8 @@ export const courseCardEducation: Array<ICourseCard> = [
         courseTitle:"Good artist",
         duration:30,
         isEducationCourse:true,
-        summary:"Become artist in 5 steps"
+        summary:"Become artist in 5 steps",
+        industry: 'Travel Blogger'
     },
     {
         brandName:"Riot",
@@ -597,7 +624,8 @@ export const courseCardEducation: Array<ICourseCard> = [
         courseTitle:"Getting rich",
         duration:30,
         isEducationCourse:true,
-        summary:"How to take money"
+        summary:"How to take money",
+        industry: 'Digital Marketing'
     },
 ]
 
@@ -608,7 +636,8 @@ export const articleEducationList: Array<IArticleCard> = [
         avatar:avatar1,
         courseTitle: "Unlocking Potential: How SMEs Can Maximize Growth and Efficiency",
         duration:19,
-        isCourse:true
+        isCourse:true,
+        industry: 'Clown Making'
     },
     {
         brandName:"Samsung",
@@ -616,7 +645,8 @@ export const articleEducationList: Array<IArticleCard> = [
         avatar:avatar2,
         courseTitle: "Create best products",
         duration:19,
-        isCourse:true
+        isCourse:true,
+        industry: 'Food Deliver'
     },
     {
         brandName:"Apple",
@@ -624,7 +654,8 @@ export const articleEducationList: Array<IArticleCard> = [
         avatar:avatar3,
         courseTitle: "Inventing relativity",
         duration:19,
-        isCourse:true
+        isCourse:true,
+        industry: 'Logistics'
     },
     {
         brandName:"Google",
@@ -632,7 +663,8 @@ export const articleEducationList: Array<IArticleCard> = [
         avatar:avatar4,
         courseTitle: "Data structure and algorithm",
         duration:19,
-        isCourse:true
+        isCourse:true,
+        industry: 'Telestrial Investigae'
     },
     {
         brandName:"Youtube",
@@ -640,15 +672,17 @@ export const articleEducationList: Array<IArticleCard> = [
         avatar:avatar5,
         courseTitle: "How to get 5 million",
         duration:19,
-        isCourse:true
+        isCourse:true,
+        industry: 'IT'
     },
     {
-        brandName:"Riot",
+        brandName: "Riot",
         smallLogo:SmallLogo6,
         avatar:avatar6,
         courseTitle: "Becoming good artist",
         duration:19,
-        isCourse:true
+        isCourse:true,
+        industry: 'Teaching'
     },
 ]
 
@@ -696,3 +730,135 @@ export const articleEducationContentList: Array<IArticleCard> = [
         duration:10
     },
 ]
+
+export const drawerItemList = [
+    {
+      icon: SingleUserIcon,
+      label: "My Profile",
+    },
+    {
+      icon: DashboardIcon,
+      label: "Dashboard",
+    },
+    {
+      icon: NotificationIcon,
+      label: "Notifications",
+    },
+    {
+      icon: CalendarIcon,
+      label: "My Events",
+    },
+    {
+      icon: BookmarkIcon,
+      label: "My Bookmarks",
+    },
+    {
+      icon: UserIcon,
+      label: "My Groups",
+    },
+    {
+      icon: SettingIcon,
+      label: "Account Settings",
+    },
+    {
+      icon: HelpIcon,
+      label: "Help & Support",
+    },
+    {
+      icon: BookIcon,
+      label: "Community Guidelines",
+    },
+    {
+      icon: LogoutIcon,
+      label: "Log out",
+    },
+  ];
+
+  export const transactionList: Array<ITransactionInfo> = [
+    {
+      orderDate: "2021-07-13",
+      action: "Send",
+      amount: 343,
+      currency: "EUR",
+      orderStatus: "Success",
+    },
+    {
+      orderDate: "2021-07-13",
+      action: "Receive",
+      amount: 533,
+      currency: "EUR",
+      remarks: "Pay back from Louis",
+      orderStatus: "Success",
+    },
+    {
+      orderDate: "2021-07-13",
+      action: "Send",
+      amount: 654,
+      currency: "EUR",
+      orderStatus: "Failed",
+    },
+    {
+      orderDate: "2021-07-13",
+      action: "Send",
+      amount: 164,
+      currency: "EUR",
+      orderStatus: "Success",
+    },
+    {
+      orderDate: "2021-07-13",
+      action: "Send",
+      amount: 873,
+      currency: "EUR",
+      orderStatus: "Success",
+    },
+    {
+      orderDate: "2021-07-13",
+      action: "Send",
+      amount: 542,
+      currency: "EUR",
+      remarks: "Pay back from Louis",
+      orderStatus: "Success",
+    },
+    {
+      orderDate: "2021-07-13",
+      action: "Send",
+      amount: 653,
+      currency: "EUR",
+      orderStatus: "Success",
+    },
+    {
+      orderDate: "2021-07-13",
+      action: "Send",
+      amount: 243,
+      currency: "EUR",
+      orderStatus: "Success",
+    },
+    {
+      orderDate: "2021-07-13",
+      action: "Send",
+      amount: 735,
+      currency: "EUR",
+      orderStatus: "Failed",
+    },
+    {
+      orderDate: "2021-07-13",
+      action: "Receive",
+      amount: 345,
+      currency: "EUR",
+      orderStatus: "Success",
+    },
+    {
+      orderDate: "2021-07-13",
+      action: "Send",
+      amount: 635,
+      currency: "EUR",
+      orderStatus: "Success",
+    },
+    {
+      orderDate: "2021-07-13",
+      action: "Send",
+      amount: 241,
+      currency: "EUR",
+      orderStatus: "Success",
+    },
+  ];

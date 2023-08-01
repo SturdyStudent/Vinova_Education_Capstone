@@ -1,14 +1,5 @@
-import React from "react";
-import {
-  Container,
-  Box,
-  Typography,
-  Button,
-  styled,
-  Avatar,
-} from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 
-import UserAvatar1 from "../../assets/img/member-1.jpg";
 import { ICommunityCard } from "../../services/interface";
 
 function CommunityCard({ logo, communityName }: ICommunityCard) {

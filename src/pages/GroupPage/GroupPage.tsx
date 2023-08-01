@@ -5,16 +5,16 @@ import EventItem from "../../components/EventItem/EventItem";
 import { groupItemList } from "../../assets/js/default-props";
 import Navigator from "../../components/Navigator/Navigator";
 
-function GroupPage() {
-  const PageContainer = styled(Box)(({ theme }) => ({
-    padding: "24px 16px !important",
-    background: "white",
-    minHeight: "calc(100vh - 112px)",
-    display: "flex",
-    flexDirection: "column",
-    gap: "16px",
-  }));
+const PageContainer = styled(Box)(({ theme }) => ({
+  padding: "24px 16px !important",
+  background: "white",
+  minHeight: "calc(100vh - 112px)",
+  display: "flex",
+  flexDirection: "column",
+  gap: "16px",
+}));
 
+function GroupPage() {
   return (
     <div>
       <BackHeader pageName="Groups" />

@@ -1,5 +1,3 @@
-import React from "react";
-import Header from "../Header/Header";
 import { Box } from "@mui/material";
 import { useDashboardStyles as useStyles } from "./container/styles";
 import WelcomePanel from "./container/WelcomePanel";

@@ -7,7 +7,7 @@ import "../../assets/css/commonStyles.css";
 import { Box, Container, Typography, styled, Button } from "@mui/material";
 import TrybeLogo from "../../components/TrybeLogo/TrybeLogo";
 import FooterLogo from "../../assets/img/FooterLogo.png";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface IStyledButton {
   isSignup: boolean;
@@ -15,56 +15,57 @@ interface IStyledButton {
   route: string;
 }
 
-function AuthPage() {
-  const PageContainer = styled(Container)(() => ({
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    minHeight: "100vh",
-    padding: "16px",
-    backgroundImage:
-      "linear-gradient(to bottom, #00000028 5%, #000000e6),url(./public/phoneWallpaper.png)",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "top center",
-    backgroundSize: "cover",
-    justifyContent: "center",
-  }));
-  const LogoContainer = styled(Container)(() => ({
-    width: "131px",
-    height: "120px",
-    textAlign: "center",
-    padding: "0 !important",
-  }));
-  const ButtonContainer = styled(Box)(() => ({
-    position: "relative",
-    display: "flex",
-    flexDirection: "column",
-    gap: "16px",
-    marginTop: "20px",
-    width: "100%",
-    maxWidth: "350px",
-  }));
-  const AuthButton = styled(Button)(() => ({
-    textTransform: "none",
-    display: "flex",
-    padding: "10px 18px",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    flex: "1 0 0",
-    borderRadius: "8px",
-    border: "1px solid #FDC600",
+const PageContainer = styled(Container)(() => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  minHeight: "100vh",
+  padding: "16px",
+  backgroundImage:
+    "linear-gradient(to bottom, #00000028 5%, #000000e6),url(./public/phoneWallpaper.png)",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "top center",
+  backgroundSize: "cover",
+  justifyContent: "center",
+}));
 
-    boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
-  }));
-  const FooterLogoContainer = styled(Box)(() => ({
-    width: "190px",
-    height: "40px",
-    position: "absolute",
-    bottom: "31px",
-  }));
+const ButtonContainer = styled(Box)(() => ({
+  position: "relative",
+  display: "flex",
+  flexDirection: "column",
+  gap: "16px",
+  marginTop: "20px",
+  width: "100%",
+  maxWidth: "350px",
+}));
+const AuthButton = styled(Button)(() => ({
+  textTransform: "none",
+  display: "flex",
+  padding: "10px 18px",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "100%",
+  flex: "1 0 0",
+  borderRadius: "8px",
+  border: "1px solid #FDC600",
 
-  const StyledAuthButton = ({ isSignup, value, route }: IStyledButton) => (
+  boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
+}));
+const FooterLogoContainer = styled(Box)(() => ({
+  width: "190px",
+  height: "40px",
+  position: "absolute",
+  bottom: "31px",
+}));
+
+const StyledAuthButton = ({ isSignup, value, route }: IStyledButton) => {
+  const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const handleNavigate = (route: string) => {
+    navigate(route);
+  };
+
+  return (
     <AuthButton
       sx={{ background: isSignup ? "white" : "#FDC600" }}
       onClick={() => handleNavigate(route)}
@@ -78,12 +79,9 @@ function AuthPage() {
       </Typography>
     </AuthButton>
   );
-  const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const handleNavigate = (route: string) => {
-    navigate(route);
-  };
+};
 
+function AuthPage() {
   return (
     <>
       <PageContainer>

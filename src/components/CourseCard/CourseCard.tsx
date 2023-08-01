@@ -1,15 +1,9 @@
-import React from "react";
-import {
-  Container,
-  Box,
-  Typography,
-  Button,
-  styled,
-  Avatar,
-} from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 
 import ClockIcon from "../../assets/icons/clock.svg";
 import { ICourseCard } from "../../services/interface";
+import YellowButton from "../YellowStyledButton/YellowButton";
+import TitleText from "../TitleText/TitleText";
 
 function CoursesCard({
   avatar,
@@ -20,6 +14,7 @@ function CoursesCard({
   isArticle,
   isEducationCourse,
   summary,
+  industry,
 }: ICourseCard) {
   const isEducationTab = isArticle || isEducationCourse;
   const CoursesCardContainer = styled(Box)(({ theme }) => ({
@@ -47,13 +42,6 @@ function CoursesCard({
     borderRadius: "50%",
     overflow: "hidden",
   }));
-  const ActionButton = styled(Button)(() => ({
-    height: "36px",
-    borderRadius: "8px",
-    width: "100%",
-    background: "#FDC600",
-    padding: "8px 4px",
-  }));
 
   return (
     <CoursesCardContainer>
@@ -67,46 +55,21 @@ function CoursesCard({
         <LogoContainer>
           <img src={smallLogo} alt="" className="object-fill w-full h-full" />
         </LogoContainer>
-        <Typography fontSize={"10px"} fontWeight={600} lineHeight={"16px"}>
+        <Typography
+          color={"black"}
+          fontSize={"10px"}
+          fontWeight={600}
+          lineHeight={"16px"}
+        >
           {brandName}
         </Typography>
       </Box>
       {isEducationCourse ? (
-        <Typography
-          fontSize={"14px"}
-          fontWeight={600}
-          color={"#1A1A1A"}
-          lineHeight={"20px"}
-          textOverflow={"ellipsis"}
-          display={"-webkit-box"}
-          textAlign={"left"}
-          sx={{
-            WebkitLineClamp: "2",
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-            lineBreak: "anywhere",
-          }}
-        >
+        <TitleText>
           {courseTitle} - {<span style={{ fontWeight: "400" }}>{summary}</span>}
-        </Typography>
+        </TitleText>
       ) : (
-        <Typography
-          fontSize={"14px"}
-          fontWeight={600}
-          color={"#1A1A1A"}
-          lineHeight={"20px"}
-          textOverflow={"ellipsis"}
-          display={"-webkit-box"}
-          textAlign={"left"}
-          sx={{
-            WebkitLineClamp: "2",
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-            lineBreak: "anywhere",
-          }}
-        >
-          {courseTitle}{" "}
-        </Typography>
+        <TitleText>{courseTitle}</TitleText>
       )}
 
       <Typography
@@ -123,22 +86,24 @@ function CoursesCard({
         {summary}
       </Typography>
       {isEducationCourse ? (
-        <Typography
-          color={"#CCA000"}
-          fontSize={"12px"}
-          fontWeight={600}
-          textAlign={"left"}
-          width={"100%"}
-          lineHeight={"18px"}
-        >
-          Digital Marketing
-        </Typography>
+        <>
+          <Typography
+            color={"#CCA000"}
+            fontSize={"12px"}
+            fontWeight={600}
+            textAlign={"left"}
+            width={"100%"}
+            lineHeight={"18px"}
+          >
+            {industry}
+          </Typography>
+        </>
       ) : (
         ""
       )}
       <Box className="flex gap-2 items-center" width={"100%"}>
         <Box width={"14px"} height={"14px"}>
-          <img src={ClockIcon} alt="" className="object-fill w-full h-full" />
+          <img src={ClockIcon} alt="" className="object-cover w-full h-full" />
         </Box>
         <Typography fontSize={"12px"} lineHeight={"18px"} color={"#808080"}>
           {duration} mins
@@ -147,16 +112,9 @@ function CoursesCard({
       {isEducationTab ? (
         ""
       ) : (
-        <ActionButton>
-          <Typography
-            fontSize={"13px"}
-            fontWeight={600}
-            lineHeight={"20px"}
-            textTransform={"none"}
-          >
-            Take course
-          </Typography>
-        </ActionButton>
+        <YellowButton fontSize="13px" padding="8px 7px">
+          Take course
+        </YellowButton>
       )}
     </CoursesCardContainer>
   );

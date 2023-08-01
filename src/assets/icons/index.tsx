@@ -14,6 +14,8 @@ import LogoutIcon from "./logOut.svg";
 import SingleUserIcon from "./singleUser.svg";
 import GraySearch from "./graySearch.svg";
 import GrayMessenger from "./grayMessenger.svg";
+import CheckIcon from "./check.svg";
+import FlowerIcon from "./blueFlower.svg";
 
 export {
   AlignJustify,
@@ -32,4 +34,6 @@ export {
   GraySearch,
   GrayMessenger,
   HomeIcon,
+  CheckIcon,
+  FlowerIcon,
 };

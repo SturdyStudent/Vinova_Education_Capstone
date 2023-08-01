@@ -1,6 +1,35 @@
-import React from "react";
 import { Box, Typography, styled, Button } from "@mui/material";
 import { IEventItem } from "../../services/interface";
+
+const ItemContainer = styled(Box)(() => ({
+  padding: "0px !important",
+  background: "white",
+  height: "76px",
+  color: "black",
+  display: "flex",
+  gap: "8px",
+  alignItems: "center",
+}));
+const LogoContainer = styled(Box)(() => ({
+  width: "16px",
+  height: "16px",
+  border: "1.5px solid #e6e6e6",
+  borderRadius: "50%",
+  overflow: "hidden",
+}));
+const RegisterButton = styled(Button)(() => ({
+  background: "#FDC600",
+  height: "32px",
+  width: "88px",
+  borderRadius: "8px",
+  textTransform: "none",
+}));
+const PictureContainer = styled(Box)(() => ({
+  width: "76px",
+  height: "76px",
+  borderRadius: "20px",
+  overflow: "hidden",
+}));
 
 function EventItem({
   isGroup,
@@ -10,36 +39,6 @@ function EventItem({
   avatar,
   smallLogo,
 }: IEventItem) {
-  const ItemContainer = styled(Box)(() => ({
-    padding: "0px !important",
-    background: "white",
-    height: "76px",
-    color: "black",
-    display: "flex",
-    gap: "8px",
-    alignItems: "center",
-  }));
-  const LogoContainer = styled(Box)(() => ({
-    width: "16px",
-    height: "16px",
-    border: "1.5px solid #e6e6e6",
-    borderRadius: "50%",
-    overflow: "hidden",
-  }));
-  const RegisterButton = styled(Button)(() => ({
-    background: "#FDC600",
-    height: "32px",
-    width: "88px",
-    borderRadius: "8px",
-    textTransform: "none",
-  }));
-  const PictureContainer = styled(Box)(() => ({
-    width: "76px",
-    height: "76px",
-    borderRadius: "20px",
-    overflow: "hidden",
-  }));
-
   return (
     <ItemContainer>
       <PictureContainer>

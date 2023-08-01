@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
   FormLabel,
   TextField,
@@ -14,7 +14,8 @@ import { useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DevTool } from "@hookform/devtools";
-import { parseArray, parseObject } from "../../services/utils";
+import { parseArray } from "../../services/utils";
+import { USER_INFO } from "../../assets/js/constants";
 
 type Inputs = {
   firstName: string;
@@ -44,6 +45,31 @@ interface IRegisterForm {
   openSuccesModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+const StyledTextField = styled(TextField)(() => ({
+  display: "flex",
+  alignItems: "center",
+  width: "100%",
+  gap: "8px",
+  alignSelf: "stretch",
+  background: "white",
+  borderRadius: "8px",
+  border: "1px solid #EB4747",
+  boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
+}));
+const AuthButton = styled(Button)(() => ({
+  textTransform: "none",
+  display: "flex",
+  padding: "10px 18px",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "100%",
+  flex: "1 0 0",
+  borderRadius: "8px",
+  border: "1px solid #FDC600",
+  fontSize: "16px",
+  boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
+}));
+
 export default function RegisterForm({ openSuccesModal }: IRegisterForm) {
   const [isEmailDuplicate, setIsEmailDuplicate] = useState<boolean>(false);
 
@@ -66,41 +92,16 @@ export default function RegisterForm({ openSuccesModal }: IRegisterForm) {
   });
 
   const onSubmit = (data: Inputs) => {
-    const oldAccount: Inputs[] = parseArray(localStorage.getItem("USER_INFO"));
+    const oldAccount: Inputs[] = parseArray(localStorage.getItem(USER_INFO));
     if (oldAccount.some((item) => item.email == data.email)) {
       setIsEmailDuplicate(true);
       return;
     }
     setIsEmailDuplicate(false);
     const newAccounts = uniqBy(oldAccount.concat(data), "email");
-    localStorage.setItem("USER_INFO", JSON.stringify(newAccounts));
+    localStorage.setItem(USER_INFO, JSON.stringify(newAccounts));
     openSuccesModal(true);
   };
-
-  const StyledTextField = styled(TextField)(() => ({
-    display: "flex",
-    alignItems: "center",
-    width: "100%",
-    gap: "8px",
-    alignSelf: "stretch",
-    background: "white",
-    borderRadius: "8px",
-    border: "1px solid #EB4747",
-    boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
-  }));
-  const AuthButton = styled(Button)(() => ({
-    textTransform: "none",
-    display: "flex",
-    padding: "10px 18px",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    flex: "1 0 0",
-    borderRadius: "8px",
-    border: "1px solid #FDC600",
-    fontSize: "16px",
-    boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
-  }));
 
   return (
     <>

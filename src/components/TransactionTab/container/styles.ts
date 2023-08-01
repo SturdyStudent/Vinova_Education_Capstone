@@ -65,9 +65,9 @@ export const useTransactionStyle = makeStyles( ( theme : Theme ) => ( {
     walletNav: {
         marginTop: '29px',
         display: 'flex',
+        padding: '0 25px',
         flexDirection: 'column',
         justifyContent: 'center',
-        padding: 0
     },
     navButton: {
         color: theme.palette.secondary.main,

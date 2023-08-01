@@ -4,6 +4,7 @@ export interface ICourseCard {
   avatar: string;
   courseTitle: string;
   duration: number;
+  industry?: string;
   isArticle?: boolean;
   summary?: string;
   isEducationCourse?: boolean;
@@ -55,7 +56,13 @@ export interface IArticleCard {
   courseTitle?: string;
   duration?: number;
   isCourse?: boolean;
+  industry?: string;
 }
+export interface ITabHandler {
+  label: string;
+  propsIndex: number;
+}
+
 type transacAction = "Send" | "Receive";
 type currency = "EUR" | "USD";
 type orderStatus = "Success" | "Failed";
@@ -66,4 +73,9 @@ export interface ITransactionInfo {
   currency: currency;
   remarks?: string;
   orderStatus: orderStatus;
+}
+
+export interface IDrawerItem {
+  label: string;
+  icon: string;
 }

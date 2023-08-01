@@ -63,3 +63,16 @@ input[type='checkbox']:checked:after {
   background: #FEF0C7;
   box-sizing: border-box;
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+
+.page::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for Internet Explorer, Edge and Firefox */
+
+.page {
+    -ms-overflow-style: none;  /* Internet Explorer and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

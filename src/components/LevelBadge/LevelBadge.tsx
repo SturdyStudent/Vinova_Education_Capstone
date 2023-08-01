@@ -1,28 +1,36 @@
-import React from "react";
-import { Button, Container, Box, Typography } from "@mui/material";
+import { Typography, styled, Button, Stack } from "@mui/material";
 import BadgeIcon from "../../assets/img/gold_badge.png";
+
+const UpdateButton = styled(Button)(() => ({
+  background: "white",
+  border: "1px solid #CCA000",
+  padding: "8px 14px",
+  borderRadius: "8px",
+  textTransform: "none",
+}));
 
 function LevelBadge() {
   return (
-    <Box
-      className="py-2 px-3 rounded-lg flex flex-row justify-between items-center"
-      sx={{ background: "rgba(255, 255, 255, 0.50)" }}
+    <Stack
+      bgcolor={"rgba(255, 255, 255, 0.50)"}
+      padding={"8px 12px"}
+      borderRadius={"8px"}
+      flexDirection={"row"}
+      justifyContent={"space-between"}
+      alignItems={"center"}
     >
-      <Box className="flex flex-1 items-center">
+      <Stack flexDirection={"row"} flex={"1 1 0%"} alignItems={"center"}>
         <img src={BadgeIcon} width={"28px"} height={"28px"} />
-        <Typography className="pl-4" color={"white"} fontSize={"16px"}>
+        <Typography paddingLeft={"16px"} color={"white"} fontSize={"16px"}>
           Basic Level
         </Typography>
-      </Box>
-      <button
-        className="bg-white border py-2 px-3 rounded-lg"
-        style={{ borderColor: "#CCA000" }}
-      >
+      </Stack>
+      <UpdateButton>
         <Typography color={"#CCA000"} fontWeight={600}>
           Update
         </Typography>
-      </button>
-    </Box>
+      </UpdateButton>
+    </Stack>
   );
 }
 

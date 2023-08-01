@@ -10,21 +10,20 @@ import MemberCard from "../../components/MemberCard/MemberCard";
 import BackHeader from "../../components/BackHeader/BackHeader";
 import { cardMemberList } from "../../assets/js/default-props";
 
+const PageContainer = styled(Container)(() => ({
+  padding: "24px 16px !important",
+  background: "white",
+}));
+
+const MemberCardHolder = styled(Box)(({ theme }) => ({
+  display: "grid",
+  gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+  gap: "16px",
+  [theme.breakpoints.up("md")]: {
+    gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+  },
+}));
 function MemberPage() {
-  const PageContainer = styled(Container)(() => ({
-    padding: "24px 16px !important",
-    background: "white",
-  }));
-
-  const MemberCardHolder = styled(Box)(({ theme }) => ({
-    display: "grid",
-    gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
-    gap: "16px",
-    [theme.breakpoints.up("md")]: {
-      gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-    },
-  }));
-
   return (
     <>
       <BackHeader pageName="Members" />

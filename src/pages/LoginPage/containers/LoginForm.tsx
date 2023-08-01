@@ -1,15 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  FormControl,
-  FormLabel,
-  TextField,
-  Typography,
-  styled,
-  Button,
-  Input,
-  Box,
-} from "@mui/material";
-import { IRegisterForm } from "../../services/interface";
+import { FormLabel, Typography, styled, Button, Input } from "@mui/material";
+import { IRegisterForm } from "../../../services/interface";
 import _ from "lodash";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
@@ -17,8 +8,9 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { parseArray } from "../../services/utils";
-import { useNavigate } from "react-router-dom";
+import { parseArray } from "../../../services/utils";
+import { useNavigate, Link } from "react-router-dom";
+import { USER_INFO } from "../../../assets/js/constants";
 import * as yup from "yup";
 
 type Inputs = {
@@ -34,6 +26,31 @@ const schema = yup.object({
     .min(8)
     .required(),
 });
+
+const StyledTextField = styled(Input)(() => ({
+  display: "flex",
+  alignItems: "center",
+  width: "100%",
+  gap: "8px",
+  alignSelf: "stretch",
+  background: "white",
+  borderRadius: "8px",
+  border: "1px solid #EB4747",
+  boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
+}));
+const AuthButton = styled(Button)(() => ({
+  textTransform: "none",
+  display: "flex",
+  padding: "10px 18px",
+  justifyContent: "center",
+  alignItems: "center",
+  width: "100%",
+  flex: "1 0 0",
+  borderRadius: "8px",
+  border: "1px solid #FDC600",
+  fontSize: "16px",
+  boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
+}));
 
 export default function LoginForm() {
   const {
@@ -51,7 +68,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     const credentials: IRegisterForm[] = parseArray(
-      localStorage.getItem("USER_INFO")
+      localStorage.getItem(USER_INFO)
     );
     const loginSuccess = credentials.some(
       (item) => item.email == data.email && item.password == data.password
@@ -72,30 +89,6 @@ export default function LoginForm() {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const StyledTextField = styled(Input)(() => ({
-    display: "flex",
-    alignItems: "center",
-    width: "100%",
-    gap: "8px",
-    alignSelf: "stretch",
-    background: "white",
-    borderRadius: "8px",
-    border: "1px solid #EB4747",
-    boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
-  }));
-  const AuthButton = styled(Button)(() => ({
-    textTransform: "none",
-    display: "flex",
-    padding: "10px 18px",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    flex: "1 0 0",
-    borderRadius: "8px",
-    border: "1px solid #FDC600",
-    fontSize: "16px",
-    boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
-  }));
   return (
     /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
     <form
@@ -212,6 +205,26 @@ export default function LoginForm() {
           Login
         </Typography>
       </AuthButton>
+      <Typography
+        marginTop={"32px"}
+        marginBottom={"30px"}
+        fontSize={"12px"}
+        lineHeight={"18px"}
+        textAlign={"center"}
+      >
+        Don't have an account?
+      </Typography>
+      <Link to={"/signup"}>
+        <Typography
+          textAlign={"center"}
+          fontSize={"14px"}
+          color={"#CCA000"}
+          fontWeight={600}
+          lineHeight={"20px"}
+        >
+          Sign up now
+        </Typography>
+      </Link>
     </form>
   );
 }

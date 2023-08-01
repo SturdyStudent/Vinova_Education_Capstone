@@ -35,11 +35,10 @@ export const useDashboardStyles = makeStyles( ( theme : Theme )  => ({
         textAlign: 'center'
     },
     gridContainer: {
-            boxSizing: 'border-box',
-            flexDirection: 'row',
-            width: 'auto',
-            display: 'block',
-            gap: '0px'
+        boxSizing: 'border-box',
+        flexDirection: 'row',
+        width: '100%',
+        gap: '0px',
     },
     walletTitle: {
         fontSize: '25px',

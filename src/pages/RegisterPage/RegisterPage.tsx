@@ -14,11 +14,11 @@ import {
 } from "@mui/material";
 import Logo from "../../assets/img/Logo.png";
 import TrybeLogo from "../../components/TrybeLogo/TrybeLogo";
-import SuccessIcon from "../../assets/img/successIcon.png";
-import FooterLogo from "../../assets/img/FooterLogo.png";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import YellowButton from "../../components/YellowStyledButton/YellowButton";
+import SuccessModal from "./containers/SuccessModal";
 
 function RegisterPage() {
   const [openNavbar, setOpenNavbar] = useState<boolean>(false);
@@ -52,19 +52,6 @@ function RegisterPage() {
     flexDirection: "column",
     padding: "15px !important",
   }));
-  const AuthButton = styled(Button)(() => ({
-    textTransform: "none",
-    display: "flex",
-    padding: "10px 18px",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    flex: "1 0 0",
-    borderRadius: "8px",
-    border: "1px solid #FDC600",
-    fontSize: "16px",
-    boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
-  }));
   const navigate = useNavigate();
 
   return (
@@ -75,7 +62,8 @@ function RegisterPage() {
       <Wallpaper />
       <RegisterForm openSuccesModal={setOpenNavbar} />
       <Typography
-        sx={{ marginTop: "20px", marginBottom: "30px" }}
+        marginTop={"20px"}
+        marginBottom={"30px"}
         fontSize={"12px"}
         lineHeight={"18px"}
       >
@@ -84,50 +72,7 @@ function RegisterPage() {
           <Link to={"/login"}> Log in here</Link>
         </span>
       </Typography>
-      <Button onClick={() => setOpenNavbar(true)}>test</Button>
-      <SuccessModalContainer
-        anchor="bottom"
-        open={openNavbar}
-        onClose={() => setOpenNavbar(false)}
-        PaperProps={{
-          style: {
-            padding: "15px",
-            paddingTop: "50px",
-            textAlign: "center",
-            borderRadius: "30px 30px 0 0",
-          },
-        }}
-      >
-        <Typography fontSize={"25px"} fontWeight={600}>
-          Success
-        </Typography>
-        <Box height={"10px"} />
-        <Box
-          width={"120px"}
-          height={"115px"}
-          margin={"0 auto"}
-          sx={{ padding: "0 !important", marginBottom: "20px" }}
-        >
-          <img src={SuccessIcon} className="object-fill h-full w-full" />
-        </Box>
-        <Typography
-          fontSize={"16px"}
-          width={"80%"}
-          margin={"0 auto"}
-          color={"black"}
-        >
-          Thank you for signing up! Please check your email for the verification
-          code
-        </Typography>
-        <AuthButton
-          sx={{ background: "#FDC600", marginTop: "100px" }}
-          onClick={() => navigate("/login")}
-        >
-          <Typography fontSize={"16px"} fontWeight={600} color={"black"}>
-            Continue
-          </Typography>
-        </AuthButton>
-      </SuccessModalContainer>
+      <SuccessModal setOpenNavbar={setOpenNavbar} openNavbar={openNavbar} />
     </PageContainer>
   );
 }

@@ -1,11 +1,28 @@
-import BottomNavigation from "@mui/material/BottomNavigation/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction/BottomNavigationAction";
 import { useNavigatorStyles } from "./NavigatorStyles";
 import { navLinks } from "../../assets/js/default-props";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Home from "../../assets/icons/home.svg";
+import {
+  styled,
+  BottomNavigation,
+  BottomNavigationAction,
+} from "@mui/material";
 import { ReactSVG } from "react-svg";
+
+const NavigatorContainer = styled(BottomNavigation)(() => ({
+  background: "black !important",
+
+  position: "fixed",
+  bottom: 0,
+  width: "100%",
+  maxWidth: "640px",
+}));
+const NavigatorAction = styled(BottomNavigationAction)(() => ({
+  fontSize: "10px !important",
+  fontWeight: 500,
+  lineHeight: "16px",
+  fill: "#999999",
+}));
 
 function Navigator() {
   const classes = useNavigatorStyles();
@@ -36,14 +53,14 @@ function Navigator() {
     setValue(newValue);
   };
   return (
-    <BottomNavigation
+    <NavigatorContainer
       value={value}
       onChange={handleChange}
       showLabels
       className={classes.navigatorContainer}
     >
       {navLinks.map((item) => (
-        <BottomNavigationAction
+        <NavigatorAction
           label={item.label}
           value={item.label}
           icon={<ReactSVG src={item.icon} />}
@@ -57,7 +74,7 @@ function Navigator() {
           }}
         />
       ))}
-    </BottomNavigation>
+    </NavigatorContainer>
   );
 }
 
