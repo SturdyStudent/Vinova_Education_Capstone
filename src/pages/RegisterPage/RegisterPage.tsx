@@ -4,20 +4,11 @@ import "slick-carousel/slick/slick-theme.css";
 import "swiper/css";
 import "swiper/css/pagination";
 import "../../assets/css/commonStyles.css";
-import {
-  Box,
-  Container,
-  Typography,
-  styled,
-  Button,
-  Drawer,
-} from "@mui/material";
-import Logo from "../../assets/img/Logo.png";
+import { Box, Container, Typography, styled } from "@mui/material";
 import TrybeLogo from "../../components/TrybeLogo/TrybeLogo";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import YellowButton from "../../components/YellowStyledButton/YellowButton";
+import { Link } from "react-router-dom";
 import SuccessModal from "./containers/SuccessModal";
 
 function RegisterPage() {
@@ -37,22 +28,13 @@ function RegisterPage() {
     height: "511px",
     width: "100%",
     backgroundImage:
-      "linear-gradient(0deg, #000000 0%, rgba(43, 40, 41, 0.83) 33.00%, rgba(69, 68, 70, 0.36) 67.00%, rgba(88, 89, 91, 0.00) 100%),url(./public/backgroundRegister.jpg)",
+      "linear-gradient(359.94deg, #231F20 13.3%, rgba(43, 40, 41, 0.83) 41.52%, rgba(69, 68, 70, 0.36) 78.3%, rgba(88, 89, 91, 0) 98.82%),url(./public/backgroundEmployee2.png)",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "top center",
     backgroundSize: "cover",
     border: "none",
     padding: "",
   }));
-
-  const SuccessModalContainer = styled(Drawer)(() => ({
-    width: "360px",
-    height: "459px",
-    display: "flex",
-    flexDirection: "column",
-    padding: "15px !important",
-  }));
-  const navigate = useNavigate();
 
   return (
     <PageContainer>

@@ -11,7 +11,7 @@ import {
     BookmarkIcon,
     NotificationIcon,
   } from "../icons/index";
-import { IArticleCard, ICommunityCard, ICourseCard, IEventCard, IEventItem, IMemberCard, ITransactionInfo } from "../../services/interface";
+import { IArticleCard, ICommunityCard, ICourseCard, IEventCard, IEventItem, IInput, IMemberCard, ITransactionInfo } from "../../services/interface";
 
 import SmallLogo1 from "../img/smallLogo1.jpg";
 import SmallLogo2 from "../img/smallLogo2.png";
@@ -53,6 +53,7 @@ import member7 from '../img/member-7.png'
 import member8 from '../img/member-8.png'
 import member9 from '../img/member-9.png'
 import member10 from '../img/member-10.png'
+import PlaceHolder from "../../components/PlaceHolder/PlaceHolder";
 
 export const navLinks = [
     {
@@ -862,3 +863,115 @@ export const drawerItemList = [
       orderStatus: "Success",
     },
   ];
+
+  export const functionNavList: Array<string> = [
+    "Send Funds",
+    "Crypto",
+    "Securities",
+    "View Transactions",
+  ];
+
+  export const SendFundInputlist: IInput[][] = [[
+    {
+        placeHolder: '0.00',
+        label: 'Amount',
+        type: 'number'
+    },
+    {
+        label: 'Currency',
+        isSelect: true,
+        selectOptions: ["EUR", "GBP", "USD"]
+    },
+    {
+        isSelect: true,
+        label: 'SEPA or SWIFT',
+        selectOptions: ['SEPA', 'SWIFT']
+    }
+  ],
+  [],
+  [
+    {
+        label: 'IBAN',
+        selectOptions:['Send'],
+        isSelect: true
+    },
+    {
+        label: 'BIG/SWIFT',
+        placeHolder: 'Type here',
+        type: 'text',
+    }
+  ],
+  [
+    {
+        label: 'Receiving Bank',
+        placeHolder: 'Type here',
+        type: 'text',
+    },
+    {
+        label: 'Receiving Bank Address',
+        placeHolder: 'Type here',
+        type: 'text',
+    }
+  ],
+  [],
+  [
+    {
+        label: 'Beneficiary',
+        placeHolder: 'Type here',
+        type: 'text',
+    },
+    {
+        label: 'Beneficiary Address',
+        placeHolder: 'Type here',
+        type: 'text',
+    },
+  ],
+  [
+    {
+        label: 'City',
+        type: 'number',
+        placeHolder: 'Type here'
+    },
+    {
+        label: 'Postal/ Zip code',
+        placeHolder: 'Type here'
+    },
+    {
+        label: 'Country',
+        placeHolder: 'Type here',
+    }
+  ],
+  [
+    {
+        label: 'Transfer Date',
+        type: 'Date',
+        placeHolder: 'Type here'
+    },
+    {
+        label: 'Message to beneficiary',
+        placeHolder: 'Type here'
+    }
+  ],
+  []
+]
+
+// <Stack marginTop={"30px"}>
+//   <SendFundInput
+//     isLeft={true}
+//     label={"Transfer Date"}
+//     isRight={false}
+//     type={"date"}
+//     placeHolder={"Type here"}
+//   />
+//   <PlaceHolder />
+//   <SendFundInput
+//     label={"Message to beneficiary"}
+//     isFull={true}
+//     isLeft={false}
+//     isRight={true}
+//     placeHolder={"Type here"}
+//   />
+// </Stack>
+// <SizedBox />
+// <hr />
+// <SizedBox />

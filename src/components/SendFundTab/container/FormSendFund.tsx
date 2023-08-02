@@ -1,131 +1,74 @@
-import React from "react";
-import { Box, Input, Typography, Divider } from "@mui/material";
-import { useSendFundStyle as useStyles } from "./styles";
-import PlaceHolder from "./PlaceHolder";
+import { Box, Button, Stack, styled, Container } from "@mui/material";
+import PlaceHolder from "../../PlaceHolder/PlaceHolder";
 import SummaryCard from "./SummaryCard";
 import SendFundInput from "./SendFundInput";
 import SendFundSelect from "./SendFundSelect";
+import { SendFundInputlist } from "../../../assets/js/default-props";
 
 function FormSendFund() {
-  const classes = useStyles();
+  const FormContainer = styled(Container)(() => ({
+    width: "100%",
+    padding: "0 30px",
+    marginTop: "31px",
+  }));
+
+  const SizedBox = styled(Box)(() => ({
+    height: "50px",
+  }));
+
+  const SubmitButton = styled(Button)(({ theme }) => ({
+    padding: "12px 30px",
+    color: "white",
+    background: theme.palette.secondary.main,
+    borderRadius: "30px",
+    marginBottom: "30px",
+    border: "none",
+    width: "80%",
+  }));
+
   return (
-    <form className={classes.container} style={{ marginTop: "31px" }}>
-      <Box className={classes.inputRow}>
-        <SendFundInput
-          isLeft={true}
-          label={"Amount"}
-          type={"number"}
-          placeholder={"0.00"}
-        />
-        <PlaceHolder />
-        <SendFundSelect label={"Currency"} options={["EUR", "GBP", "USD"]} />
-        <PlaceHolder />
-        <SendFundSelect
-          label={"SEPA or SWIFT"}
-          isLeft={false}
-          isRight={true}
-          options={["SEPA", "SWIFT"]}
-        />
-      </Box>
-      <hr className={classes.hr} />
-      <Box className={classes.inputRow}>
-        <SendFundSelect
-          label={"IBAN"}
-          options={["Send"]}
-          isLeft={true}
-          isRight={false}
-        />
-        <PlaceHolder />
-        <SendFundInput
-          label={"BIG/SWIFT"}
-          placeholder={"Type here"}
-          type={"text"}
-          isLeft={true}
-          isRight={true}
-        />
-      </Box>
-      <Box className={classes.inputRow} marginTop={"30px"}>
-        <SendFundInput
-          label={"Receiving Bank"}
-          placeholder={"Type here"}
-          type={"text"}
-          isLeft={true}
-          isRight={false}
-        />
-        <PlaceHolder />
-        <SendFundInput
-          label={"Receiving Bank Address"}
-          placeholder={"Type here"}
-          type={"text"}
-          isLeft={false}
-          isRight={true}
-          isFull={true}
-        />
-      </Box>
-      <hr className={classes.hr} />
-      <Box className={classes.inputRow}>
-        <SendFundInput
-          label={"Beneficiary"}
-          placeholder={"Type here"}
-          type={"text"}
-          isLeft={true}
-          isRight={false}
-        />
-        <PlaceHolder />
-        <SendFundInput
-          label={"Beneficiary Address"}
-          placeholder={"Type here"}
-          type={"text"}
-          isLeft={false}
-          isRight={true}
-          isFull={true}
-        />
-      </Box>
-      <Box className={classes.inputRow} marginTop={"30px"}>
-        <SendFundInput
-          isLeft={true}
-          label={"City"}
-          type={"number"}
-          placeholder={"Type here"}
-        />
-        <PlaceHolder />
-        <SendFundInput
-          label={"Postal/ Zip code"}
-          isLeft={true}
-          isRight={true}
-          placeholder={"Type here"}
-        />
-        <PlaceHolder />
-        <SendFundInput
-          label={"Country"}
-          placeholder={"Type here"}
-          isLeft={false}
-          isRight={true}
-        />
-      </Box>
-      <Box className={classes.inputRow} marginTop={"30px"}>
-        <SendFundInput
-          isLeft={true}
-          label={"Transfer Date"}
-          isRight={false}
-          type={"date"}
-          placeholder={"Type here"}
-        />
-        <PlaceHolder />
-        <SendFundInput
-          label={"Message to beneficiary"}
-          isFull={true}
-          isLeft={false}
-          isRight={true}
-          placeholder={"Type here"}
-        />
-      </Box>
-      <hr className={classes.hr} />
-      <SummaryCard />
-      <div className={classes.submitHolder}>
-        <button className={classes.submitButton}>Submit</button>
-      </div>
-    </form>
+    <FormContainer>
+      <form>
+        {SendFundInputlist.map((list, index, array) =>
+          list.length == 0 ? (
+            <>
+              <SizedBox />
+              <hr />
+              <SizedBox />
+            </>
+          ) : (
+            <>
+              {list.map((item, index, array) => (
+                <Stack>
+                  {item.isSelect ? (
+                    <>
+                      <SendFundSelect {...item} />
+                      {array.length > 1 && index != array.length - 1 ? (
+                        <PlaceHolder />
+                      ) : null}
+                    </>
+                  ) : (
+                    <>
+                      <SendFundInput {...item} />
+                      {array.length > 1 && index != array.length - 1 ? (
+                        <PlaceHolder />
+                      ) : null}
+                    </>
+                  )}
+                </Stack>
+              ))}
+              {list.length == 0 || array[index + 1].length == 0 ? null : (
+                <PlaceHolder height={30} />
+              )}
+            </>
+          )
+        )}
+        <SummaryCard />
+        <Box textAlign={"center"}>
+          <SubmitButton>Submit</SubmitButton>
+        </Box>
+      </form>
+    </FormContainer>
   );
 }
 

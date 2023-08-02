@@ -6,14 +6,12 @@ import TransactionTable from "./container/TransactionTable";
 import { transactionList } from "../../assets/js/default-props";
 
 function MyTransaction() {
-  const classes = useStyles();
-
   const navButtonList: Array<string> = ["Fund", "Securities", "Crypto"];
 
   return (
     <div>
       <WelcomePanel />
-      <Container className={classes.container}>
+      <Container>
         <Sort navButtonList={navButtonList} />
         <TransactionTable transactionList={transactionList} />
       </Container>

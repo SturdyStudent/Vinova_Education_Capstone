@@ -79,3 +79,12 @@ export interface IDrawerItem {
   label: string;
   icon: string;
 }
+
+export interface IInput {
+  label: string;
+  type?: string;
+  placeHolder?: string;
+  haveDivider?: boolean;
+  isSelect?: boolean;
+  selectOptions?: Array<string>;
+}

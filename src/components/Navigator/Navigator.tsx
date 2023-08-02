@@ -1,4 +1,3 @@
-import { useNavigatorStyles } from "./NavigatorStyles";
 import { navLinks } from "../../assets/js/default-props";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +24,6 @@ const NavigatorAction = styled(BottomNavigationAction)(() => ({
 }));
 
 function Navigator() {
-  const classes = useNavigatorStyles();
   const [value, setValue] = useState(location.pathname.slice(1));
   const navigate = useNavigate();
 
@@ -53,18 +51,12 @@ function Navigator() {
     setValue(newValue);
   };
   return (
-    <NavigatorContainer
-      value={value}
-      onChange={handleChange}
-      showLabels
-      className={classes.navigatorContainer}
-    >
+    <NavigatorContainer value={value} onChange={handleChange} showLabels>
       {navLinks.map((item) => (
         <NavigatorAction
           label={item.label}
           value={item.label}
           icon={<ReactSVG src={item.icon} />}
-          className={classes.navigatorAction}
           key={item.label}
           sx={{
             color: "#999999",

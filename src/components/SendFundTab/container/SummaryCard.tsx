@@ -1,35 +1,47 @@
-import React from "react";
-import { Box, Typography, Divider } from "@mui/material";
-import { useSendFundStyle as useStyles } from "./styles";
+import { Box, Typography, styled } from "@mui/material";
 function SummaryCard() {
-  const classes = useStyles();
+  const SummaryItem = styled(Box)(() => ({
+    display: "flex",
+    justifyContent: "space-between",
+    paddingLeft: "22px",
+    paddingRight: "22px",
+  }));
+
+  const SummaryResult = styled(Box)(() => ({
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "16px 22px",
+    background: "#F9F3ED",
+    alignItems: "center",
+    marginTop: "13px",
+  }));
+
   return (
     <div>
       <Typography
         textAlign={"left"}
-        className={classes.label}
+        color={"#1F3684"}
         fontSize={"18px"}
         fontWeight={600}
       >
         Summary
       </Typography>
-      <Box className={classes.summaryContainer} maxWidth={"none"}>
-        <Box className={classes.summaryItem}>
+      <Box margin={"20px 0"} width="100%">
+        <SummaryItem>
           <Typography>Transfer amount</Typography>
           <Typography>1,000.00 EUR</Typography>
-        </Box>
-        <Box className={classes.summaryItem}>
+        </SummaryItem>
+        <SummaryItem>
           <Typography>Fee</Typography>
           <Typography>10.00 EUR</Typography>
-        </Box>
-        <Box className={classes.summaryResult}>
+        </SummaryItem>
+        <SummaryResult>
           <Typography>Recipient will receive</Typography>
           <Typography fontWeight={"600"}>990.00 EUR</Typography>
-        </Box>
+        </SummaryResult>
       </Box>
       <Typography
         fontStyle={"italic"}
-        className={classes.noteText}
         textAlign={"left"}
         marginTop={"50px"}
         marginBottom={"30px"}

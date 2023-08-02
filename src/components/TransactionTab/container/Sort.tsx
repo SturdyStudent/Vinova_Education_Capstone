@@ -1,30 +1,40 @@
-import React from "react";
-import { Box, Typography, Hidden } from "@mui/material";
-import { useTransactionStyle as useStyles } from "./styles";
+import { Box, Typography, Stack, styled, Select } from "@mui/material";
+import CaretDown from "../../../assets/icons/caretDown.svg";
 
 interface ISort {
   navButtonList: Array<string>;
 }
-function Sort({ navButtonList }: ISort) {
-  const classes = useStyles();
 
+const StyledSelect = styled(Select)(({ theme }) => ({
+  borderRadius: "30px",
+  border: `1px solid ${theme.palette.secondary.main}`,
+  paddingRight: "40px",
+  fontSize: "18px",
+  color: theme.palette.secondary.main,
+  appearance: "none",
+  backgroundPosition: `calc(100% - 12px) center !important`,
+  background: `url(${CaretDown}) no-repeat`,
+  backgroundColor: "transparent",
+}));
+
+function Sort({ navButtonList }: ISort) {
   return (
-    <Box className={classes.walletNav} sx={{ gap: "37px" }}>
-      <Box className={classes.navButtonHolder} sx={{ gap: "37px" }}>
+    <Stack gap={"37px"} justifyContent={"center"} marginTop={"32px"}>
+      <Box display={"flex"} gap="37px">
         {navButtonList &&
           navButtonList.map((item) => (
-            <Typography className={classes.navButton}>{item}</Typography>
+            <Typography color={"#1F3684"}>{item}</Typography>
           ))}
       </Box>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <select className={classes.select} style={{ margin: "0" }}>
-          <option>Sort Order Date</option>
-        </select>
-        <select className={classes.select}>
-          <option>EUR</option>
-        </select>
+        <StyledSelect defaultValue={0}>
+          <option value={0}>Sort Order Date</option>
+        </StyledSelect>
+        <StyledSelect defaultValue={0}>
+          <option value={0}>EUR</option>
+        </StyledSelect>
       </div>
-    </Box>
+    </Stack>
   );
 }
 

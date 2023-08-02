@@ -1,5 +1,5 @@
 import "../../assets/css/commonStyles.css";
-import { Box, Container, Typography, styled } from "@mui/material";
+import { Box, Container, styled } from "@mui/material";
 import TrybeLogo from "../../components/TrybeLogo/TrybeLogo";
 import FooterLogo from "../../assets/img/FooterLogo.png";
 import LoginForm from "./containers/LoginForm";
@@ -16,10 +16,11 @@ const PageContainer = styled(Container)(() => ({
 const Wallpaper = styled(Container)(() => ({
   position: "absolute",
   top: 0,
-  height: "511px",
+  height: "100vh",
   width: "100%",
+  backgroundBlendMode: "multiply",
   backgroundImage:
-    "linear-gradient(0deg, #000000 0%, rgba(43, 40, 41, 0.83) 33.00%, rgba(69, 68, 70, 0.36) 67.00%, rgba(88, 89, 91, 0.00) 100%),url(./public/backgroundRegister.jpg)",
+    "linear-gradient(359.94deg, #231F20 13.3%, rgba(43, 40, 41, 0.83) 41.52%, rgba(69, 68, 70, 0.36) 78.3%, rgba(88, 89, 91, 0) 98.82%), url(./public/backgroundEmployee1.png)",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "top center",
   backgroundSize: "cover",

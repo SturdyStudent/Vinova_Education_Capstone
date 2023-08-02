@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Box,
   Hidden,
@@ -7,27 +6,41 @@ import {
   TableHead,
   TableRow,
   Typography,
+  styled,
+  Stack,
 } from "@mui/material";
-import { useDashboardStyles as useStyles } from "./styles";
 import { ITransactionInfo } from "../../../services/interface";
 
 interface IWalletTable {
   transactionList: ITransactionInfo[];
 }
+interface TableRowProp {
+  isEven: boolean;
+}
 
 function WalletTable({ transactionList }: IWalletTable) {
-  const classes = useStyles();
+  const StyledTableHead = styled(TableHead)(() => ({
+    borderBottom: "1px solid black",
+    color: "#1F3684",
+    "& th": { borderBottom: "1.5px solid #37383d", color: "#1F3684" },
+  }));
+  const MobileTableRow = styled(Stack)(({ isEven }: TableRowProp) => ({
+    backgroundColor: isEven ? "#f5f5f5" : "white",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: "17px",
+  }));
+
+  const DesktopTableRow = styled(TableRow)(({ isEven }: TableRowProp) => ({
+    backgroundColor: isEven ? "#f5f5f5" : "white",
+    "& td": { border: 0 },
+  }));
 
   return (
     <div>
       <Hidden mdDown>
         <Table>
-          <TableHead
-            className={classes.tableHead}
-            sx={{
-              "& th": { borderBottom: "1.5px solid #37383d", color: "#1F3684" },
-            }}
-          >
+          <StyledTableHead>
             <TableCell>
               <Box>
                 <div>Order Date</div>
@@ -38,15 +51,10 @@ function WalletTable({ transactionList }: IWalletTable) {
             <TableCell>Currency</TableCell>
             <TableCell>Remarks</TableCell>
             <TableCell>Order Status</TableCell>
-          </TableHead>
+          </StyledTableHead>
           {transactionList &&
             transactionList.map((item, index) => (
-              <TableRow
-                sx={{
-                  backgroundColor: `${index % 2 === 1 ? "#f5f5f5" : "white"}`,
-                  "& td": { border: 0 },
-                }}
-              >
+              <DesktopTableRow isEven={index % 2 == 0}>
                 <TableCell>
                   <Box>
                     <div>{item.orderDate}</div>
@@ -57,17 +65,14 @@ function WalletTable({ transactionList }: IWalletTable) {
                 <TableCell>{item.currency}</TableCell>
                 <TableCell>{item.remarks}</TableCell>
                 <TableCell>{item.orderStatus}</TableCell>
-              </TableRow>
+              </DesktopTableRow>
             ))}
         </Table>
       </Hidden>
       <Hidden mdUp>
         <Box>
           {transactionList.map((item, index) => (
-            <Box
-              className={classes.mobileTableItem}
-              sx={{ backgroundColor: `${index % 2 === 0 ? "#f5f5f5" : ""}` }}
-            >
+            <MobileTableRow isEven={index % 2 == 0}>
               <div>
                 <Typography textAlign={"left"} fontWeight={500}>
                   {item.orderStatus}
@@ -83,7 +88,7 @@ function WalletTable({ transactionList }: IWalletTable) {
                 </Typography>
                 <Typography textAlign={"right"}>{item.action}</Typography>
               </div>
-            </Box>
+            </MobileTableRow>
           ))}
         </Box>
       </Hidden>

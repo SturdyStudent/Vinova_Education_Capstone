@@ -1,15 +1,4 @@
-import React from "react";
-import {
-  Box,
-  Typography,
-  Hidden,
-  TableHead,
-  Table,
-  TableRow,
-  TableCell,
-} from "@mui/material";
-import { useTransactionStyle as useStyles } from "./styles";
-import updownArrow from "../../../assets/icons/updown.svg";
+import { Box, Typography, Stack, styled } from "@mui/material";
 import Pagination from "./Pagination";
 import { ITransactionInfo } from "../../../services/interface";
 
@@ -17,17 +6,23 @@ interface ITransactionTable {
   transactionList: Array<ITransactionInfo>;
 }
 
-function TransactionTable({ transactionList }: ITransactionTable) {
-  const classes = useStyles();
+interface ITransactionRow {
+  isEven: boolean;
+}
 
+const TransactionTableRow = styled(Stack)(({ isEven }: ITransactionRow) => ({
+  flexDirection: "row",
+  justifyContent: "space-between",
+  padding: "17px",
+  backgroundColor: isEven ? "#f5f5f5" : "white",
+}));
+
+function TransactionTable({ transactionList }: ITransactionTable) {
   return (
     <div>
       <Box sx={{ marginTop: "28px" }}>
         {transactionList.map((item, index) => (
-          <Box
-            className={classes.mobileTableItem}
-            sx={{ backgroundColor: `${index % 2 === 0 ? "#f5f5f5" : ""}` }}
-          >
+          <TransactionTableRow isEven={index % 2 == 0}>
             <div>
               <Typography textAlign={"left"} fontWeight={500}>
                 {item.orderStatus}
@@ -43,7 +38,7 @@ function TransactionTable({ transactionList }: ITransactionTable) {
               </Typography>
               <Typography textAlign={"right"}>{item.action}</Typography>
             </div>
-          </Box>
+          </TransactionTableRow>
         ))}
       </Box>
       <Pagination />

@@ -1,49 +1,28 @@
-import React from "react";
-import { Box, Input } from "@mui/material";
-import { useSendFundStyle as useStyles } from "./styles";
+import { Box, Input, styled } from "@mui/material";
+import { IInput } from "../../../services/interface";
 
-interface ISendFundInput {
-  isLeft?: boolean;
-  isRight?: boolean;
-  label: string;
-  placeholder: string;
-  type?: string;
-  isFull?: boolean;
-}
-
-function SendFundInput({
-  isLeft,
-  isRight,
-  label,
-  placeholder,
-  type,
-  isFull,
-}: ISendFundInput) {
-  const classes = useStyles();
+function SendFundInput({ label, placeHolder, type }: IInput) {
+  const StyledInput = styled(Input)(() => ({
+    width: "100%",
+    background: "#F5F5F5",
+    padding: "4px 0 3px 15px",
+    border: "none",
+    borderBottom: "#1F3684 1.5px solid",
+  }));
+  const InputHolder = styled(Box)(() => ({
+    boxSizing: "border-box",
+    width: "100%",
+    paddingLeft: "0 !important",
+    paddingRight: "0 !important",
+  }));
   return (
-    <Box
-      className={isFull ? classes.inputItem2 : classes.inputItem}
-      paddingRight={isLeft ? "10px" : 0}
-      paddingLeft={isRight ? "10px" : 0}
-    >
-      <Box
-        sx={{
-          width: "100%",
-          "& label": {
-            textAlign: "left",
-            display: "block",
-            paddingBottom: "9px",
-          },
-        }}
-      >
-        <label className={classes.label}>{label}</label>
-        <Input
-          className={classes.input}
-          placeholder={placeholder}
-          type={type}
-        />
+    <InputHolder>
+      <Box color={"#1F3684"} width={"100%"}>
+        <label>{label}</label>
+        <Box height={"9px"} />
+        <StyledInput placeholder={placeHolder} type={type} />
       </Box>
-    </Box>
+    </InputHolder>
   );
 }
 

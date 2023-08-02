@@ -1,40 +1,45 @@
-import React from "react";
-import { Box } from "@mui/material";
-import { useSendFundStyle as useStyles } from "./styles";
+import { useState } from "react";
+import { Box, styled, Select } from "@mui/material";
+import { IInput } from "../../../services/interface";
+import CaretDown from "../../../assets/icons/caretDown.svg";
 
-interface ISendFundSelect {
-  isLeft?: boolean;
-  isRight?: boolean;
-  label: string;
-  options: Array<string>;
-}
+function SendFundSelect({ label, selectOptions = [""] }: IInput) {
+  const [value, setValue] = useState<string>(selectOptions[0]);
 
-function SendFundSelect({ isLeft, isRight, label, options }: ISendFundSelect) {
-  const classes = useStyles();
+  const StyledSelect = styled(Select)(() => ({
+    width: "100%",
+    backgroundColor: "#F5F5F5",
+    border: "none",
+    padding: "0 !important",
+    appearance: "none",
+    backgroundPosition: `calc(100% - 12px) center !important`,
+    background: `url(${CaretDown}) no-repeat`,
+    borderBottom: `#1F3684 2px solid`,
+    "& div": {
+      padding: "8px 0 8px 15px",
+      background: "#f5f5f5",
+    },
+  }));
+
+  const SizedBox = styled(Box)(() => ({
+    height: "9px",
+  }));
+
   return (
-    <Box
-      className={classes.inputItem}
-      paddingRight={isLeft ? "10px" : 0}
-      paddingLeft={isRight ? "10px" : 0}
-    >
-      <Box
-        sx={{
-          width: "100%",
-          "& label": {
-            textAlign: "left",
-            display: "block",
-            paddingBottom: "9px",
-          },
-        }}
+    <Box>
+      <label style={{ color: "#1F3684" }}>{label}</label>
+      <SizedBox />
+      <StyledSelect
+        value={value}
+        onChange={(e) => setValue(e.target.value as string)}
       >
-        <label className={classes.label}>{label}</label>
-        <select className={classes.select}>
-          {options &&
-            options.map((item) => (
-              <option className={classes.option}>{item}</option>
-            ))}
-        </select>
-      </Box>
+        {selectOptions &&
+          selectOptions.map((item) => (
+            <option value={item} className="p-3">
+              {item}
+            </option>
+          ))}
+      </StyledSelect>
     </Box>
   );
 }

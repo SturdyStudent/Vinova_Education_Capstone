@@ -72,20 +72,12 @@ export const useDashboardStyles = makeStyles( ( theme : Theme )  => ({
         color: '#1F3684',
         padding: '37px 0',
         maxWidth: 'none',
+        background: "#f5f5f5",
         [ theme?.breakpoints.down( 'md' ) ]: {
             width: '100%',
         },
     },
-    detailButton: {
-        padding: '17px 30px',
-        margin: '0 auto',
-        marginTop: '30px ',
-        borderRadius: '30px',
-        background: 'transparent',
-        width: 'fit-content',
-        border: `#1F3684 1px solid !important`,
-        textTransform: 'none'
-    },
+
     tableHead: {
         borderBottom: '1px solid black',
         color:'#1F3684'

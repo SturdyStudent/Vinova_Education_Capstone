@@ -21,7 +21,8 @@ export const useSendFundStyle = makeStyles( ( theme: Theme ) => ( {
         boxSizing: 'border-box',
         width: '100%',
         paddingLeft: '0 !important',
-        paddingRight: '0 !important'
+        paddingRight: '0 !important',
+
     },
     inputItem2: {
         boxSizing: 'border-box',
@@ -86,9 +87,5 @@ export const useSendFundStyle = makeStyles( ( theme: Theme ) => ( {
     noteText: {
         width: '100%'
     },
-    option: {
-        padding: '15px',
-        paddingTop: '20px'
-    }
 } ) )
 

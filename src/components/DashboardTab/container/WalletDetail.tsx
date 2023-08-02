@@ -1,50 +1,57 @@
-import React from "react";
-import { Box, Typography, Button, styled, Theme } from "@mui/material";
-import { useDashboardStyles as useStyles } from "./styles";
-import { useTheme } from "@emotion/react";
+import { Box, Typography, Button, styled } from "@mui/material";
 
 function WalletDetail() {
-  const classes = useStyles();
-
-  const ViewDetailButton = styled(Button)(() => ({
-    width: "50%",
-    textAlign: "center",
-    color: "#1F3684",
-    padding: "17px 30px",
-    maxWidth: "none",
-    textTransform: "none",
-    borderRadius: "30px",
-    border: "0.5px solid var(--main-blue, #1F3684)",
-    marginTop: "30px",
-    ":hover": {
-      backgroundColor: `#1F3684`,
-      color: "white",
-      textTransform: "none",
+  const WalletHolder = styled(Box)(({ theme }) => ({
+    display: "flex",
+    borderTop: "solid black 1px",
+    borderBottom: "solid black 1px",
+    flexDirection: "row",
+    [theme?.breakpoints.down("md")]: {
+      flexDirection: "column",
     },
   }));
 
+  const WalletDetail = styled(Box)(({ theme }) => ({
+    width: "50%",
+    textAlign: "center",
+    color: "#1F3684",
+    padding: "37px 0",
+    maxWidth: "none",
+    background: "#f5f5f5",
+    [theme?.breakpoints.down("md")]: {
+      width: "100%",
+    },
+  }));
+
+  const DetailButton = styled(Button)(() => ({
+    padding: "17px 30px",
+    margin: "0 auto",
+    marginTop: "30px ",
+    borderRadius: "30px",
+    background: "transparent",
+    width: "fit-content",
+    border: `#1F3684 1px solid !important`,
+    textTransform: "none",
+    ":hover": { backgroundColor: `#1F3684`, color: "white" },
+  }));
+
   return (
-    <Box className={`${classes.walletHolder} `}>
-      <Box className={classes.walletDetail} sx={{ background: "#f5f5f5" }}>
+    <WalletHolder>
+      <WalletDetail>
         <Typography>Funds Wallet</Typography>
         <Typography fontSize={"25px"} fontWeight={600}>
           1,000,000.00 EUR
         </Typography>
-        <ViewDetailButton
-          className={classes.detailButton}
-          sx={{ ":hover": { backgroundColor: `#1F3684`, color: "white" } }}
-        >
-          View Detail
-        </ViewDetailButton>
-      </Box>
-      <Box className={classes.walletDetail}>
+        <DetailButton>View Detail</DetailButton>
+      </WalletDetail>
+      <WalletDetail sx={{ backgroundColor: "white" }}>
         <Typography>Crypto Wallet</Typography>
         <Typography fontSize={"25px"} fontWeight={600}>
           1,000,000.00 EUR
         </Typography>
-        <ViewDetailButton>View Detail</ViewDetailButton>
-      </Box>
-    </Box>
+        <DetailButton>View Detail</DetailButton>
+      </WalletDetail>
+    </WalletHolder>
   );
 }
 
