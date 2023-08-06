@@ -14,7 +14,7 @@ import { useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DevTool } from "@hookform/devtools";
-import { parseArray } from "../../services/utils";
+import { localUserSignup, parseArray } from "../../services/utils";
 import { USER_INFO } from "../../assets/js/constants";
 
 type Inputs = {
@@ -92,14 +92,13 @@ export default function RegisterForm({ openSuccesModal }: IRegisterForm) {
   });
 
   const onSubmit = (data: Inputs) => {
-    const oldAccount: Inputs[] = parseArray(localStorage.getItem(USER_INFO));
-    if (oldAccount.some((item) => item.email == data.email)) {
+    const { email, lastName, firstName, password } = data;
+
+    if (!localUserSignup({ email, firstName, lastName, password })) {
       setIsEmailDuplicate(true);
       return;
     }
     setIsEmailDuplicate(false);
-    const newAccounts = uniqBy(oldAccount.concat(data), "email");
-    localStorage.setItem(USER_INFO, JSON.stringify(newAccounts));
     openSuccesModal(true);
   };
 

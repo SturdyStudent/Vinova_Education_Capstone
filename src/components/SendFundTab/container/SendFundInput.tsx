@@ -1,7 +1,7 @@
 import { Box, Input, styled } from "@mui/material";
 import { IInput } from "../../../services/interface";
 
-function SendFundInput({ label, placeHolder, type }: IInput) {
+function SendFundInput({ label, placeHolder, type, value, onChange }: IInput) {
   const StyledInput = styled(Input)(() => ({
     width: "100%",
     background: "#F5F5F5",
@@ -20,7 +20,12 @@ function SendFundInput({ label, placeHolder, type }: IInput) {
       <Box color={"#1F3684"} width={"100%"}>
         <label>{label}</label>
         <Box height={"9px"} />
-        <StyledInput placeholder={placeHolder} type={type} />
+        <StyledInput
+          placeholder={placeHolder}
+          value={value}
+          onChange={onChange}
+          type={type}
+        />
       </Box>
     </InputHolder>
   );

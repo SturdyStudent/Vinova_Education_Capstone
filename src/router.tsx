@@ -15,6 +15,7 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import EventPage from "./pages/EventPage/EventPage";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
+import EditProduct from "./pages/EditProduct/EditProduct";
 
 const Wrapper = ({ children }: any): any => {
   const location = useLocation();
@@ -44,6 +45,9 @@ function AppRouter() {
               element={<EducationPage />}
               key={"education"}
             />
+            <Route path="/edit" element={<EditProduct />}>
+              <Route path=":id" element={<EditProduct />} />
+            </Route>
             <Route path="/auth" element={<AuthPage />} key={"auth"} />
             <Route path="/login" element={<LoginPage />} key={"login"} />
             <Route path="/signup" element={<RegisterPage />} key={"signup"} />

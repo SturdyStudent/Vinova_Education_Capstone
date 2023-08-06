@@ -16,7 +16,7 @@ function Dashboard() {
       <Stack marginBottom={"112px"}>
         <WalletDetail />
         <Box sx={{ height: "46px" }} />
-        <WalletTable transactionList={transactionList} />
+        <WalletTable />
       </Stack>
     </div>
   );

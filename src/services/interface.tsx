@@ -81,10 +81,47 @@ export interface IDrawerItem {
 }
 
 export interface IInput {
-  label: string;
+  label?: string;
   type?: string;
   placeHolder?: string;
   haveDivider?: boolean;
   isSelect?: boolean;
   selectOptions?: Array<string>;
+  value?: string | number | Date;
+  onChange?: React.SetStateAction<any>;
 }
+
+export interface IUserInfo {
+  username?: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}
+
+export interface IProducts {
+  id: number;
+  title: string;
+  price: number;
+  brand: string;
+  category: string;
+  images: Array<string>;
+}
+
+export interface ILimitProductResponse {
+  limit: number;
+  products: IProducts[];
+  skip: number;
+  total: number;
+}
+
+export const URL_PATH = {
+  Login: "/login",
+  Signup: "/signup",
+  Dashboard: "/dashboard",
+  Group: "/group",
+  Member: "/member",
+  Event: "/event",
+  Education: "/education",
+  Community: "/community",
+};

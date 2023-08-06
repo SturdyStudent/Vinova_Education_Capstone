@@ -954,24 +954,3 @@ export const drawerItemList = [
   ],
   []
 ]
-
-// <Stack marginTop={"30px"}>
-//   <SendFundInput
-//     isLeft={true}
-//     label={"Transfer Date"}
-//     isRight={false}
-//     type={"date"}
-//     placeHolder={"Type here"}
-//   />
-//   <PlaceHolder />
-//   <SendFundInput
-//     label={"Message to beneficiary"}
-//     isFull={true}
-//     isLeft={false}
-//     isRight={true}
-//     placeHolder={"Type here"}
-//   />
-// </Stack>
-// <SizedBox />
-// <hr />
-// <SizedBox />

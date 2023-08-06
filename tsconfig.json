@@ -21,12 +21,16 @@
     "noFallthroughCasesInSwitch": true,
     "removeComments": true
   },
+  "ts-node": {
+    "files": true
+  },
   "include": [
     "src",
     "./tailwind.config.js",
     "./.eslintrc.cjs",
     "./vite.config.ts",
-    "./postcss.config.js"
+    "./postcss.config.js",
+    "./.env"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

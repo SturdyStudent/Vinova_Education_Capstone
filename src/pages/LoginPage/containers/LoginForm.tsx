@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { FormLabel, Typography, styled, Button, Input } from "@mui/material";
-import { IRegisterForm } from "../../../services/interface";
+import { IRegisterForm, IUserInfo } from "../../../services/interface";
 import _ from "lodash";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
@@ -8,10 +8,11 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { parseArray } from "../../../services/utils";
+import { localUserSignup, parseArray } from "../../../services/utils";
 import { useNavigate, Link } from "react-router-dom";
-import { USER_INFO } from "../../../assets/js/constants";
+import { DUMMY_API_URL, USER_INFO } from "../../../assets/js/constants";
 import * as yup from "yup";
+import axios from "axios";
 
 type Inputs = {
   email: string;
@@ -19,12 +20,8 @@ type Inputs = {
 };
 
 const schema = yup.object({
-  email: yup.string().email().required(),
-  password: yup
-    .string()
-    .matches(/^(?=.*d).{8,}$/)
-    .min(8)
-    .required(),
+  email: yup.string().required(),
+  password: yup.string().required(),
 });
 
 const StyledTextField = styled(Input)(() => ({
@@ -66,17 +63,31 @@ export default function LoginForm() {
   });
   const [loginFail, setLoginFail] = useState<boolean>(false);
   const navigate = useNavigate();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+
+  const dummyUserAPI = `${DUMMY_API_URL}auth/login`;
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const credentials: IRegisterForm[] = parseArray(
       localStorage.getItem(USER_INFO)
     );
     const loginSuccess = credentials.some(
       (item) => item.email == data.email && item.password == data.password
     );
+
     if (loginSuccess) {
       navigate("/");
     } else {
-      setLoginFail(true);
+      await axios
+        .post<IUserInfo>(dummyUserAPI, {
+          username: data.email,
+          password: data.password,
+        })
+        .then((result) => {
+          if (!localUserSignup({ ...result.data })) {
+            throw Error;
+          }
+        })
+        .catch(() => setLoginFail(true));
       return;
     }
   };
