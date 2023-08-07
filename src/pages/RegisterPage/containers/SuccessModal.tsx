@@ -4,7 +4,7 @@ import SuccessIcon from "../../../assets/img/successIcon.png";
 import { useNavigate } from "react-router-dom";
 
 const SuccessModalContainer = styled(Drawer)(() => ({
-  width: "360px",
+  maxWidth: "640px",
   height: "459px",
   display: "flex",
   flexDirection: "column",
@@ -28,9 +28,16 @@ const AuthButton = styled(Button)(() => ({
 interface ISuccessModal {
   setOpenNavbar: Dispatch<SetStateAction<boolean>>;
   openNavbar: boolean;
+  navigateLink?: string;
+  message?: string;
 }
 
-function SuccessModal({ setOpenNavbar, openNavbar }: ISuccessModal) {
+function SuccessModal({
+  setOpenNavbar,
+  openNavbar,
+  navigateLink,
+  message,
+}: ISuccessModal) {
   const navigate = useNavigate();
 
   return (
@@ -44,6 +51,8 @@ function SuccessModal({ setOpenNavbar, openNavbar }: ISuccessModal) {
           paddingTop: "50px",
           textAlign: "center",
           borderRadius: "30px 30px 0 0",
+          maxWidth: "640px",
+          margin: "0 auto",
         },
       }}
     >
@@ -64,13 +73,14 @@ function SuccessModal({ setOpenNavbar, openNavbar }: ISuccessModal) {
         width={"80%"}
         margin={"0 auto"}
         color={"black"}
+        fontWeight={600}
       >
-        Thank you for signing up! Please check your email for the verification
-        code
+        {message ||
+          "Thank you for signing up! Please check your email for the verification code"}
       </Typography>
       <AuthButton
         sx={{ background: "#FDC600", marginTop: "100px" }}
-        onClick={() => navigate("/login")}
+        onClick={() => navigate(navigateLink || "/login")}
       >
         <Typography fontSize={"16px"} fontWeight={600} color={"black"}>
           Continue

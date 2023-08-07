@@ -100,7 +100,7 @@ export interface IUserInfo {
 }
 
 export interface IProducts {
-  id: number;
+  id?: number;
   title: string;
   price: number;
   brand: string;
@@ -125,3 +125,8 @@ export const URL_PATH = {
   Education: "/education",
   Community: "/community",
 };
+
+export interface IPriceOption {
+  from: number;
+  to: number;
+}

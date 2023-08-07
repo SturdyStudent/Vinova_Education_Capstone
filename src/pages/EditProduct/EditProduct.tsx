@@ -8,14 +8,15 @@ import {
   IconButton,
   Box,
   Select,
-  SelectChangeEvent,
   MenuItem,
 } from "@mui/material";
+import { useForm, SubmitHandler } from "react-hook-form";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ImportIcon from "@mui/icons-material/FileUpload";
 import DollarIcon from "@mui/icons-material/AttachMoney";
 import { useEffect, useState } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
+  addNewProduct,
   getProductCategories,
   getProducts,
   updateProduct,
@@ -23,6 +24,26 @@ import {
 import BackHeader from "../../components/BackHeader/BackHeader";
 import { useParams } from "react-router-dom";
 import { IProducts } from "../../services/interface";
+import { Controller } from "react-hook-form";
+import SuccessModal from "../RegisterPage/containers/SuccessModal";
+
+import * as yup from "yup";
+
+const schema = yup.object({
+  title: yup.string().required(),
+  price: yup.number().required(),
+  brand: yup.string().required(),
+  category: yup.string().required(),
+  images: yup.array().required().of(yup.string().required()),
+});
+
+type Inputs = {
+  title: string;
+  price: number;
+  brand: string;
+  category: string;
+  images: string[];
+};
 
 function EditProduct() {
   const params = useParams();
@@ -33,20 +54,37 @@ function EditProduct() {
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState("");
   const [images, setImages] = useState([""]);
+  const [openSuccess, setOpenSuccess] = useState(false);
 
   const [categoryList, setCategoryList] = useState<string[]>([]);
 
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      title: title,
+      price: price,
+      brand: brand,
+      category: category,
+      images: images,
+    },
+  });
+
   useEffect(() => {
-    console.log(id);
     if (id != 0) {
       getProducts({ productID: id })
         .then((result) => {
           const product: IProducts = result.data;
-          setBrand(product.brand);
-          setCategory(product.category);
-          setTitle(product.title);
-          setImages(product.images);
-          setPrice(product.price);
+
+          setValue("title", product.title);
+          setValue("brand", product.brand);
+          setValue("category", product.category);
+          setValue("images", product.images);
+          setValue("price", product.price);
           setHeaderTitle("Edit Product");
         })
         .catch((e) => console.log(e));
@@ -61,20 +99,38 @@ function EditProduct() {
       .catch((e) => console.log(e));
   }, []);
 
-  const handleSubmit = async () => {
-    await updateProduct(
-      {
-        id,
+  const onSubmit: SubmitHandler<Inputs> = async (data: Inputs) => {
+    const { title, brand, price, category, images } = data;
+    if (id != 0) {
+      await updateProduct(
+        {
+          title,
+          price,
+          brand,
+          category,
+          images,
+        },
+        id
+      )
+        .then((data) => {
+          setOpenSuccess(true);
+          console.log(data);
+        })
+        .catch((e) => console.log(e));
+    } else {
+      await addNewProduct({
         title,
         price,
         brand,
         category,
         images,
-      },
-      1
-    )
-      .then((data) => console.log(data))
-      .catch((e) => console.log(e));
+      })
+        .then((data) => {
+          setOpenSuccess(true);
+          console.log(data);
+        })
+        .catch((e) => console.log(e));
+    }
   };
 
   const PageContainer = styled(Container)(() => ({
@@ -128,133 +184,163 @@ function EditProduct() {
         <Typography fontWeight={600} fontSize={"20px"} color={"black"}>
           Information
         </Typography>
-        <form onSubmit={handleSubmit} className="mt-5">
-          <Grid container>
-            <Grid item md={4} xs={12}>
-              <label className="text-black">Title</label>
-            </Grid>
-            <Grid item md={8} xs={12}>
-              <StyledInput
-                value={title}
-                placeholder="Please type product title"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setTitle(e.target.value)
-                }
-              />
-            </Grid>
-          </Grid>
-          <Grid container marginTop={"20px"}>
-            <Grid item md={4} xs={12}>
-              <label className="text-black">Price</label>
-            </Grid>
-            <Grid item md={8} xs={12}>
-              <StyledInput
-                value={Number(price.toFixed(2)).toLocaleString()}
-                type="number"
-                placeholder="Please type price"
-                endAdornment={<DollarIcon />}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setPrice(+e.target.value)
-                }
-              />
-            </Grid>
-          </Grid>
-          <Grid container marginTop={"20px"}>
-            <Grid item md={4} xs={12}>
-              <label className="text-black">Brand</label>
-            </Grid>
-            <Grid item md={8} xs={12}>
-              <StyledInput
-                value={brand}
-                placeholder="Please type brand"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setBrand(e.target.value)
-                }
-              />
-            </Grid>
-          </Grid>
-          <Grid container marginTop={"20px"}>
-            <Grid item md={4} xs={12}>
-              <label className="text-black">Category</label>
-            </Grid>
-            <Grid item md={8} xs={12}>
-              <StyledSelect
-                value={category}
-                onChange={(e: SelectChangeEvent<unknown>) =>
-                  setCategory(e.target.value as string)
-                }
-              >
-                {categoryList.map((item) => (
-                  <MenuItem key={item} value={item}>
-                    {item}
-                  </MenuItem>
-                ))}
-              </StyledSelect>
-            </Grid>
-          </Grid>
-          <Grid container marginTop={"20px"}>
-            <Grid item md={4}>
-              <label className="text-black">Images</label>
-            </Grid>
-            <Grid
-              item
-              md={8}
-              xs={12}
-              display={"flex"}
-              flexDirection={"column"}
-              gap={"15px"}
-              padding={"5px 10px"}
-              alignItems={"start"}
-              style={{ background: "#f5f8fe" }}
-            >
-              {images.map((item, index) => (
-                <div key={index} className="flex gap-4 w-full bg-white p-3">
-                  <div className="w-2/3 text-left">
-                    <StyledInput
-                      placeholder="Paste your image url"
-                      type="text"
-                      fullWidth
-                      value={images[index]}
-                      onChange={(e) => setImages([...images, e.target.value])}
-                    />
-                  </div>
-                  <Box width={"40px"} height={"40px"}>
-                    <img
-                      src={
-                        images[index] != ""
-                          ? images[index]
-                          : "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930"
-                      }
-                      className="object-cover w-full h-full"
-                    />
-                  </Box>
-                  <IconButton
-                    onClick={() =>
-                      setImages(
-                        images.filter(
-                          (item, currentIndex) => currentIndex != index
-                        )
-                      )
-                    }
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-5">
+          <Controller
+            control={control}
+            name="title"
+            render={({ field: { onChange, value } }) => (
+              <Grid container>
+                <Grid item md={4} xs={12}>
+                  <label className="text-black">Title</label>
+                </Grid>
+                <Grid item md={8} xs={12}>
+                  <StyledInput
+                    value={value}
+                    placeholder="Please type product title"
+                    onChange={onChange}
+                  />
+                </Grid>
+              </Grid>
+            )}
+          />
+          <Controller
+            control={control}
+            name="price"
+            render={({ field: { onChange, value } }) => (
+              <Grid container marginTop={"20px"}>
+                <Grid item md={4} xs={12}>
+                  <label className="text-black">Price</label>
+                </Grid>
+                <Grid item md={8} xs={12}>
+                  <StyledInput
+                    value={value}
+                    type="number"
+                    placeholder="Please type price"
+                    endAdornment={<DollarIcon />}
+                    onChange={onChange}
+                  />
+                </Grid>
+              </Grid>
+            )}
+          />
+          <Controller
+            control={control}
+            name="brand"
+            render={({ field: { onChange, value } }) => (
+              <Grid container marginTop={"20px"}>
+                <Grid item md={4} xs={12}>
+                  <label className="text-black">Brand</label>
+                </Grid>
+                <Grid item md={8} xs={12}>
+                  <StyledInput
+                    value={value}
+                    placeholder="Please type a brand"
+                    onChange={onChange}
+                  />
+                </Grid>
+              </Grid>
+            )}
+          />
+          <Controller
+            control={control}
+            name="category"
+            render={({ field: { onChange, value } }) => (
+              <Grid container marginTop={"20px"}>
+                <Grid item md={4} xs={12}>
+                  <label className="text-black">Category</label>
+                </Grid>
+                <Grid item md={8} xs={12}>
+                  <StyledSelect value={value} onChange={onChange}>
+                    {categoryList.map((item) => (
+                      <MenuItem key={item} value={item}>
+                        {item}
+                      </MenuItem>
+                    ))}
+                  </StyledSelect>
+                </Grid>
+              </Grid>
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="images"
+            render={({ field: { onChange, value } }) => (
+              <Grid container marginTop={"20px"}>
+                <Grid item md={4}>
+                  <label className="text-black">Images</label>
+                </Grid>
+                <Grid
+                  item
+                  md={8}
+                  xs={12}
+                  display={"flex"}
+                  flexDirection={"column"}
+                  gap={"15px"}
+                  padding={"5px 10px"}
+                  alignItems={"start"}
+                  style={{ background: "#f5f8fe" }}
+                >
+                  {value.map((item, index) => (
+                    <div key={index} className="flex gap-4 w-full bg-white p-3">
+                      <div className="w-2/3 text-left">
+                        <StyledInput
+                          placeholder="Paste your image url"
+                          type="text"
+                          fullWidth
+                          value={value[index]}
+                          onChange={(e) => {
+                            value[index] = e.target.value;
+                            onChange(value);
+                          }}
+                        />
+                      </div>
+                      <Box width={"40px"} height={"40px"}>
+                        <img
+                          src={
+                            value[index] != ""
+                              ? value[index]
+                              : "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930"
+                          }
+                          className="object-cover w-full h-full"
+                        />
+                      </Box>
+                      <IconButton
+                        onClick={() =>
+                          setImages(
+                            value.filter(
+                              (item, currentIndex) => currentIndex != index
+                            )
+                          )
+                        }
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </div>
+                  ))}{" "}
+                  <AddImageButton
+                    fullWidth
+                    onClick={() => onChange([...value, ""])}
                   >
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
-              ))}{" "}
-              <AddImageButton
-                fullWidth
-                onClick={() => setImages([...images, ""])}
-              >
-                Add Image
-              </AddImageButton>
-            </Grid>
-          </Grid>
+                    Add Image
+                  </AddImageButton>
+                </Grid>
+              </Grid>
+            )}
+          />
+
           <div className="flex justify-center mt-6">
             <SubmitButton type="submit" value={"Submit Button"}>
               Submit
             </SubmitButton>
           </div>
         </form>
+        <SuccessModal
+          openNavbar={openSuccess}
+          navigateLink="/dashboard"
+          message="Update product successfully!"
+          setOpenNavbar={setOpenSuccess}
+        />
       </Container>
     </PageContainer>
   );

@@ -11,8 +11,9 @@ function DashboardTabs({ tabList, value, handleChange }: IDashboardTab) {
   return (
     <Box sx={{ borderBottom: 1, borderColor: "divider", padding: "none" }}>
       <Tabs value={value} onChange={handleChange}>
-        {tabList.map((item) => (
+        {tabList.map((item, index) => (
           <Tab
+            key={index}
             label={item.label}
             sx={{ textTransform: "none !important", width: "33.3333%" }}
           />

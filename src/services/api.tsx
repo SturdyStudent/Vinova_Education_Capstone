@@ -30,10 +30,11 @@ export const getProductsOfCategories = (body: { category: string }) => {
 };
 
 export const addNewProduct = (body: IProducts) => {
-  return request.post("/products/add", JSON.stringify(body));
+  return request.post("/products/add", body);
 };
 
 export const updateProduct = (body: IProducts, productID: number | string) => {
+  console.log("data qua", body);
   return request.put(`/products/${productID}`, body);
 };
 

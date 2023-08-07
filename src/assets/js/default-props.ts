@@ -11,7 +11,7 @@ import {
     BookmarkIcon,
     NotificationIcon,
   } from "../icons/index";
-import { IArticleCard, ICommunityCard, ICourseCard, IEventCard, IEventItem, IInput, IMemberCard, ITransactionInfo } from "../../services/interface";
+import { IArticleCard, ICommunityCard, ICourseCard, IEventCard, IEventItem, IInput, IMemberCard, IPriceOption, ITransactionInfo } from "../../services/interface";
 
 import SmallLogo1 from "../img/smallLogo1.jpg";
 import SmallLogo2 from "../img/smallLogo2.png";
@@ -953,4 +953,27 @@ export const drawerItemList = [
     }
   ],
   []
+]
+
+export const priceOptions: IPriceOption[] = [
+  {
+    from: 0,
+    to: 20
+  },
+  {
+    from: 21,
+    to: 50
+  },
+  {
+    from: 51,
+    to: 100
+  },
+  {
+    from: 101,
+    to: 1000
+  },
+  {
+    from: 1001,
+    to: Number.MAX_SAFE_INTEGER
+  }
 ]

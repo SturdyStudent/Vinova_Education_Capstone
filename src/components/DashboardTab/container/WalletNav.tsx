@@ -63,6 +63,7 @@ function WalletNav({ functionNavList }: IWalletNav) {
       <GridContainer container spacing={0}>
         {functionNavList.map((item, index) => (
           <FunctionNavGrid
+            key={index}
             item
             color={"#1F3684"}
             textAlign={"center"}
