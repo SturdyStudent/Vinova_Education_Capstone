@@ -1,7 +1,11 @@
 import _ from "lodash";
 import * as yup from "yup";
-import { USER_INFO } from "../assets/js/constants";
-import { IUserInfo } from "./interface";
+import {
+  DELETE_PRODUCT_LIST,
+  PRODUCT_DATA,
+  USER_INFO,
+} from "../assets/js/constants";
+import { IProducts, IUserInfo } from "./interface";
 
 type Inputs = {
   firstName: string;
@@ -44,5 +48,30 @@ export function localUserSignup(data: IUserInfo) {
   }
   const newAccounts = _.uniqBy(oldAccount.concat(data), "email");
   localStorage.setItem(USER_INFO, JSON.stringify(newAccounts));
-  return true;
+}
+
+export function saveProductData(data: IProducts, id?: number) {
+  const products: IProducts[] = parseArray(localStorage.getItem(PRODUCT_DATA));
+
+  if (id) {
+    const index = _.findIndex(products, { id: id });
+    if (index >= 0) {
+      products.splice(index, 1, { ...data, id });
+    } else {
+      products.push({ ...data, id });
+    }
+  } else {
+    products.push({ ...data, id: products.length + 102 });
+  }
+
+  localStorage.setItem(PRODUCT_DATA, JSON.stringify(products));
+}
+
+export function deleteLocalProduct(id: number | string) {
+  const deletedProducts: number[] = parseArray(
+    localStorage.getItem(DELETE_PRODUCT_LIST)
+  );
+
+  deletedProducts.push(id as number);
+  localStorage.setItem(DELETE_PRODUCT_LIST, JSON.stringify(deletedProducts));
 }

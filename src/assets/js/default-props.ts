@@ -868,7 +868,7 @@ export const drawerItemList = [
     "Send Funds",
     "Crypto",
     "Securities",
-    "View Transactions",
+    "View Products",
   ];
 
   export const SendFundInputlist: IInput[][] = [[

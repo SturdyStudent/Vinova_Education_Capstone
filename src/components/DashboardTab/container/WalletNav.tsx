@@ -1,4 +1,5 @@
 import { Box, Typography, Grid, Button, styled } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 interface IWalletNav {
   functionNavList: Array<string>;
 }
@@ -53,6 +54,8 @@ function WalletNav({ functionNavList }: IWalletNav) {
     },
   }));
 
+  const navigate = useNavigate();
+
   return (
     <WalletNav>
       <Grid item sm={12} md={5}>
@@ -71,7 +74,9 @@ function WalletNav({ functionNavList }: IWalletNav) {
             xs={6}
             md={6}
           >
-            <ButtonFunctionNav>{item}</ButtonFunctionNav>
+            <ButtonFunctionNav onClick={() => navigate("/product")}>
+              {item}
+            </ButtonFunctionNav>
           </FunctionNavGrid>
         ))}
       </GridContainer>

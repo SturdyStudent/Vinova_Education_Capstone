@@ -26,8 +26,12 @@ import { useParams } from "react-router-dom";
 import { IProducts } from "../../services/interface";
 import { Controller } from "react-hook-form";
 import SuccessModal from "../RegisterPage/containers/SuccessModal";
+import _ from "lodash";
+import { promises as fs } from "fs";
 
 import * as yup from "yup";
+import { parseArray, saveProductData } from "../../services/utils";
+import { PRODUCT_DATA } from "../../assets/js/constants";
 
 const schema = yup.object({
   title: yup.string().required(),
@@ -49,11 +53,6 @@ function EditProduct() {
   const params = useParams();
   const id: number = params.id ? +params.id : 0;
   const [headerTitle, setHeaderTitle] = useState("");
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState(0);
-  const [brand, setBrand] = useState("");
-  const [category, setCategory] = useState("");
-  const [images, setImages] = useState([""]);
   const [openSuccess, setOpenSuccess] = useState(false);
 
   const [categoryList, setCategoryList] = useState<string[]>([]);
@@ -66,11 +65,11 @@ function EditProduct() {
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
     defaultValues: {
-      title: title,
-      price: price,
-      brand: brand,
-      category: category,
-      images: images,
+      title: "",
+      price: 0,
+      brand: "",
+      category: "",
+      images: [""],
     },
   });
 
@@ -78,7 +77,11 @@ function EditProduct() {
     if (id != 0) {
       getProducts({ productID: id })
         .then((result) => {
-          const product: IProducts = result.data;
+          const productList: IProducts[] = parseArray(
+            localStorage.getItem(PRODUCT_DATA)
+          );
+          const product: IProducts =
+            _.find(productList, { id: result.data.id }) || result.data;
 
           setValue("title", product.title);
           setValue("brand", product.brand);
@@ -113,8 +116,8 @@ function EditProduct() {
         id
       )
         .then((data) => {
+          saveProductData(data.data as IProducts, id);
           setOpenSuccess(true);
-          console.log(data);
         })
         .catch((e) => console.log(e));
     } else {
@@ -127,7 +130,7 @@ function EditProduct() {
       })
         .then((data) => {
           setOpenSuccess(true);
-          console.log(data);
+          saveProductData(data.data as IProducts);
         })
         .catch((e) => console.log(e));
     }
@@ -307,7 +310,7 @@ function EditProduct() {
                       </Box>
                       <IconButton
                         onClick={() =>
-                          setImages(
+                          onChange(
                             value.filter(
                               (item, currentIndex) => currentIndex != index
                             )

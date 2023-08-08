@@ -16,6 +16,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import EventPage from "./pages/EventPage/EventPage";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import EditProduct from "./pages/EditProduct/EditProduct";
+import ProductPage from "./pages/ProductPage/ProductPage";
 
 const Wrapper = ({ children }: any): any => {
   const location = useLocation();
@@ -35,6 +36,7 @@ function AppRouter() {
             <Route path="/member" element={<MemberPage />} key={"member"} />
             <Route path="/group" element={<GroupPage />} key={"group"} />
             <Route path="/event" element={<EventPage />} key={"event"} />
+            <Route path="/product" element={<ProductPage />} key={"product"} />
             <Route
               path="/dashboard"
               element={<DashboardPage />}

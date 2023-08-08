@@ -106,6 +106,7 @@ export interface IProducts {
   brand: string;
   category: string;
   images: Array<string>;
+  isDeleted?: boolean;
 }
 
 export interface ILimitProductResponse {
