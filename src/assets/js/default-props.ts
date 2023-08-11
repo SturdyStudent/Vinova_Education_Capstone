@@ -93,6 +93,17 @@ export const tabList = [
     },
   ];
 
+export const educationTabList = [
+    {
+        label: 'Content',
+        propsIndex: 0
+    },
+    {
+        label: 'Course',
+        propsIndex: 1
+    }
+]
+
 export const coursesCardList: Array<ICourseCard> = [
     {
       brandName: 'WITS University',
@@ -977,3 +988,14 @@ export const priceOptions: IPriceOption[] = [
     to: Number.MAX_SAFE_INTEGER
   }
 ]
+
+export const categoryList = [
+    "Marketing",
+    "Accounting",
+    "Branding",
+    "Service",
+    "Hotel",
+    "Human Resource",
+    "Electric Power",
+    "Construction",
+  ];

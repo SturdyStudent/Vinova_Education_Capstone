@@ -8,14 +8,12 @@ import {
   FormGroup,
   Box,
 } from "@mui/material";
-import { uniqBy } from "lodash";
 import AlertIcon from "../../assets/icons/alertCircle.svg";
 import { useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DevTool } from "@hookform/devtools";
-import { localUserSignup, parseArray } from "../../services/utils";
-import { USER_INFO } from "../../assets/js/constants";
+import { localUserSignup } from "../../services/utils";
 
 type Inputs = {
   firstName: string;
@@ -232,32 +230,56 @@ export default function RegisterForm({ openSuccesModal }: IRegisterForm) {
         <FormGroup className="flex flex-col gap-6 mb-9 mt-10">
           <div className="flex items-center gap-3">
             <div>
-              <input type="checkbox" {...register("acceptTrybe")} />
+              <input
+                type="checkbox"
+                {...register("acceptTrybe")}
+                style={{ background: "#fef0c7", overflow: "hidden" }}
+              />
             </div>
             <Typography>
               I agree to Trybe's{" "}
-              <span style={{ color: "#05B0D6" }}>
+              <span
+                style={{ color: "#05B0D6" }}
+                className=":hover: cursor-pointer"
+              >
                 terms and conditions, end user license agreement,
-              </span>
+              </span>{" "}
               and privacy policy{" "}
             </Typography>
           </div>
           <div className="flex items-center gap-3">
             <div>
-              <input type="checkbox" {...register("acceptFintech")} />
+              <input
+                type="checkbox"
+                {...register("acceptFintech")}
+                style={{ background: "#fef0c7", overflow: "hidden" }}
+              />
             </div>
             <Typography>
               I agree to Tribe Fintech's{" "}
-              <span style={{ color: "#05B0D6" }}>
-                terms and conditions end user license agreement
+              <span
+                style={{ color: "#05B0D6" }}
+                className=":hover: cursor-pointer"
+              >
+                terms and conditions end user license agreement,
               </span>
-              , and
-              <span style={{ color: "#05B0D6" }}>privacy policy</span>
+              and
+              <span
+                style={{ color: "#05B0D6" }}
+                className=":hover: cursor-pointer"
+              >
+                {" "}
+                privacy policy
+              </span>
             </Typography>
           </div>
           <div className="flex items-center gap-3">
             <div>
-              <input type="checkbox" {...register("acceptSubscribe")} />
+              <input
+                type="checkbox"
+                {...register("acceptSubscribe")}
+                style={{ background: "#fef0c7", overflow: "hidden" }}
+              />
             </div>
             <Typography>
               Keep me updated on Trybe news, events and offers{" "}
@@ -289,11 +311,28 @@ export default function RegisterForm({ openSuccesModal }: IRegisterForm) {
           ) : null}
         </FormGroup>
         <AuthButton
-          sx={{ background: "#FDC600" }}
+          sx={{
+            background: "#FDC600",
+            color: "black",
+            ":disabled": {
+              background: "#A9A9A9",
+              color: "white",
+            },
+            ":hover": {
+              background: "#A9A9A9",
+              color: "white",
+            },
+          }}
+          disabled={
+            (errors.acceptFintech ||
+              errors.acceptSubscribe ||
+              errors.acceptTrybe) &&
+            true
+          }
           variant="contained"
           type="submit"
         >
-          <Typography fontSize={"16px"} fontWeight={600} color={"black"}>
+          <Typography fontSize={"16px"} fontWeight={600}>
             Register
           </Typography>
         </AuthButton>

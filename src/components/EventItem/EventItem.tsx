@@ -1,5 +1,6 @@
 import { Box, Typography, styled, Button } from "@mui/material";
 import { IEventItem } from "../../services/interface";
+import YellowButton from "../YellowStyledButton/YellowButton";
 
 const ItemContainer = styled(Box)(() => ({
   padding: "0px !important",
@@ -94,11 +95,11 @@ function EventItem({
           {eventDate?.toLocaleDateString().split(" ").slice(0, -1).join(" ")}
         </Typography>
       </Box>
-      <RegisterButton>
-        <Typography fontSize={"14px"} fontWeight={600} lineHeight={"20px"}>
+      <Box sx={{ height: "32px", width: "88px" }}>
+        <YellowButton padding="6px 8px" setFollow={true}>
           {isGroup ? "Follow" : "Register"}
-        </Typography>
-      </RegisterButton>
+        </YellowButton>
+      </Box>
     </ItemContainer>
   );
 }

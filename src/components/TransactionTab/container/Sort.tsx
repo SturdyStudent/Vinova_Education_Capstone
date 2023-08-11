@@ -15,6 +15,9 @@ const StyledSelect = styled(Select)(({ theme }) => ({
   backgroundPosition: `calc(100% - 12px) center !important`,
   background: `url(${CaretDown}) no-repeat`,
   backgroundColor: "transparent",
+  "& svg": {
+    display: "none",
+  },
 }));
 
 function Sort({ navButtonList }: ISort) {
@@ -27,7 +30,7 @@ function Sort({ navButtonList }: ISort) {
           ))}
       </Box>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <StyledSelect defaultValue={0}>
+        <StyledSelect defaultValue={0} className="appearance-none">
           <option value={0}>Sort Order Date</option>
         </StyledSelect>
         <StyledSelect defaultValue={0}>

@@ -5,47 +5,10 @@ import {
   articleEducationContentList,
   courseCardEducationContent,
 } from "../../assets/js/default-props";
-import Slider, { Settings } from "react-slick";
+import { Settings } from "react-slick";
+import OverflowContainer from "../../pages/HomePage/containers/OverflowContainer";
+import CategoryList from "../CategoryList/CategoryList";
 
-const memberSettings: Settings = {
-  infinite: true,
-  speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 2,
-  draggable: true,
-  arrows: false,
-  className: "overflow-none",
-  responsive: [
-    {
-      breakpoint: 1000,
-      settings: {
-        slidesToShow: 3,
-      },
-    },
-    {
-      breakpoint: 560,
-      settings: {
-        slidesToShow: 2,
-      },
-    },
-  ],
-};
-
-const CategoryButton = styled(Box)(() => ({
-  padding: "4px 12px",
-  borderRadius: "16px",
-  border: "1px solid var(--gray-200, #E6E6E6)",
-  width: "fit-content",
-  ":hover": {
-    background: "var(--primary-500, #FDC600)",
-    cursor: "pointer",
-  },
-}));
-const CategoryContainer = styled(Box)(() => ({
-  padding: "0 !important",
-  display: "flex",
-  gap: "8px",
-}));
 const ArticleContainer = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
@@ -57,20 +20,7 @@ function EducationContentTab() {
 
   return (
     <div>
-      <CategoryContainer>
-        {categoryList.map((item) => (
-          <CategoryButton>
-            <Typography
-              fontSize={"14px"}
-              lineHeight={"20px"}
-              color={"black"}
-              fontWeight={600}
-            >
-              {item}
-            </Typography>
-          </CategoryButton>
-        ))}
-      </CategoryContainer>
+      <CategoryList />
       <Box height={"25px"} />
       <Typography
         fontSize={"16px"}
@@ -81,11 +31,11 @@ function EducationContentTab() {
         Recommended Articles!
       </Typography>
       <Box height={"18px"} />
-      <Slider {...memberSettings}>
+      <OverflowContainer>
         {courseCardEducationContent.map((item) => (
           <CoursesCard {...item} />
         ))}
-      </Slider>
+      </OverflowContainer>
       <ArticleContainer>
         <Typography
           fontSize={"16px"}

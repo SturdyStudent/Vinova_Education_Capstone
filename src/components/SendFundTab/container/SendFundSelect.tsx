@@ -19,6 +19,7 @@ function SendFundSelect({ label, selectOptions = [""] }: IInput) {
       padding: "8px 0 8px 15px",
       background: "#f5f5f5",
     },
+    ":hover": {},
   }));
 
   const SizedBox = styled(Box)(() => ({

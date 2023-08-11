@@ -5,7 +5,7 @@ import EducationContentTab from "../../components/EducationContentTab/EducationC
 import EducationCourseTab from "../../components/EducationCourseTab/EducationCourseTab";
 import Navigator from "../../components/Navigator/Navigator";
 import EducationTab from "./containers/EducationTab";
-import { tabList } from "../../assets/js/default-props";
+import { educationTabList } from "../../assets/js/default-props";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -34,6 +34,21 @@ const PageContainer = styled(Box)(() => ({
   flexDirection: "column",
   gap: "16px",
   marginBottom: "50px",
+  "& .indicator": {
+    display: "flex",
+    justifyContent: "center",
+    "& > span": {
+      maxWidth: 40,
+      width: "100%",
+      backgroundColor: "white",
+    },
+  },
+  "& .flexContainer": {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    // width:'fit-content'
+  },
 }));
 
 function EducationPage() {
@@ -48,7 +63,7 @@ function EducationPage() {
       <BackHeader pageName="Education" />
       <PageContainer>
         <EducationTab
-          tabList={tabList}
+          tabList={educationTabList}
           value={value}
           handleChange={handleChange}
         />

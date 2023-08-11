@@ -91,7 +91,7 @@ export default function LoginForm() {
       return;
     }
   };
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(true);
   const handleMouseDownPassword = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -101,7 +101,6 @@ export default function LoginForm() {
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
-    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="w-full flex flex-col gap-3"
@@ -158,7 +157,7 @@ export default function LoginForm() {
       </FormLabel>
       <StyledTextField
         placeholder="Type your password"
-        type="password"
+        type={showPassword ? "password" : "text"}
         inputProps={{
           style: {
             paddingTop: 10,
@@ -203,16 +202,23 @@ export default function LoginForm() {
           Incorrect username or password
         </Typography>
       )}
-      <div className="mt-6 z-10">
-        <Typography color={"#fff"} fontSize={"12px"} lineHeight={"20px"}>
+      <div className="mt-6 z-10 hover:cursor-pointer hover:text-blue-500">
+        <Typography fontSize={"12px"} lineHeight={"20px"}>
           Forgot your password?
         </Typography>
       </div>
       <AuthButton
         type="submit"
-        sx={{ background: "#FDC600", marginTop: "46px" }}
+        sx={{
+          background: "#FDC600",
+          marginTop: "46px",
+          color: "black",
+          ":hover": {
+            color: "white",
+          },
+        }}
       >
-        <Typography fontSize={"16px"} fontWeight={600} color={"black"}>
+        <Typography fontSize={"16px"} fontWeight={600} color={"currentColor"}>
           Login
         </Typography>
       </AuthButton>
@@ -232,6 +238,7 @@ export default function LoginForm() {
           color={"#CCA000"}
           fontWeight={600}
           lineHeight={"20px"}
+          className="hover:text-white"
         >
           Sign up now
         </Typography>

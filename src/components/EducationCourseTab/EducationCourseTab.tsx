@@ -1,24 +1,19 @@
 import { Box, Typography, styled } from "@mui/material";
 import CoursesCard from "../CourseCard/CourseCard";
 import ArticleCard from "../ArticleCard/ArticleCard";
-import Slider, { Settings } from "react-slick";
+import { Settings } from "react-slick";
 import {
   articleEducationList,
+  categoryList,
   courseCardEducation,
 } from "../../assets/js/default-props";
+import OverflowContainer from "../../pages/HomePage/containers/OverflowContainer";
+import CategoryButton from "../CategoryButton/CategoryButton";
+import { useState } from "react";
+import CategoryList from "../CategoryList/CategoryList";
 
-const CategoryButton = styled(Box)(() => ({
-  padding: "4px 12px",
-  borderRadius: "16px",
-  border: "1px solid var(--gray-200, #E6E6E6)",
-  width: "fit-content",
-  ":hover": {
-    background: "var(--primary-500, #FDC600)",
-    cursor: "pointer",
-  },
-}));
 const CategoryContainer = styled(Box)(() => ({
-  padding: "0 !important",
+  padding: "0",
   display: "flex",
   gap: "8px",
 }));
@@ -52,24 +47,9 @@ const memberSettings: Settings = {
   ],
 };
 function EducationCourseTab() {
-  const categoryList = ["All", "Marketing", "Accounting", "Branding"];
-
   return (
     <div>
-      <CategoryContainer>
-        {categoryList.map((item) => (
-          <CategoryButton>
-            <Typography
-              fontSize={"14px"}
-              lineHeight={"20px"}
-              color={"black"}
-              fontWeight={600}
-            >
-              {item}
-            </Typography>
-          </CategoryButton>
-        ))}
-      </CategoryContainer>
+      <CategoryList />
       <Box height={"25px"} />
       <Typography
         fontSize={"16px"}
@@ -80,11 +60,11 @@ function EducationCourseTab() {
         Recommended Courses!
       </Typography>
       <Box height={"18px"} />
-      <Slider {...memberSettings}>
-        {courseCardEducation.map((item) => (
-          <CoursesCard {...item} />
+      <OverflowContainer>
+        {courseCardEducation.map((item, index) => (
+          <CoursesCard key={index} {...item} />
         ))}
-      </Slider>
+      </OverflowContainer>
       <ArticleContainer>
         <Typography
           fontSize={"16px"}

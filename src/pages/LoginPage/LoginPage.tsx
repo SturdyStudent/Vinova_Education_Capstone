@@ -16,7 +16,7 @@ const PageContainer = styled(Container)(() => ({
 const Wallpaper = styled(Container)(() => ({
   position: "absolute",
   top: 0,
-  height: "100vh",
+  height: "100%",
   width: "100%",
   backgroundBlendMode: "multiply",
   backgroundImage:

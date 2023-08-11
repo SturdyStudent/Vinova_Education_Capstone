@@ -22,6 +22,7 @@ function CoursesCard({
     flexDirection: "column",
     alignItems: "center",
     width: isEducationTab ? "158px" : "108px",
+    minWidth: isEducationTab ? "158px" : "108px",
     height: isArticle ? "331px" : isEducationCourse ? "290px" : "269px",
     padding: "8px",
     gap: "8px",
@@ -60,6 +61,7 @@ function CoursesCard({
           fontSize={"10px"}
           fontWeight={600}
           lineHeight={"16px"}
+          noWrap
         >
           {brandName}
         </Typography>
