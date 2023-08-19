@@ -9,7 +9,7 @@ import {
   Box,
 } from "@mui/material";
 import AlertIcon from "../../assets/icons/alertCircle.svg";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DevTool } from "@hookform/devtools";
@@ -75,6 +75,7 @@ export default function RegisterForm({ openSuccesModal }: IRegisterForm) {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors },
   } = useForm<Inputs>({
     resolver: yupResolver(schema),
@@ -89,6 +90,15 @@ export default function RegisterForm({ openSuccesModal }: IRegisterForm) {
     },
   });
 
+  const watchTrybe = watch("acceptTrybe");
+  const watchFintech = watch("acceptFintech");
+  const watchSubscribe = watch("acceptSubscribe");
+
+  const refSubmit = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    refSubmit.current?.setAttribute("disabled", "true");
+  }, []);
+
   const onSubmit = (data: Inputs) => {
     const { email, lastName, firstName, password } = data;
 
@@ -99,6 +109,7 @@ export default function RegisterForm({ openSuccesModal }: IRegisterForm) {
     setIsEmailDuplicate(false);
     openSuccesModal(true);
   };
+  console.log("errors", errors);
 
   return (
     <>
@@ -262,7 +273,7 @@ export default function RegisterForm({ openSuccesModal }: IRegisterForm) {
                 className=":hover: cursor-pointer"
               >
                 terms and conditions end user license agreement,
-              </span>
+              </span>{" "}
               and
               <span
                 style={{ color: "#05B0D6" }}
@@ -285,9 +296,7 @@ export default function RegisterForm({ openSuccesModal }: IRegisterForm) {
               Keep me updated on Trybe news, events and offers{" "}
             </Typography>
           </div>
-          {(errors.acceptFintech ||
-            errors.acceptSubscribe ||
-            errors.acceptTrybe) && (
+          {(!watchFintech || !watchSubscribe || !watchTrybe) && (
             <Typography
               color={"#F5A3A3"}
               zIndex={1}
@@ -323,12 +332,8 @@ export default function RegisterForm({ openSuccesModal }: IRegisterForm) {
               color: "white",
             },
           }}
-          disabled={
-            (errors.acceptFintech ||
-              errors.acceptSubscribe ||
-              errors.acceptTrybe) &&
-            true
-          }
+          ref={refSubmit}
+          disabled={(!watchFintech || !watchSubscribe || !watchTrybe) && true}
           variant="contained"
           type="submit"
         >

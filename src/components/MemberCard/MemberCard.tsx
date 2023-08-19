@@ -2,6 +2,7 @@ import { Box, Typography, styled, Avatar } from "@mui/material";
 
 import { IMemberCard } from "../../services/interface";
 import YellowButton from "../YellowStyledButton/YellowButton";
+import TitleText from "../TitleText/TitleText";
 
 const MemberCardContainer = styled(Box)(() => ({
   display: "flex",
@@ -57,30 +58,28 @@ function MemberCard({
         </AvatarContainer>
       </MemberBackgroundPanel>
       <Box sx={{ height: "30px" }} />
-      <Typography
-        fontWeight={600}
+      <TitleText
+        children={memberName}
         fontSize="14px"
         lineHeight="20px"
-        color={"#333333"}
-      >
-        {memberName}
-      </Typography>
-      <Typography
+        lineNumber={2}
+      />
+      <TitleText
         color={"#808080"}
+        lineNumber={2}
         fontSize={"12px"}
-        fontWeight={500}
         lineHeight={"18px"}
       >
         {companyName}
-      </Typography>
-      <Typography
+      </TitleText>
+      <TitleText
         color="#808080"
+        lineNumber={1}
         fontSize={"10px"}
-        fontWeight={400}
         lineHeight={"16px"}
       >
-        {industry}
-      </Typography>
+        {industry}{" "}
+      </TitleText>
       <Box width={"102px"}>
         <YellowButton fontSize="16px">Follow</YellowButton>
       </Box>

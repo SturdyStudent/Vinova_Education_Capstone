@@ -27,7 +27,6 @@ import { IProducts } from "../../services/interface";
 import { Controller } from "react-hook-form";
 import SuccessModal from "../RegisterPage/containers/SuccessModal";
 import _ from "lodash";
-import { promises as fs } from "fs";
 
 import * as yup from "yup";
 import { parseArray, saveProductData } from "../../services/utils";
@@ -340,7 +339,7 @@ function EditProduct() {
         </form>
         <SuccessModal
           openNavbar={openSuccess}
-          navigateLink="/dashboard"
+          navigateLink="/product"
           message="Update product successfully!"
           setOpenNavbar={setOpenSuccess}
         />

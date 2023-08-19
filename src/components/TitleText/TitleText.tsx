@@ -6,14 +6,21 @@ interface ITitleText {
   lineNumber?: number;
   fontSize?: string;
   lineHeight?: string;
+  color?: string;
 }
 
-function TitleText({ children, lineNumber, fontSize, lineHeight }: ITitleText) {
+function TitleText({
+  children,
+  color,
+  lineNumber,
+  fontSize,
+  lineHeight,
+}: ITitleText) {
   return (
     <Typography
       fontSize={fontSize || "14px"}
       fontWeight={600}
-      color={"#1A1A1A"}
+      color={color || "#1A1A1A"}
       lineHeight={lineHeight || "20px"}
       textOverflow={"ellipsis"}
       display={"-webkit-box"}

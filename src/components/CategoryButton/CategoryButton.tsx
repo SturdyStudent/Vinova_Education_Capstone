@@ -28,7 +28,7 @@ function CategoryButton({
       : "white",
     ":hover": {
       cursor: "pointer",
-      background: "var(--primary-500, #FDC600)",
+      background: "#dcdcdc",
     },
   }));
 

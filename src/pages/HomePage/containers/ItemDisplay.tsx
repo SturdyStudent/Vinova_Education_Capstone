@@ -13,6 +13,7 @@ function ItemDisplay({ itemName, route }: IDisplayItem) {
     justifyContent: "space-between",
     alignItems: "center",
     height: "35px",
+    zIndex: 1,
   }));
   const ViewButton = styled(Button)(() => ({
     padding: "0 !important",

@@ -13,9 +13,14 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
-  SvgIcon,
+  CircularProgress,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { IProducts } from "../../services/interface";
 import {
   getLimitedProducts,
@@ -38,24 +43,40 @@ interface TableRowProp {
   isEven: boolean;
 }
 
+enum LoadType {
+  Pagination = "Pagination",
+  Load_More = "Load_More",
+  Infinity_Load = "Infinity_Load",
+}
+
 function ProductPage() {
   const [baseProductData, setBaseProducts] = useState<IProducts[]>([]);
-  const [productList, setProductList] = useState<IProducts[]>([
-    {
-      id: 0,
-      title: "",
-      brand: "",
-      price: 0,
-      category: "",
-      images: [""],
-    },
-  ]);
+  const [loading, setIsLoading] = useState(false);
+  const [hasMore, setHasmore] = useState(true);
+  const [productList, setProductList] = useState<IProducts[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [category, setCategory] = useState("Category");
   const [price, setPrice] = useState(0);
   const [searchString, setSearchString] = useState("");
+  const [searchResultString, setSearchResultString] = useState("");
   const [itemOffset, setItemOffset] = useState(0);
+  const [openConfirmDelete, setConfirmDelete] = useState<boolean>(false);
+  const [deletedItem, setDeleteItem] = useState<number>();
+  const [isNotFound, setNotFound] = useState(false);
+  const [loadType, setLoadType] = useState<LoadType>(LoadType.Pagination);
 
+  const observer = useRef();
+  const lastProductRef = (node: any) => {
+    if (loading) return false;
+    if (observer.current) {
+      (observer.current as any).disconnect();
+    }
+    (observer.current as any) = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && hasMore) {
+        setItemsPerPage(itemsPerPage + 5);
+      }
+    });
+  };
   const StyledTableHead = styled(TableHead)(() => ({
     borderBottom: "1px solid black",
     color: "#1F3684",
@@ -102,25 +123,13 @@ function ProductPage() {
     },
   }));
 
-  const SearchInput = styled(TextField)(() => ({
-    "& input": {
-      padding: "8px",
-    },
-    "& div": {
-      width: "100% !important",
-    },
-    "& label": {
-      transform: "translate(14px, 7px) scale(1)",
-    },
-    "& label.Mui-focused": {
-      transform: "translate(14px, -9px) scale(0.75)",
-    },
+  const LoadMoreButton = styled(Button)(() => ({
+    background: "#2271b1",
+    border: "none",
+    textTransform: "none",
   }));
 
-  const itemsPerPage = 5;
-  // Simulate fetching items from another resources.
-  // (This could be items from props; or items loaded in a local state
-  // from an API endpoint with useEffect and useState)
+  const [itemsPerPage, setItemsPerPage] = useState(5);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = productList.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(productList.length / itemsPerPage);
@@ -134,9 +143,20 @@ function ProductPage() {
     setItemOffset(newOffset);
   };
 
+  const loadMoreProducts = () => {
+    setItemsPerPage(itemsPerPage + 5);
+  };
+
   const searchProduct = () => {
+    setNotFound(false);
     searchProducts({ query: searchString })
-      .then((result) => setProductList(result.data.products as IProducts[]))
+      .then((result) => {
+        const data: IProducts[] = result.data.products;
+        setProductList(data);
+        if (data.length == 0) {
+          setNotFound(true);
+        }
+      })
       .catch((e) => console.log(e));
   };
 
@@ -147,7 +167,7 @@ function ProductPage() {
       })
       .catch((e) => console.log(e));
 
-    getLimitedProducts({ limit: 20, skip: 0 })
+    getLimitedProducts({ limit: 100, skip: 0 })
       .then((result) => {
         const savedProductsList: IProducts[] = parseArray(
           localStorage.getItem(PRODUCT_DATA)
@@ -176,7 +196,19 @@ function ProductPage() {
         setBaseProducts(filteredList);
       })
       .catch((e) => console.log(e));
-  }, []);
+
+    switch (loadType) {
+      case LoadType.Pagination:
+        setItemsPerPage(5);
+        break;
+      case LoadType.Infinity_Load:
+        setItemsPerPage(5);
+        break;
+      case LoadType.Load_More:
+        setItemsPerPage(5);
+        break;
+    }
+  }, [loadType]);
 
   useEffect(() => {
     let filterList: IProducts[] = baseProductData?.filter(
@@ -186,7 +218,7 @@ function ProductPage() {
     filterList = filterList.filter(
       (product) =>
         (product.price <= priceOptions[price - 1]?.to &&
-          product.price >= priceOptions[price - 1]?.from) ||
+          product.price > priceOptions[price - 1]?.from) ||
         price == 0
     );
 
@@ -204,14 +236,37 @@ function ProductPage() {
           flexDirection={"row"}
           justifyContent={"space-between"}
         >
-          <Typography
-            fontSize={"25px"}
-            textAlign={"center"}
-            color={"#1F3684"}
-            fontWeight={400}
-          >
-            All Products
-          </Typography>
+          <Stack flexDirection={"row"} gap={"15px"}>
+            <Typography
+              fontSize={"25px"}
+              textAlign={"center"}
+              color={"#1F3684"}
+              fontWeight={400}
+              alignSelf={"center"}
+            >
+              All Products
+            </Typography>
+            <Select
+              defaultValue={LoadType.Pagination}
+              value={loadType}
+              onChange={(e) => {
+                setLoadType(e.target.value as LoadType);
+              }}
+            >
+              <MenuItem value={LoadType.Pagination} key={LoadType.Pagination}>
+                Paginate
+              </MenuItem>
+              <MenuItem value={LoadType.Load_More} key={LoadType.Load_More}>
+                Load more
+              </MenuItem>
+              <MenuItem
+                value={LoadType.Infinity_Load}
+                key={LoadType.Infinity_Load}
+              >
+                Infinity Scroll
+              </MenuItem>
+            </Select>
+          </Stack>
           <CreateButton
             onClick={() => navigate("/edit")}
             endIcon={<AddCircle />}
@@ -227,16 +282,30 @@ function ProductPage() {
           marginTop={"20px"}
         >
           <Grid display={"flex"} alignItems={"center"} item xs={5}>
-            <SearchInput
+            <TextField
               type="search"
               id="search"
               label="Search"
               value={searchString}
+              onKeyDown={(e) => {
+                if (e.key == "Enter") {
+                  searchProduct();
+                  setSearchResultString(searchString);
+                }
+              }}
+              required
+              sx={{ ".MuiFormLabel-root[data-shrink=false]": { top: "-6px" } }}
+              InputProps={{ style: { height: "40px" } }}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setSearchString(e.target.value)
               }
             />
-            <SearchButton onClick={() => searchProduct()}>
+            <SearchButton
+              onClick={() => {
+                setSearchResultString(searchString);
+                searchProduct();
+              }}
+            >
               <SearchIcon />
             </SearchButton>
           </Grid>
@@ -301,18 +370,48 @@ function ProductPage() {
             </Box>
           </Grid>
         </Grid>
+        <Dialog
+          open={openConfirmDelete}
+          onClose={() => setConfirmDelete(false)}
+        >
+          <DialogTitle id="alert-dialog-title">{"Delete"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Are you sure you want to delete this item?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setConfirmDelete(false)}>Cancel</Button>
+            <Button
+              onClick={() => {
+                deleteLocalProduct(deletedItem || 0);
+                setProductList(
+                  productList.filter((product) => deletedItem != product.id)
+                );
+                setConfirmDelete(false);
+              }}
+              autoFocus
+            >
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
         <Table>
           <StyledTableHead>
             <TableCell>ID</TableCell>
             <TableCell>Title</TableCell>
-            <TableCell>price</TableCell>
+            <TableCell>Price</TableCell>
             <TableCell>Category</TableCell>
             <TableCell>Image</TableCell>
             <TableCell>Actions</TableCell>
           </StyledTableHead>
-          {currentItems &&
+          {currentItems.length > 0 ? (
             currentItems.map((item, index) => (
-              <DesktopTableRow key={item.id} isEven={index % 2 == 0}>
+              <DesktopTableRow
+                key={item.id}
+                ref={itemsPerPage === index + 1 ? lastProductRef : null}
+                isEven={index % 2 == 0}
+              >
                 <TableCell>{item.id}</TableCell>
                 <TableCell>{item.title}</TableCell>
                 <TableCell>{item.price.toLocaleString()}$</TableCell>
@@ -331,31 +430,72 @@ function ProductPage() {
                   </EditButton>
                   <DeleteButton
                     onClick={() => {
-                      deleteLocalProduct(item.id || 0);
-                      setProductList(
-                        productList.filter((product) => item.id != product.id)
-                      );
+                      setConfirmDelete(true);
+                      setDeleteItem(item.id);
                     }}
                   >
                     Delete
                   </DeleteButton>
                 </TableCell>
               </DesktopTableRow>
-            ))}
+            ))
+          ) : isNotFound ? (
+            <DesktopTableRow isEven={false}>
+              <TableCell colSpan={6} className="flex justify-center">
+                <Box
+                  display={"flex"}
+                  justifyContent={"center"}
+                  height={"300px"}
+                >
+                  <Typography color={"#1F3684"}>
+                    There is no results for "{searchResultString}"
+                  </Typography>
+                </Box>
+              </TableCell>
+            </DesktopTableRow>
+          ) : (
+            <DesktopTableRow isEven={false}>
+              <TableCell
+                colSpan={6}
+                className="flex justify-center text-center"
+              >
+                <Box
+                  display={"flex"}
+                  justifyContent={"center"}
+                  height={"300px"}
+                  alignItems={"center"}
+                >
+                  <CircularProgress color="secondary" />
+                </Box>
+              </TableCell>
+            </DesktopTableRow>
+          )}
         </Table>
       </Box>
-      <Box textAlign={"center"} display={"flex"} justifyContent={"center"}>
-        <ReactPaginate
-          breakLabel="..."
-          nextLabel={<ReactSVG src={RightCaret} />}
-          onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
-          pageCount={pageCount}
-          previousLabel={<ReactSVG src={LeftCaret} />}
-          renderOnZeroPageCount={null}
-          className="flex text-lg gap-4 mx-auto items-center text-blue-900"
-        />{" "}
-      </Box>
+      {loadType == LoadType.Pagination ? (
+        <Box textAlign={"center"} display={"flex"} justifyContent={"center"}>
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel={<ReactSVG src={RightCaret} />}
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            activeClassName="font-bold text-xl"
+            previousLabel={<ReactSVG src={LeftCaret} />}
+            renderOnZeroPageCount={null}
+            className="flex text-lg gap-4 mx-auto items-center text-blue-800"
+          />{" "}
+        </Box>
+      ) : loadType == LoadType.Load_More ? (
+        <Box display={"flex"} justifyContent={"center"}>
+          <LoadMoreButton onClick={() => loadMoreProducts()}>
+            <Typography color={"white"}>Load more</Typography>
+          </LoadMoreButton>
+        </Box>
+      ) : (
+        ""
+      )}
+      <Box height={"50px"} />
     </>
   );
 }

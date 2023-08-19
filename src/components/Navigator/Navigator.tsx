@@ -10,7 +10,7 @@ import { ReactSVG } from "react-svg";
 
 const NavigatorContainer = styled(BottomNavigation)(() => ({
   background: "black !important",
-
+  zIndex: 100,
   position: "fixed",
   bottom: 0,
   width: "100%",
@@ -21,6 +21,7 @@ const NavigatorAction = styled(BottomNavigationAction)(() => ({
   fontWeight: 500,
   lineHeight: "16px",
   fill: "#999999",
+  zIndex: 100,
 }));
 
 function Navigator() {

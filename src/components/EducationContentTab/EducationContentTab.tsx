@@ -16,8 +16,6 @@ const ArticleContainer = styled(Box)(() => ({
   margin: "24px 0",
 }));
 function EducationContentTab() {
-  const categoryList = ["All", "Marketing", "Accounting", "Branding"];
-
   return (
     <div>
       <CategoryList />

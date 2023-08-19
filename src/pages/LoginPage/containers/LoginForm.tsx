@@ -228,6 +228,8 @@ export default function LoginForm() {
         fontSize={"12px"}
         lineHeight={"18px"}
         textAlign={"center"}
+        color={"white"}
+        zIndex={100}
       >
         Don't have an account?
       </Typography>
@@ -239,6 +241,8 @@ export default function LoginForm() {
           fontWeight={600}
           lineHeight={"20px"}
           className="hover:text-white"
+          zIndex={100}
+          position={"relative"}
         >
           Sign up now
         </Typography>

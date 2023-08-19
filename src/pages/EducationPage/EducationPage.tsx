@@ -34,21 +34,6 @@ const PageContainer = styled(Box)(() => ({
   flexDirection: "column",
   gap: "16px",
   marginBottom: "50px",
-  "& .indicator": {
-    display: "flex",
-    justifyContent: "center",
-    "& > span": {
-      maxWidth: 40,
-      width: "100%",
-      backgroundColor: "white",
-    },
-  },
-  "& .flexContainer": {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    // width:'fit-content'
-  },
 }));
 
 function EducationPage() {

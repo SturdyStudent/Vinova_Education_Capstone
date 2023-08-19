@@ -8,7 +8,6 @@ export const renderDefaultTheme = createTheme(
                 main: '#000',
                 dark: '#fff',
                 contrastText: '#fff',
-             
               },
               secondary: {
                 main: '#1F3684',
