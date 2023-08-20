@@ -9,6 +9,12 @@ export interface ICourseCard {
   summary?: string;
   isEducationCourse?: boolean;
 }
+
+export enum LoadType {
+  Pagination = "Pagination",
+  Load_More = "Load_More",
+  Infinity_Load = "Infinity_Load",
+}
 export interface IRegisterForm {
   firstName: string;
   lastName: string;
